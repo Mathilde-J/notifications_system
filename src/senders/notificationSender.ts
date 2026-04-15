@@ -1,14 +1,24 @@
 import type { NotificationMessage } from "../types/message";
+import { errorMessageFixtureBase } from "../utils/fixtures";
 import { BaseSender } from "./baseSender";
 
 export class NotificationSender extends BaseSender<NotificationMessage> {
   protected async sendMessage(notification: NotificationMessage) {
-    console.info(
-      `simuler l'envoie d'une notification : contenu ${notification.content} à l'attention de ${notification.receivers} de la part de ${notification.sender}`,
-    );
+    try {
+      console.info(
+        `simuler l'envoie d'une notification : contenu ${notification.content} à l'attention de ${notification.receivers} de la part de ${notification.sender}`,
+      );
+    } catch (error) {
+      console.error(errorMessageFixtureBase.errorOccurred, error);
+      throw new Error(
+        `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,
+      );
+    }
   }
+
   protected checkSenderFormat(message: NotificationMessage): boolean {
     console.info("check si format sender id ok");
     return true;
   }
 }
+export const notificationsSender: NotificationSender = new NotificationSender();

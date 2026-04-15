@@ -24,3 +24,5 @@ export class EmailSender extends BaseSender<EmailMessage> {
     return true;
   }
 }
+
+export const emailsSender: EmailSender = new EmailSender();

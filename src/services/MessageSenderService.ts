@@ -1,12 +1,14 @@
 import type { Observable } from "../observer/observable";
 import type { Observer } from "../observer/observer";
 import type { MessageSender } from "../senders/baseSender";
-import { EmailSender } from "../senders/emailSender";
-import { NotificationSender } from "../senders/notificationSender";
-import { SmsSender } from "../senders/smsSender";
+import { emailsSender } from "../senders/emailSender";
+import { notificationsSender } from "../senders/notificationSender";
+import { slackSender } from "../senders/slackSender";
+import { smsSender } from "../senders/smsSender";
 import type {
   EmailMessage,
   NotificationMessage,
+  SlackMessage,
   SmsMessage,
 } from "../types/message";
 
@@ -40,16 +42,18 @@ class MessageSenderService<T> implements Observable {
   }
 }
 
-const emailsSender: EmailSender = new EmailSender();
 const emailSenderService: MessageSenderService<EmailMessage> =
   new MessageSenderService(emailsSender);
-
-const smsSender: SmsSender = new SmsSender();
 const smsSenderService: MessageSenderService<SmsMessage> =
   new MessageSenderService(smsSender);
-
-const notificationsSender: NotificationSender = new NotificationSender();
 const notificationsSenderService: MessageSenderService<NotificationMessage> =
   new MessageSenderService(notificationsSender);
+const slackSenderService: MessageSenderService<SlackMessage> =
+  new MessageSenderService(slackSender);
 
-export { emailSenderService, smsSenderService, notificationsSenderService };
+export {
+  emailSenderService,
+  smsSenderService,
+  notificationsSenderService,
+  slackSenderService,
+};

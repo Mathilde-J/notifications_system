@@ -2,6 +2,7 @@ export enum MessageType {
   EMAIL,
   SMS,
   PUSH,
+  SLACK,
 }
 
 export enum MessageContentType {
@@ -33,4 +34,8 @@ export type SmsMessage = Message & {
 
 export type NotificationMessage = Message & {
   messageType: MessageType.PUSH;
+};
+
+export type SlackMessage = Message & {
+  messageType: MessageType.SLACK;
 };

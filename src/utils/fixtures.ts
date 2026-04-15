@@ -4,6 +4,7 @@ import {
   type EmailMessage,
   type Message,
   type NotificationMessage,
+  type SlackMessage,
   type SmsMessage,
 } from "../types/message";
 
@@ -37,6 +38,15 @@ export const messageFixtureBase = {
     receivers: ["idreceiver1", "idreceiver2", "idreceiver3"],
     messageType: MessageType.PUSH,
   } as NotificationMessage,
+  slack: {
+    id: "id1",
+    content: "content1",
+    sentAt: "timestampz",
+    contentType: MessageContentType.INFO,
+    sender: "idsender",
+    receivers: ["idreceiver1", "idreceiver2", "idreceiver3"],
+    messageType: MessageType.SLACK,
+  } as SlackMessage,
 };
 
 export const errorMessageFixtureBase = {
