@@ -1,31 +1,23 @@
-interface NotificationSender<T> {
-  sendAndNotify: (message: T) => void;
+export interface MessageSender<T> {
+  send: (message: T) => Promise<void>;
 }
 
-export abstract class BaseSender<T> implements NotificationSender<T> {
-  public sendAndNotify(message: T): void {
-    this.sendMessage(message);
-    this.logToHistory(message);
-  }
-
-  private logToHistory(message: T): void {
-    console.info("Message sent to the notification service:", message);
+export abstract class BaseSender<T> implements MessageSender<T> {
+  public async send(message: T): Promise<void> {
+    await this.sendMessage(message);
   }
 
   private cleanMessage(message: T): void {
     try {
-      console.info("on imagine qu'il faut clean le message pour tout le monde");
+      console.info(
+        "on imagine qu'il faut clean le contenu du message pour tout le monde",
+      );
     } catch (error) {
-      throw new Error("le message n'a pas pu être clean");
+      throw new Error("");
     }
   }
 
-  private async saveMessageToDatabase(message: T): Promise<void> {
-    try {
-      console.log("on va devoir avoir une instance de la bdd -> injection de dépendance")
-    } catch {}
-  }
-
   // à implémenter dans les enfants
-  protected abstract sendMessage(message: T): void;
+  protected abstract sendMessage(message: T): Promise<void>;
+  protected abstract checkSenderFormat(message: T): boolean;
 }

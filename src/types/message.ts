@@ -1,6 +1,4 @@
-import type user = require("./user");
-
-enum MessageType {
+export enum MessageType {
   EMAIL,
   SMS,
   PUSH,
@@ -16,26 +14,22 @@ enum MessageContentType {
 export type Message = {
   id: string;
   content: string;
-  timestamp: number;
+  sentAt: string;
   contentType: MessageContentType;
+  sender: string;
+  receivers: string[];
 };
 
 export type EmailMessage = Message & {
   subject?: string;
   joinedFiles?: string[];
   messageType: MessageType.EMAIL;
-  sender: user.EmailUser;
-  receivers: user.EmailUser[];
 };
 
 export type SmsMessage = Message & {
   messageType: MessageType.SMS;
-  sender: user.SmsUser;
-  receivers: user.SmsUser[];
 };
 
 export type NotificationMessage = Message & {
   messageType: MessageType.PUSH;
-  sender: user.PushUser;
-  receivers: user.PushUser[];
 };

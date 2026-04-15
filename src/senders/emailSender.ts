@@ -2,13 +2,16 @@ import type { EmailMessage } from "../types/message";
 import { BaseSender } from "./baseSender";
 
 export class EmailSender extends BaseSender<EmailMessage> {
-  protected sendMessage(email: EmailMessage) {
+  protected checkSenderFormat(message: EmailMessage): boolean {
+    throw new Error("Method not implemented.");
+  }
+  protected async sendMessage(email: EmailMessage) {
     try {
-      if (!this.isEmailValid(email.sender.email)) {
+      if (!this.isEmailValid(email.sender)) {
         throw new Error("Email invalid");
       }
       console.log(
-        `simuler l'envoie d'un email : contenu ${email.content} à l'attention de ${email.receivers} de la part de ${email.sender.username}`,
+        `simuler l'envoie d'un email : contenu ${email.content} à l'attention de ${email.receivers} de la part de ${email.sender}`,
       );
     } catch (error) {
       console.error("an error has occured:", error);
