@@ -4,7 +4,7 @@ export enum MessageType {
   PUSH,
 }
 
-enum MessageContentType {
+export enum MessageContentType {
   WARNING,
   ERROR,
   INFO,
@@ -28,6 +28,7 @@ export type EmailMessage = Message & {
 
 export type SmsMessage = Message & {
   messageType: MessageType.SMS;
+  phoneNumber: string;
 };
 
 export type NotificationMessage = Message & {

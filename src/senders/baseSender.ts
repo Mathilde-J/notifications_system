@@ -1,9 +1,12 @@
+import { errorMessageFixtureBase } from "../utils/fixtures";
+
 export interface MessageSender<T> {
   send: (message: T) => Promise<void>;
 }
 
 export abstract class BaseSender<T> implements MessageSender<T> {
   public async send(message: T): Promise<void> {
+    this.cleanMessage(message);
     await this.sendMessage(message);
   }
 
@@ -13,7 +16,7 @@ export abstract class BaseSender<T> implements MessageSender<T> {
         "on imagine qu'il faut clean le contenu du message pour tout le monde",
       );
     } catch (error) {
-      throw new Error("");
+      throw new Error(errorMessageFixtureBase.messageCleaningError);
     }
   }
 
