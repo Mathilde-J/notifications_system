@@ -6,17 +6,14 @@ export interface MessageSender<T> {
 
 export abstract class BaseSender<T> implements MessageSender<T> {
   public async send(message: T): Promise<void> {
-    this.cleanMessage(message);
-    await this.sendMessage(message);
-  }
-
-  private cleanMessage(message: T): void {
     try {
-      console.info(
-        "on imagine qu'il faut clean le contenu du message pour tout le monde",
-      );
+      await this.sendMessage(message);
     } catch (error) {
-      throw new Error(errorMessageFixtureBase.messageCleaningError);
+      console.log("failed in base sender");
+      console.error(errorMessageFixtureBase.errorOccurred, error);
+      throw new Error(
+        `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,
+      );
     }
   }
 

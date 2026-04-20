@@ -53,10 +53,6 @@ class LoggerService implements LogService, Observer {
   }
 
   updateOnObservableNotification(data: any): void {
-    console.log(
-      "🚀 ~ LoggerService ~ updateOnObservableNotification ~ data:",
-      data,
-    );
     console.info("je réagi après un envoie de message pour logger");
   }
 }
