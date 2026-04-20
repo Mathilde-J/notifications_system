@@ -1,5 +1,5 @@
-import type { EmailMessage } from "../types/message";
-import { errorMessageFixtureBase } from "../utils/fixtures";
+import type { EmailMessage } from "../../types/message";
+import { errorMessageFixtureBase } from "../../utils/fixtures";
 import { BaseSender } from "./baseSender";
 
 export class EmailSender extends BaseSender<EmailMessage> {

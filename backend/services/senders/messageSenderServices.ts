@@ -1,16 +1,16 @@
-import type { Observable } from "../observer/observable";
-import type { Observer } from "../observer/observer";
-import type { MessageSender } from "../senders/baseSender";
-import { emailsSender } from "../senders/emailSender";
-import { notificationsSender } from "../senders/notificationSender";
-import { slackSender } from "../senders/slackSender";
-import { smsSender } from "../senders/smsSender";
+import type { Observable } from "../../interfaces/observer/observable";
+import type { Observer } from "../../interfaces/observer/observer";
+import type { MessageSender } from "../../services/senders/baseSender";
+import { emailsSender } from "../../services/senders/emailSender";
+import { notificationsSender } from "../../services/senders/notificationSender";
+import { slackSender } from "../../services/senders/slackSender";
+import { smsSender } from "../../services/senders/smsSender";
 import type {
   EmailMessage,
   NotificationMessage,
   SlackMessage,
   SmsMessage,
-} from "../types/message";
+} from "../../types/message";
 
 export class MessageSenderService<T> implements Observable {
   subscribers: Observer[] = [];

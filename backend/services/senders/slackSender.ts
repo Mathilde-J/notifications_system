@@ -1,5 +1,5 @@
-import type { SlackMessage } from "../types/message";
-import { errorMessageFixtureBase } from "../utils/fixtures";
+import type { SlackMessage } from "../../types/message";
+import { errorMessageFixtureBase } from "../../utils/fixtures";
 import { BaseSender } from "./baseSender";
 
 export class SlackSender extends BaseSender<SlackMessage> {

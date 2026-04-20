@@ -1,13 +1,13 @@
 import { RetryDecorator } from "./src/decorator/retryDecorator";
-import { EmailSender } from "./src/senders/emailSender";
-import { loggerService } from "./src/services/database/log";
+import { EmailSender } from "./services/senders/emailSender";
+import { loggerService } from "./config/database/log";
 import {
   emailSenderService,
   MessageSenderService,
   slackSenderService,
 } from "./src/services/messageSenderServices";
-import type { EmailMessage, SlackMessage } from "./src/types/message";
-import { messageFixtureBase } from "./src/utils/fixtures";
+import type { EmailMessage, SlackMessage } from "./types/message";
+import { messageFixtureBase } from "./utils/fixtures";
 
 const email: EmailMessage = messageFixtureBase.email;
 // emailSenderService.subscribe(loggerService);

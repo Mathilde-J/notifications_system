@@ -1,4 +1,4 @@
-import { errorMessageFixtureBase } from "../utils/fixtures";
+import { errorMessageFixtureBase } from "../../utils/fixtures";
 
 export interface MessageSender<T> {
   send: (message: T) => Promise<void>;

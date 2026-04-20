@@ -1,6 +1,6 @@
-import type { Observer } from "../../observer/observer";
-import type { Log } from "../../types/log";
-import { errorMessageFixtureBase } from "../../utils/fixtures";
+import type { Observer } from "../../../interfaces/observer/observer";
+import type { Log } from "../../../types/log";
+import { errorMessageFixtureBase } from "../../../utils/fixtures";
 import { database, type Database } from "./db";
 
 interface LogService {

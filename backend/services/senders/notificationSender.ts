@@ -1,5 +1,5 @@
-import type { NotificationMessage } from "../types/message";
-import { errorMessageFixtureBase } from "../utils/fixtures";
+import type { NotificationMessage } from "../../types/message";
+import { errorMessageFixtureBase } from "../../utils/fixtures";
 import { BaseSender } from "./baseSender";
 
 export class NotificationSender extends BaseSender<NotificationMessage> {
