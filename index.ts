@@ -5,7 +5,7 @@ import {
   emailSenderService,
   MessageSenderService,
   slackSenderService,
-} from "./src/services/MessageSenderService";
+} from "./src/services/messageSenderServices";
 import type { EmailMessage, SlackMessage } from "./src/types/message";
 import { messageFixtureBase } from "./src/utils/fixtures";
 
