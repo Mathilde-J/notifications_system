@@ -11,7 +11,9 @@ export class EmailSender extends BaseSender<EmailMessage> {
       console.info(
         `simuler l'envoie d'un email : contenu ${email.content} à l'attention de ${email.receivers} de la part de ${email.sender}`,
       );
+      throw Error;
     } catch (error) {
+      console.log("failed in emailsender");
       console.error(errorMessageFixtureBase.errorOccurred, error);
       throw new Error(
         `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,

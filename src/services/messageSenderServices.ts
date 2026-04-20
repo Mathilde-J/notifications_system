@@ -12,7 +12,7 @@ import type {
   SmsMessage,
 } from "../types/message";
 
-class MessageSenderService<T> implements Observable {
+export class MessageSenderService<T> implements Observable {
   subscribers: Observer[] = [];
   constructor(private sender: MessageSender<T>) {}
 
@@ -36,18 +36,21 @@ class MessageSenderService<T> implements Observable {
     );
   }
 
-  public fireMessage(message: T) {
-    this.sender?.send(message);
+  public async fireMessage(message: T) {
+    await this.sender?.send(message);
     this.notifyObserver(message);
   }
 }
 
 const emailSenderService: MessageSenderService<EmailMessage> =
   new MessageSenderService(emailsSender);
+
 const smsSenderService: MessageSenderService<SmsMessage> =
   new MessageSenderService(smsSender);
+
 const notificationsSenderService: MessageSenderService<NotificationMessage> =
   new MessageSenderService(notificationsSender);
+
 const slackSenderService: MessageSenderService<SlackMessage> =
   new MessageSenderService(slackSender);
 
