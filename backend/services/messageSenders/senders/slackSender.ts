@@ -17,10 +17,6 @@ export class SlackSender extends BaseSender<SlackMessage> {
     }
   }
 
-  protected checkSenderFormat(message: SlackMessage): boolean {
-    console.info("on check si le message est bien au format Slack");
-    return true;
-  }
 }
 
 export const slackSender: SlackSender = new SlackSender();

@@ -1,4 +1,4 @@
-import type { BaseSender, MessageSender } from "../senders/baseSender";
+import type { MessageSender } from "../services/messageSenders/baseSender";
 
 export class RetryDecorator<T> implements MessageSender<T> {
   retryTimes: number = 3;

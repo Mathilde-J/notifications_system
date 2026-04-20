@@ -15,10 +15,5 @@ export class SmsSender extends BaseSender<SmsMessage> {
       );
     }
   }
-
-  protected checkSenderFormat(message: SmsMessage): boolean {
-    console.info("check si le sender est bien un num");
-    return true;
-  }
 }
 export const smsSender: SmsSender = new SmsSender();

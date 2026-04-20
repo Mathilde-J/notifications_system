@@ -1,10 +1,10 @@
 import type { Observable } from "../../interfaces/observer/observable";
 import type { Observer } from "../../interfaces/observer/observer";
-import type { MessageSender } from "../../services/senders/baseSender";
-import { emailsSender } from "../../services/senders/emailSender";
-import { notificationsSender } from "../../services/senders/notificationSender";
-import { slackSender } from "../../services/senders/slackSender";
-import { smsSender } from "../../services/senders/smsSender";
+import type { MessageSender } from "./baseSender";
+import { emailsSender } from "./emailSender";
+import { notificationsSender } from "./notificationSender";
+import { slackSender } from "./slackSender";
+import { smsSender } from "./smsSender";
 import type {
   EmailMessage,
   NotificationMessage,

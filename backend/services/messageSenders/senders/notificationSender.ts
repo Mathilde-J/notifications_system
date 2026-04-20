@@ -15,10 +15,5 @@ export class NotificationSender extends BaseSender<NotificationMessage> {
       );
     }
   }
-
-  protected checkSenderFormat(message: NotificationMessage): boolean {
-    console.info("check si format sender id ok");
-    return true;
-  }
 }
 export const notificationsSender: NotificationSender = new NotificationSender();
