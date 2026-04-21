@@ -55,6 +55,7 @@ export const errorMessageFixtureBase = {
   invalidEmailFormat: "Invalid email format",
   invalidPhoneNumberFormat: "Invalid phone number format",
   connectionError: "An error occurred while connecting to the database",
+  failedToSendMessageAfterRetries: "Failed to send message after all retry attempts",
   logCreationError: "An error occurred while creating the log",
   logRetrievalError: "An error occurred while retrieving the log",
 };

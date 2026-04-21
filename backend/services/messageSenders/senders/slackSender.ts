@@ -1,6 +1,6 @@
-import type { SlackMessage } from "../../types/message";
-import { errorMessageFixtureBase } from "../../utils/fixtures";
-import { BaseSender } from "./baseSender";
+import type { SlackMessage } from "../../../types/message";
+import { errorMessageFixtureBase } from "../../../utils/fixtures";
+import { BaseSender } from "../baseSender";
 
 export class SlackSender extends BaseSender<SlackMessage> {
   protected async sendMessage(message: SlackMessage): Promise<void> {
@@ -16,7 +16,6 @@ export class SlackSender extends BaseSender<SlackMessage> {
       );
     }
   }
-
 }
 
 export const slackSender: SlackSender = new SlackSender();

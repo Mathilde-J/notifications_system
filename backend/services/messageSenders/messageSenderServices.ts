@@ -1,16 +1,16 @@
 import type { Observable } from "../../interfaces/observer/observable";
 import type { Observer } from "../../interfaces/observer/observer";
 import type { MessageSender } from "./baseSender";
-import { emailsSender } from "./emailSender";
-import { notificationsSender } from "./notificationSender";
-import { slackSender } from "./slackSender";
-import { smsSender } from "./smsSender";
 import type {
   EmailMessage,
   NotificationMessage,
   SlackMessage,
   SmsMessage,
 } from "../../types/message";
+import { emailsSender } from "./senders/emailSender";
+import { notificationsSender } from "./senders/notificationSender";
+import { slackSender } from "./senders/slackSender";
+import { smsSender } from "./senders/smsSender";
 
 export class MessageSenderService<T> implements Observable {
   subscribers: Observer[] = [];
@@ -38,7 +38,7 @@ export class MessageSenderService<T> implements Observable {
 
   public async fireMessage(message: T) {
     await this.sender?.send(message);
-    this.notifyObserver(message);
+    if (this.subscribers.length !== 0) this.notifyObserver(message);
   }
 }
 
