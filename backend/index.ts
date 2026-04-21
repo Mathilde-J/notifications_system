@@ -1,5 +1,5 @@
 import { RetryDecorator } from "./decorators/retryDecorator";
-import { loggerService } from "./repositories/log";
+import { loggerRepository } from "./repositories/log";
 import { MessageSenderService } from "./services/messageSenders/messageSenderServices";
 import { EmailSender } from "./services/messageSenders/senders/emailSender";
 import type { EmailMessage } from "./types/message";
@@ -20,5 +20,5 @@ const emailSenderWithRetryDecorator: RetryDecorator<EmailMessage> =
 const emailSenderServiceWithRetry: MessageSenderService<EmailMessage> =
   new MessageSenderService(emailSenderWithRetryDecorator);
 
-emailSenderServiceWithRetry.subscribe(loggerService);
+emailSenderServiceWithRetry.subscribe(loggerRepository);
 emailSenderServiceWithRetry.fireMessage(email);

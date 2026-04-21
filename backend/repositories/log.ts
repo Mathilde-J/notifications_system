@@ -14,7 +14,7 @@ interface LogService {
   // getSuccesLogs(status: EventResponse.EVENTFAIL): Promise<Log[]>;
 }
 
-class LoggerService implements LogService, Observer {
+export class LoggerRepository implements LogService, Observer {
   constructor(private dbClient: any) {}
 
   async createLog(log: Log): Promise<void> {
@@ -57,6 +57,6 @@ class LoggerService implements LogService, Observer {
   }
 }
 
-export const loggerService: LoggerService = new LoggerService(
+export const loggerRepository: LoggerRepository = new LoggerRepository(
   database.dbClient,
 );

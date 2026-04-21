@@ -14,14 +14,14 @@ describe("retrydecorator tests", () => {
     emailSenderWithRetry = new RetryDecorator(emailSender);
   });
 
-  test("emailSenderWithRetry's send method calls the trySendingMessage method", async () => {
+  test("emailSenderWithRetry's send method should calls the trySendingMessage method", async () => {
     const spy = vi.spyOn(emailSenderWithRetry, "trySendingMessage");
     await emailSenderWithRetry.send(email);
     expect(spy).toHaveBeenCalledOnce();
     expect(spy).toHaveBeenCalledExactlyOnceWith(email);
   });
 
-  test("emailSenderWithRetry's trySendingMessage method calls the sender's send method once on success", async () => {
+  test("emailSenderWithRetry's trySendingMessage method should call the sender's send method once on success", async () => {
     const spy = vi.spyOn(emailSender, "send");
 
     await emailSenderWithRetry.trySendingMessage(email);
@@ -30,7 +30,7 @@ describe("retrydecorator tests", () => {
     expect(emailSenderWithRetry.retryTimes).toBe(3);
   });
 
-  test("emailSenderWithRetry's trySendingMessage method throws an error after all retry attempts fail", async () => {
+  test("emailSenderWithRetry's trySendingMessage method should throw an error after all retry attempts fail", async () => {
     const spySender = vi
       .spyOn(emailSender, "send")
       .mockRejectedValue(new Error("fail"));
@@ -42,7 +42,7 @@ describe("retrydecorator tests", () => {
     expect(emailSenderWithRetry.retryTimes).toBe(0);
   });
 
-  test("emailSenderWithRetry's trySendingMessage method calls the sender's send method once after 2 failure", async () => {
+  test("emailSenderWithRetry's trySendingMessage method should call the sender's send method once after 2 failure", async () => {
     const spySender = vi
       .spyOn(emailSender, "send")
       .mockRejectedValueOnce(new Error("fail"))

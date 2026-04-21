@@ -13,16 +13,16 @@ import { slackSender } from "./senders/slackSender";
 import { smsSender } from "./senders/smsSender";
 
 export class MessageSenderService<T> implements Observable {
-  subscribers: Observer[] = [];
+  subscribers: Observer<T>[] = [];
   constructor(private sender: MessageSender<T>) {}
 
-  subscribe(observer: Observer): void {
+  subscribe(observer: Observer<T>): void {
     if (!this.subscribers.includes(observer)) {
       this.subscribers.push(observer);
     }
   }
 
-  unsubscribe(observer: Observer): void {
+  unsubscribe(observer: Observer<T>): void {
     if (this.subscribers.includes(observer)) {
       this.subscribers = this.subscribers.filter(
         (subscribedObservers) => observer !== subscribedObservers,
