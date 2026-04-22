@@ -11,8 +11,10 @@ import { emailsSender } from "./senders/emailSender";
 import { notificationsSender } from "./senders/notificationSender";
 import { slackSender } from "./senders/slackSender";
 import { smsSender } from "./senders/smsSender";
+import { errorMessageFixtureBase } from "../../utils/fixtures";
+import { EventResponse } from "../../types/log";
 
-export class MessageSenderService<T> implements Observable {
+export class MessageSenderService<T> implements Observable<T> {
   subscribers: Observer<T>[] = [];
   constructor(private sender: MessageSender<T>) {}
 
@@ -30,15 +32,29 @@ export class MessageSenderService<T> implements Observable {
     }
   }
 
-  notifyObserver(data: T): void {
-    this.subscribers.map((subscribedObservers) =>
-      subscribedObservers.updateOnObservableNotification(data),
-    );
+  notifyObserver(data: T, status: EventResponse): void {
+    this.subscribers.forEach((subscribedObserver) => {
+      try {
+        subscribedObserver.updateOnObservableNotification(data, status);
+      } catch (error) {
+        console.error(errorMessageFixtureBase.failedToNotifyObserver, error);
+      }
+    });
   }
 
   public async fireMessage(message: T) {
-    await this.sender?.send(message);
-    if (this.subscribers.length !== 0) this.notifyObserver(message);
+    let status: EventResponse = EventResponse.EVENTFAIL;
+    try {
+      await this.sender.send(message);
+      status = EventResponse.EVENTSUCCESS;
+    } catch (error) {
+      console.error(errorMessageFixtureBase.errorOccurred, error);
+      throw new Error(
+        `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,
+      );
+    } finally {
+      if (this.subscribers.length !== 0) this.notifyObserver(message, status);
+    }
   }
 }
 

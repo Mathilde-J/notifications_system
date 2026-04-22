@@ -2,7 +2,6 @@ import {
   MessageContentType,
   MessageType,
   type EmailMessage,
-  type Message,
   type NotificationMessage,
   type SlackMessage,
   type SmsMessage,
@@ -58,4 +57,5 @@ export const errorMessageFixtureBase = {
   failedToSendMessageAfterRetries: "Failed to send message after all retry attempts",
   logCreationError: "An error occurred while creating the log",
   logRetrievalError: "An error occurred while retrieving the log",
+  failedToNotifyObserver: "An error occured while notifying observer"
 };

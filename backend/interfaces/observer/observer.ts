@@ -1,3 +1,5 @@
+import type { EventResponse } from "../../types/log";
+
 export interface Observer<T> {
-  updateOnObservableNotification(data: T): void;
+  updateOnObservableNotification(data: T, status: EventResponse): void;
 }

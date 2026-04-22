@@ -1,8 +1,9 @@
+import type { EventResponse } from "../../types/log";
 import type { Observer } from "./observer";
 
-export interface Observable {
-  subscribers: Observer[];
-  subscribe(observer: Observer): void;
-  unsubscribe(observer: Observer): void;
-  notifyObserver(data: any): void;
+export interface Observable<T> {
+  subscribers: Observer<T>[];
+  subscribe(observer: Observer<T>): void;
+  unsubscribe(observer: Observer<T>): void;
+  notifyObserver(data: T, status: EventResponse): void;
 }
