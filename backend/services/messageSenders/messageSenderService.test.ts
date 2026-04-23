@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import type { EmailMessage } from "../../types/message";
-import { MessageSenderService } from "./messageSenderServices";
-import { EmailSender } from "./senders/emailSender";
+import { MessageSenderService } from "./messageSenderServices.js";
+import type { Observer } from "../../interfaces/observer/observer.js";
+import { EventResponse } from "../../types/log.js";
+import type { EmailMessage } from "../../types/message.js";
 import {
-  errorMessageFixtureBase,
   messageFixtureBase,
-} from "../../utils/fixtures";
-import type { Observer } from "../../interfaces/observer/observer";
-import { EventResponse } from "../../types/log";
+  errorMessageFixtureBase,
+} from "../../utils/fixtures.js";
+import { EmailSender } from "./senders/emailSender.js";
 
 describe("messageSenderService", () => {
   let messageSenderService: MessageSenderService<EmailMessage>;

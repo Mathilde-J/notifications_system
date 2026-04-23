@@ -1,6 +1,7 @@
-import type { EmailMessage } from "../../../types/message";
-import { errorMessageFixtureBase } from "../../../utils/fixtures";
-import { BaseSender } from "../baseSender";
+import { RetryDecorator } from "../../../decorators/retryDecorator.js";
+import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
+import type { EmailMessage } from "../../../types/message.js";
+import { BaseSender } from "../baseSender.js";
 
 export class EmailSender extends BaseSender<EmailMessage> {
   protected async sendMessage(email: EmailMessage) {
@@ -18,4 +19,6 @@ export class EmailSender extends BaseSender<EmailMessage> {
   }
 }
 
-export const emailsSender: EmailSender = new EmailSender();
+const emailSender: EmailSender = new EmailSender();
+export const emailSenderWithRetryDecorator: RetryDecorator<EmailMessage> =
+  new RetryDecorator(emailSender);

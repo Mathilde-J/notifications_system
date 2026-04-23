@@ -1,39 +1,29 @@
-import type { Observable } from "../../interfaces/observer/observable";
-import type { Observer } from "../../interfaces/observer/observer";
-import type { MessageSender } from "./baseSender";
-import type {
-  EmailMessage,
-  NotificationMessage,
-  SlackMessage,
-  SmsMessage,
-} from "../../types/message";
-import { emailsSender } from "./senders/emailSender";
-import { notificationsSender } from "./senders/notificationSender";
-import { slackSender } from "./senders/slackSender";
-import { smsSender } from "./senders/smsSender";
-import { errorMessageFixtureBase } from "../../utils/fixtures";
-import { EventResponse } from "../../types/log";
+import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
+import type { Observable } from "../../interfaces/observer/observable.js";
+import type { Observer } from "../../interfaces/observer/observer.js";
+import { EventResponse } from "../../types/log.js";
+import type { MessageSender } from "./baseSender.js";
 
-export class MessageSenderService<T> implements Observable<T> {
-  subscribers: Observer<T>[] = [];
+export class MessageSenderService<T> implements Observable {
+  observers: Observer[] = [];
   constructor(private sender: MessageSender<T>) {}
 
-  subscribe(observer: Observer<T>): void {
-    if (!this.subscribers.includes(observer)) {
-      this.subscribers.push(observer);
+  subscribe(observer: Observer): void {
+    if (!this.observers.includes(observer)) {
+      this.observers.push(observer);
     }
   }
 
-  unsubscribe(observer: Observer<T>): void {
-    if (this.subscribers.includes(observer)) {
-      this.subscribers = this.subscribers.filter(
+  unsubscribe(observer: Observer): void {
+    if (this.observers.includes(observer)) {
+      this.observers = this.observers.filter(
         (subscribedObservers) => observer !== subscribedObservers,
       );
     }
   }
 
   notifyObserver(data: T, status: EventResponse): void {
-    this.subscribers.forEach((subscribedObserver) => {
+    this.observers.forEach((subscribedObserver) => {
       try {
         subscribedObserver.updateOnObservableNotification(data, status);
       } catch (error) {
@@ -53,26 +43,7 @@ export class MessageSenderService<T> implements Observable<T> {
         `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,
       );
     } finally {
-      if (this.subscribers.length !== 0) this.notifyObserver(message, status);
+      if (this.observers.length !== 0) this.notifyObserver(message, status);
     }
   }
 }
-
-const emailSenderService: MessageSenderService<EmailMessage> =
-  new MessageSenderService(emailsSender);
-
-const smsSenderService: MessageSenderService<SmsMessage> =
-  new MessageSenderService(smsSender);
-
-const notificationsSenderService: MessageSenderService<NotificationMessage> =
-  new MessageSenderService(notificationsSender);
-
-const slackSenderService: MessageSenderService<SlackMessage> =
-  new MessageSenderService(slackSender);
-
-export {
-  emailSenderService,
-  smsSenderService,
-  notificationsSenderService,
-  slackSenderService,
-};

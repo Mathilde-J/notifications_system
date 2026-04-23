@@ -1,5 +1,3 @@
-import type { MessageType } from "./message";
-
 export enum EventResponse {
   EVENTSUCCESS,
   EVENTFAIL,

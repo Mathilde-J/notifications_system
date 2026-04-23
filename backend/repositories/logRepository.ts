@@ -1,9 +1,9 @@
-import { database } from "../config/database/db";
-import type { Observer } from "../interfaces/observer/observer";
-import type { Log } from "../types/log";
-import { errorMessageFixtureBase } from "../utils/fixtures";
+import { database } from "../config/database/db.js";
+import { errorMessageFixtureBase } from "../helpers/fixtures.js";
+import type { Observer } from "../interfaces/observer/observer.js";
+import type { Log } from "../types/log.js";
 
-interface LogService {
+interface LogRepositoryInterface {
   createLog(log: Log): Promise<void>;
   getAllLogs(): Promise<Log[]>;
   getLogById(logId: string): Promise<Log>;
@@ -14,7 +14,7 @@ interface LogService {
   // getSuccesLogs(status: EventResponse.EVENTFAIL): Promise<Log[]>;
 }
 
-export class LoggerRepository implements LogService, Observer {
+export class LogRepository implements LogRepositoryInterface, Observer {
   constructor(private dbClient: any) {}
 
   async createLog(log: Log): Promise<void> {
@@ -54,9 +54,10 @@ export class LoggerRepository implements LogService, Observer {
 
   updateOnObservableNotification(data: any): void {
     console.info("je réagi après un envoie de message pour logger");
+    console.info("converti la data en log et envoie en bdd");
   }
 }
 
-export const loggerRepository: LoggerRepository = new LoggerRepository(
+export const loggerRepository: LogRepository = new LogRepository(
   database.dbClient,
 );
