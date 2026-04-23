@@ -8,7 +8,6 @@ export enum EventResponse {
 export type Log = {
   id: string;
   messageId: string;
-  messageType: MessageType;
   loggedAt: string;
   status: EventResponse;
 };
