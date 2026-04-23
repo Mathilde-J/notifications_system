@@ -1,4 +1,4 @@
-import { LogRepository } from "../../repositories/logRepository.js";
+import { LogRepository } from "../../repositories/logRepository/logRepository.js";
 import type {
   EmailMessage,
   SmsMessage,

@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, test, vi } from "vitest";
 import type { EmailMessage } from "../../../types/message.js";
-import { messageFixtureBase } from "../../../utils/fixtures.js";
 import { EmailSender } from "./emailSender.js";
+import { messageFixtureBase } from "../../../helpers/fixtures.js";
 
 describe("sender group", () => {
   const email: EmailMessage = messageFixtureBase.email;

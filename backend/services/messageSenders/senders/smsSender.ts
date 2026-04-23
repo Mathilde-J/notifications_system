@@ -7,7 +7,7 @@ export class SmsSender extends BaseSender<SmsMessage> {
   protected async sendMessage(sms: SmsMessage) {
     try {
       console.info(
-        `simuler l'envoie d'une sms : contenu ${sms.content} à l'attention de ${sms.receivers} de la part de ${sms.sender}`,
+        `simuler l'envoie d'une sms : contenu ${sms.content} à l'attention de ${sms.receiver} de la part de ${sms.sender}`,
       );
     } catch (error) {
       console.error(errorMessageFixtureBase.errorOccurred, error);

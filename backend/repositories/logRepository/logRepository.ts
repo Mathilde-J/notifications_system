@@ -1,20 +1,9 @@
-import { database } from "../config/database/db.js";
-import { errorMessageFixtureBase } from "../helpers/fixtures.js";
-import type { Observer } from "../interfaces/observer/observer.js";
-import type { Log } from "../types/log.js";
+import { database } from "../../config/database/db.js";
+import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
+import type { Observer } from "../../interfaces/observer/observer.js";
+import type { Log } from "../../types/log.js";
 
-interface LogRepositoryInterface {
-  createLog(log: Log): Promise<void>;
-  getAllLogs(): Promise<Log[]>;
-  getLogById(logId: string): Promise<Log>;
-  // getEmailLogs(logType: MessageType.EMAIL): Promise<Log[]>;
-  // getSmsLogs(logType: MessageType.SMS): Promise<Log[]>;
-  // getNotificationLogs(logType: MessageType.PUSH): Promise<Log[]>;
-  // getFailedLogs(status: EventResponse.EVENTFAIL): Promise<Log[]>;
-  // getSuccesLogs(status: EventResponse.EVENTFAIL): Promise<Log[]>;
-}
-
-export class LogRepository implements LogRepositoryInterface, Observer {
+export class LogRepository implements Observer {
   constructor(private dbClient: any) {}
 
   async createLog(log: Log): Promise<void> {

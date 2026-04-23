@@ -18,7 +18,7 @@ class MessageController {
       }
 
       const messageType = messageFromRequestBody["messageType"];
-      await serviceByType[messageType]?.fireMessage(messageFromRequestBody);
+      await this.services[messageType]?.fireMessage(messageFromRequestBody);
     } catch (error) {
       console.error(errorMessageFixtureBase.errorOccurred, error);
       throw new Error(
