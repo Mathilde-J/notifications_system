@@ -1,7 +1,7 @@
-import type { Observer } from "../../observer/observer";
-import type { Log } from "../../types/log";
-import { errorMessageFixtureBase } from "../../utils/fixtures";
-import { database, type Database } from "./db";
+import { database } from "../config/database/db";
+import type { Observer } from "../interfaces/observer/observer";
+import type { Log } from "../types/log";
+import { errorMessageFixtureBase } from "../utils/fixtures";
 
 interface LogService {
   createLog(log: Log): Promise<void>;
@@ -14,7 +14,7 @@ interface LogService {
   // getSuccesLogs(status: EventResponse.EVENTFAIL): Promise<Log[]>;
 }
 
-class LoggerService implements LogService, Observer {
+export class LoggerRepository implements LogService, Observer {
   constructor(private dbClient: any) {}
 
   async createLog(log: Log): Promise<void> {
@@ -57,6 +57,6 @@ class LoggerService implements LogService, Observer {
   }
 }
 
-export const loggerService: LoggerService = new LoggerService(
+export const loggerRepository: LoggerRepository = new LoggerRepository(
   database.dbClient,
 );

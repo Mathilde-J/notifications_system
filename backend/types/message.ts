@@ -5,25 +5,19 @@ export enum MessageType {
   SLACK,
 }
 
-export enum MessageContentType {
-  WARNING,
-  ERROR,
-  INFO,
-  DEBUG,
-}
+
 
 export type Message = {
   id: string;
   content: string;
   sentAt: string;
-  contentType: MessageContentType;
   sender: string;
   receivers: string[];
 };
 
 export type EmailMessage = Message & {
   subject?: string;
-  joinedFiles?: string[];
+  email: string;
   messageType: MessageType.EMAIL;
 };
 

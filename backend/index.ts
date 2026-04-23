@@ -1,13 +1,9 @@
-import { RetryDecorator } from "./src/decorator/retryDecorator";
-import { EmailSender } from "./src/senders/emailSender";
-import { loggerService } from "./src/services/database/log";
-import {
-  emailSenderService,
-  MessageSenderService,
-  slackSenderService,
-} from "./src/services/messageSenderServices";
-import type { EmailMessage, SlackMessage } from "./src/types/message";
-import { messageFixtureBase } from "./src/utils/fixtures";
+import { RetryDecorator } from "./decorators/retryDecorator";
+import { loggerRepository } from "./repositories/log";
+import { MessageSenderService } from "./services/messageSenders/messageSenderServices";
+import { EmailSender } from "./services/messageSenders/senders/emailSender";
+import type { EmailMessage } from "./types/message";
+import { messageFixtureBase } from "./utils/fixtures";
 
 const email: EmailMessage = messageFixtureBase.email;
 // emailSenderService.subscribe(loggerService);
@@ -24,5 +20,5 @@ const emailSenderWithRetryDecorator: RetryDecorator<EmailMessage> =
 const emailSenderServiceWithRetry: MessageSenderService<EmailMessage> =
   new MessageSenderService(emailSenderWithRetryDecorator);
 
-emailSenderServiceWithRetry.subscribe(loggerService);
-emailSenderServiceWithRetry.fireMessage(email)
+emailSenderServiceWithRetry.subscribe(loggerRepository);
+emailSenderServiceWithRetry.fireMessage(email);

@@ -1,6 +1,6 @@
-import type { NotificationMessage } from "../types/message";
-import { errorMessageFixtureBase } from "../utils/fixtures";
-import { BaseSender } from "./baseSender";
+import type { NotificationMessage } from "../../../types/message";
+import { errorMessageFixtureBase } from "../../../utils/fixtures";
+import { BaseSender } from "../baseSender";
 
 export class NotificationSender extends BaseSender<NotificationMessage> {
   protected async sendMessage(notification: NotificationMessage) {
@@ -14,11 +14,6 @@ export class NotificationSender extends BaseSender<NotificationMessage> {
         `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,
       );
     }
-  }
-
-  protected checkSenderFormat(message: NotificationMessage): boolean {
-    console.info("check si format sender id ok");
-    return true;
   }
 }
 export const notificationsSender: NotificationSender = new NotificationSender();

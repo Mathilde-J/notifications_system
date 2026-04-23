@@ -1,0 +1,2 @@
+TODO :
+- uniformiser les erreurs

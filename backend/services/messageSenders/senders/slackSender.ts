@@ -1,6 +1,6 @@
-import type { SlackMessage } from "../types/message";
-import { errorMessageFixtureBase } from "../utils/fixtures";
-import { BaseSender } from "./baseSender";
+import type { SlackMessage } from "../../../types/message";
+import { errorMessageFixtureBase } from "../../../utils/fixtures";
+import { BaseSender } from "../baseSender";
 
 export class SlackSender extends BaseSender<SlackMessage> {
   protected async sendMessage(message: SlackMessage): Promise<void> {
@@ -15,11 +15,6 @@ export class SlackSender extends BaseSender<SlackMessage> {
         `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,
       );
     }
-  }
-
-  protected checkSenderFormat(message: SlackMessage): boolean {
-    console.info("on check si le message est bien au format Slack");
-    return true;
   }
 }
 
