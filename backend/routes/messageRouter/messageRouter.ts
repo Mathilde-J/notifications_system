@@ -1,7 +1,10 @@
-import { app } from "../../server.js";
-import { messageController } from "../../controllers/messageController.js";
+import { messageController } from "../../controllers/messagecontroller/messageController.js";
+import { Router } from "express";
 
-// respond with "hello world" when a GET request is made to the homepage
-app.post("/api/message", (_req, res) => {
-  messageController.createMessage(_req, res);
+const messageRouter = Router();
+
+messageRouter.post("/", async (req, res) => {
+  await messageController.createMessage(req, res);
 });
+
+export default messageRouter;

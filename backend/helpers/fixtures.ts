@@ -57,4 +57,5 @@ export const errorMessageFixtureBase = {
   logRetrievalError: "An error occurred while retrieving the log",
   failedToNotifyObserver: "An error occured while notifying observer",
   missingMessage: "No message found",
+  serviceNotFound: "No senderService was found"
 };

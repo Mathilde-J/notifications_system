@@ -41,9 +41,10 @@ export class LogRepository implements Observer {
     }
   }
 
-  updateOnObservableNotification(data: any): void {
+  async updateOnObservableNotification(data: any): Promise<void> {
     console.info("je réagi après un envoie de message pour logger");
     console.info("converti la data en log et envoie en bdd");
+    await this.createLog(data)
   }
 }
 

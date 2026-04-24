@@ -4,6 +4,7 @@ import type {
   SmsMessage,
   NotificationMessage,
   SlackMessage,
+  MessageType,
 } from "../../types/message.js";
 import { MessageSenderService } from "./messageSenderServices.js";
 import { emailSenderWithRetryDecorator } from "./senders/emailSender.js";
@@ -24,7 +25,6 @@ const slackSenderServiceWithRetry: MessageSenderService<SlackMessage> =
   new MessageSenderService(slackSenderWithRetryDecorator);
 
 const logRespository = new LogRepository("instance bdd");
-// const messageRespository = new MessageRepository("instance bdd");
 
 [
   emailSenderServiceWithRetry,
@@ -33,10 +33,9 @@ const logRespository = new LogRepository("instance bdd");
   slackSenderServiceWithRetry,
 ].forEach((service) => {
   service.subscribe(logRespository);
-  // TODO subscribe le message repositrory
 });
 
-export const serviceByType : Record<string, MessageSenderService<any>>= {
+export const serviceByType: Record<MessageType, MessageSenderService<any>> = {
   email: emailSenderServiceWithRetry,
   sms: smsSenderServiceWithRetry,
   notification: notificationSenderServiceWithRetry,
