@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { MessageSenderService } from "./messageSenderServices.js";
 import type { Observer } from "../../interfaces/observer/observer.js";
-import { EventResponse } from "../../types/log.js";
-import type { EmailMessage } from "../../types/message.js";
 import {
   messageFixtureBase,
   errorMessageFixtureBase,
 } from "../../helpers/fixtures.js";
 import { EmailSender } from "./senders/emailSender.js";
+import { EventResponse } from "../../types/log.js";
+import type { EmailMessage } from "../../types/message.js";
 
 describe("messageSenderService", () => {
   let messageSenderService: MessageSenderService<EmailMessage>;
@@ -37,7 +37,10 @@ describe("messageSenderService", () => {
 
   describe("messageSenderService with observers", () => {
     const mockObserverClass = class MockObserver implements Observer {
-      updateOnObservableNotification(data: EmailMessage): void {
+      async updateOnObservableNotification(
+        data: EmailMessage,
+        status: EventResponse,
+      ): Promise<void> {
         try {
           console.log("Mock observer notification:", data);
         } catch (error) {

@@ -35,6 +35,7 @@ export class MessageSenderService<T> implements Observable {
   public async fireMessage(message: T) {
     let status: EventResponse = EventResponse.EVENTFAIL;
     try {
+      // on envoie en bdd ici
       await this.sender.send(message);
       status = EventResponse.EVENTSUCCESS;
     } catch (error) {

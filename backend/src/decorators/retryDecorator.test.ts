@@ -4,8 +4,8 @@ import {
   errorMessageFixtureBase,
 } from "../helpers/fixtures.js";
 import { EmailSender } from "../services/messageSenders/senders/emailSender.js";
-import type { EmailMessage } from "../types/message.js";
 import { RetryDecorator } from "./retryDecorator.js";
+import type { EmailMessage } from "../types/message.js";
 
 describe("retrydecorator tests", () => {
   const email: EmailMessage = messageFixtureBase.email;

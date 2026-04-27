@@ -1,9 +1,9 @@
 import {
   MessageType,
   type EmailMessage,
+  type SmsMessage,
   type NotificationMessage,
   type SlackMessage,
-  type SmsMessage,
 } from "../types/message.js";
 
 export const messageFixtureBase = {
@@ -57,5 +57,5 @@ export const errorMessageFixtureBase = {
   logRetrievalError: "An error occurred while retrieving the log",
   failedToNotifyObserver: "An error occured while notifying observer",
   missingMessage: "No message found",
-  serviceNotFound: "No senderService was found"
+  serviceNotFound: "No senderService was found",
 };

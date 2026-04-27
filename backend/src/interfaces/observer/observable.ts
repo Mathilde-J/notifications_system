@@ -1,3 +1,4 @@
+
 import type { EventResponse } from "../../types/log.js";
 import type { Observer } from "./observer.js";
 

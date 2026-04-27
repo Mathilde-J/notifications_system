@@ -1,11 +1,6 @@
 import { LogRepository } from "../../repositories/logRepository/logRepository.js";
-import type {
-  EmailMessage,
-  SmsMessage,
-  NotificationMessage,
-  SlackMessage,
-  MessageType,
-} from "../../types/message.js";
+import type { EmailMessage, SmsMessage, NotificationMessage, SlackMessage, MessageType } from "../../types/message.js";
+
 import { MessageSenderService } from "./messageSenderServices.js";
 import { emailSenderWithRetryDecorator } from "./senders/emailSender.js";
 import { notificationSenderWithRetryDecorator } from "./senders/notificationSender.js";
@@ -24,7 +19,7 @@ const notificationSenderServiceWithRetry: MessageSenderService<NotificationMessa
 const slackSenderServiceWithRetry: MessageSenderService<SlackMessage> =
   new MessageSenderService(slackSenderWithRetryDecorator);
 
-const logRespository = new LogRepository("instance bdd");
+const logRespository = new LogRepository();
 
 [
   emailSenderServiceWithRetry,

@@ -1,10 +1,10 @@
-import { database } from "../../config/database/db.js";
+
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 import type { Observer } from "../../interfaces/observer/observer.js";
 import type { Log } from "../../types/log.js";
 
 export class LogRepository implements Observer {
-  constructor(private dbClient: any) {}
+  constructor() {}
 
   async createLog(log: Log): Promise<void> {
     try {
@@ -49,5 +49,5 @@ export class LogRepository implements Observer {
 }
 
 export const loggerRepository: LogRepository = new LogRepository(
-  database.dbClient,
+
 );

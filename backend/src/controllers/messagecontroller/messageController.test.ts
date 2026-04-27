@@ -3,13 +3,10 @@ import { describe, expect, test, vi } from "vitest";
 import { MessageController } from "./messageController.js";
 import { MessageSenderService } from "../../services/messageSenders/messageSenderServices.js";
 import { messageFixtureBase } from "../../helpers/fixtures.js";
-import type {
-  EmailMessage,
-  MessageType,
-  SmsMessage,
-} from "../../types/message.js";
+
 import { emailSenderWithRetryDecorator } from "../../services/messageSenders/senders/emailSender.js";
 import { smsSenderWithRetryDecorator } from "../../services/messageSenders/senders/smsSender.js";
+import type { EmailMessage, SmsMessage, MessageType } from "../../types/message.js";
 
 describe("MessageController tests", () => {
   let messageController: MessageController;
