@@ -1,16 +1,16 @@
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
-import { Pool, type PoolClient } from "pg";
+import { Pool } from "pg";
 
-class DatabaseService {
+export class DatabaseService {
   private _pool: Pool;
 
   public get pool(): Pool {
     return this._pool;
   }
 
-  constructor() {
+  constructor(optionsCustom?: any) {
     try {
-      const pool = new Pool({
+      const options = optionsCustom ?? {
         host: process.env["DATABASE_HOST"] || "localhost",
         user: process.env["DATABASE_USER"] || "postgres",
         database: process.env["DATABASE_NAME"] || "postgres",
@@ -20,7 +20,8 @@ class DatabaseService {
         idleTimeoutMillis: 30000,
         connectionTimeoutMillis: 2000,
         maxLifetimeSeconds: 60,
-      });
+      };
+      const pool = new Pool(options);
       if (!pool) {
         throw new Error("Failed to create database connection pool.");
       }
@@ -31,18 +32,6 @@ class DatabaseService {
       throw new Error(
         `${errorMessageFixtureBase.connectionError}, error: ${error}`,
       );
-    }
-  }
-
-  public async clientFromPool(): Promise<PoolClient> {
-    try {
-      if (!this._pool) {
-        throw new Error("Pool is not initialized. Call createPool() first.");
-      }
-      return await this._pool.connect();
-    } catch (error) {
-      console.error(errorMessageFixtureBase.connectionError, error);
-      throw new Error();
     }
   }
 }

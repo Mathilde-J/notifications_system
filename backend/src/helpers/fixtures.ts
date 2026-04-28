@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import {
   MessageType,
   type EmailMessage,
@@ -77,3 +78,26 @@ export const errorMessageFixtureBase = {
   bddErrorDelete:
     "An error occurred while deleting the ressource in the database",
 };
+
+// test/helpers.ts
+import type { Request, Response } from "express";
+
+export function mockReq(overrides: Partial<Request> = {}): Request {
+  return {
+    params: {},
+    query: {},
+    body: {},
+    headers: {},
+    ...overrides,
+  } as Request;
+}
+
+export function mockRes(): Response {
+  const res = {
+    status: vi.fn().mockReturnThis(),
+    json: vi.fn().mockReturnThis(),
+    send: vi.fn().mockReturnThis(),
+    sendStatus: vi.fn().mockReturnThis(),
+  } as Partial<Response> as Response;
+  return res;
+}
