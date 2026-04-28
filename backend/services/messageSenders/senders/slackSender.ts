@@ -1,6 +1,7 @@
-import type { SlackMessage } from "../../../types/message";
-import { errorMessageFixtureBase } from "../../../utils/fixtures";
-import { BaseSender } from "../baseSender";
+import { RetryDecorator } from "../../../decorators/retryDecorator.js";
+import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
+import type { SlackMessage } from "../../../types/message.js";
+import { BaseSender } from "../baseSender.js";
 
 export class SlackSender extends BaseSender<SlackMessage> {
   protected async sendMessage(message: SlackMessage): Promise<void> {
@@ -18,4 +19,6 @@ export class SlackSender extends BaseSender<SlackMessage> {
   }
 }
 
-export const slackSender: SlackSender = new SlackSender();
+const slackSender: SlackSender = new SlackSender();
+export const slackSenderWithRetryDecorator: RetryDecorator<SlackMessage> =
+  new RetryDecorator(slackSender);

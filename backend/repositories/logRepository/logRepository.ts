@@ -1,20 +1,9 @@
-import { database } from "../config/database/db";
-import type { Observer } from "../interfaces/observer/observer";
-import type { Log } from "../types/log";
-import { errorMessageFixtureBase } from "../utils/fixtures";
+import { database } from "../../config/database/db.js";
+import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
+import type { Observer } from "../../interfaces/observer/observer.js";
+import type { Log } from "../../types/log.js";
 
-interface LogService {
-  createLog(log: Log): Promise<void>;
-  getAllLogs(): Promise<Log[]>;
-  getLogById(logId: string): Promise<Log>;
-  // getEmailLogs(logType: MessageType.EMAIL): Promise<Log[]>;
-  // getSmsLogs(logType: MessageType.SMS): Promise<Log[]>;
-  // getNotificationLogs(logType: MessageType.PUSH): Promise<Log[]>;
-  // getFailedLogs(status: EventResponse.EVENTFAIL): Promise<Log[]>;
-  // getSuccesLogs(status: EventResponse.EVENTFAIL): Promise<Log[]>;
-}
-
-export class LoggerRepository implements LogService, Observer {
+export class LogRepository implements Observer {
   constructor(private dbClient: any) {}
 
   async createLog(log: Log): Promise<void> {
@@ -52,11 +41,13 @@ export class LoggerRepository implements LogService, Observer {
     }
   }
 
-  updateOnObservableNotification(data: any): void {
+  async updateOnObservableNotification(data: any): Promise<void> {
     console.info("je réagi après un envoie de message pour logger");
+    console.info("converti la data en log et envoie en bdd");
+    await this.createLog(data)
   }
 }
 
-export const loggerRepository: LoggerRepository = new LoggerRepository(
+export const loggerRepository: LogRepository = new LogRepository(
   database.dbClient,
 );

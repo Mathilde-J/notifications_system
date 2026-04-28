@@ -1,12 +1,13 @@
-import type { EmailMessage } from "../../../types/message";
-import { errorMessageFixtureBase } from "../../../utils/fixtures";
-import { BaseSender } from "../baseSender";
+import { RetryDecorator } from "../../../decorators/retryDecorator.js";
+import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
+import type { EmailMessage } from "../../../types/message.js";
+import { BaseSender } from "../baseSender.js";
 
 export class EmailSender extends BaseSender<EmailMessage> {
   protected async sendMessage(email: EmailMessage) {
     try {
       console.info(
-        `simuler l'envoie d'un email : contenu ${email.content} à l'attention de ${email.receivers} de la part de ${email.sender}`,
+        `simuler l'envoie d'un email : contenu ${email.content} à l'attention de ${email.receiver} de la part de ${email.sender}`,
       );
     } catch (error) {
       console.log("failed in emailsender");
@@ -18,4 +19,6 @@ export class EmailSender extends BaseSender<EmailMessage> {
   }
 }
 
-export const emailsSender: EmailSender = new EmailSender();
+const emailSender: EmailSender = new EmailSender();
+export const emailSenderWithRetryDecorator: RetryDecorator<EmailMessage> =
+  new RetryDecorator(emailSender);

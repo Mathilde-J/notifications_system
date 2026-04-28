@@ -1,49 +1,46 @@
 import {
-  MessageContentType,
   MessageType,
   type EmailMessage,
   type NotificationMessage,
   type SlackMessage,
   type SmsMessage,
-} from "../types/message";
+} from "../types/message.js";
 
 export const messageFixtureBase = {
   email: {
     id: "id1",
     content: "content1",
     sentAt: "timestampz",
-    contentType: MessageContentType.INFO,
     sender: "idsender",
-    receivers: ["idreceiver1", "idreceiver2", "idreceiver3"],
-    subject: "subject1",
+    receiver: "idreceiver1",
+    title: "subject1",
     messageType: MessageType.EMAIL,
   } as EmailMessage,
   sms: {
     id: "id1",
     content: "content1",
     sentAt: "timestampz",
-    contentType: MessageContentType.INFO,
     sender: "idsender",
-    receivers: ["idreceiver1", "idreceiver2", "idreceiver3"],
+    receiver: "idreceiver1",
+    subject: "subject1",
     messageType: MessageType.SMS,
-    phoneNumber: "02361154484",
   } as SmsMessage,
   notification: {
     id: "id1",
     content: "content1",
     sentAt: "timestampz",
-    contentType: MessageContentType.INFO,
     sender: "idsender",
-    receivers: ["idreceiver1", "idreceiver2", "idreceiver3"],
+    receiver: "idreceiver1",
+    subject: "subject1",
     messageType: MessageType.PUSH,
   } as NotificationMessage,
   slack: {
     id: "id1",
     content: "content1",
     sentAt: "timestampz",
-    contentType: MessageContentType.INFO,
     sender: "idsender",
-    receivers: ["idreceiver1", "idreceiver2", "idreceiver3"],
+    receiver: "idreceiver1",
+    subject: "subject1",
     messageType: MessageType.SLACK,
   } as SlackMessage,
 };
@@ -54,8 +51,11 @@ export const errorMessageFixtureBase = {
   invalidEmailFormat: "Invalid email format",
   invalidPhoneNumberFormat: "Invalid phone number format",
   connectionError: "An error occurred while connecting to the database",
-  failedToSendMessageAfterRetries: "Failed to send message after all retry attempts",
+  failedToSendMessageAfterRetries:
+    "Failed to send message after all retry attempts",
   logCreationError: "An error occurred while creating the log",
   logRetrievalError: "An error occurred while retrieving the log",
-  failedToNotifyObserver: "An error occured while notifying observer"
+  failedToNotifyObserver: "An error occured while notifying observer",
+  missingMessage: "No message found",
+  serviceNotFound: "No senderService was found"
 };

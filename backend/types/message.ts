@@ -1,29 +1,25 @@
 export enum MessageType {
-  EMAIL,
-  SMS,
-  PUSH,
-  SLACK,
+  EMAIL = "email",
+  SMS = "sms",
+  PUSH = "notification",
+  SLACK = "slack",
 }
-
-
 
 export type Message = {
   id: string;
   content: string;
   sentAt: string;
   sender: string;
-  receivers: string[];
+  receiver: string;
+  title?: string;
 };
 
 export type EmailMessage = Message & {
-  subject?: string;
-  email: string;
   messageType: MessageType.EMAIL;
 };
 
 export type SmsMessage = Message & {
   messageType: MessageType.SMS;
-  phoneNumber: string;
 };
 
 export type NotificationMessage = Message & {

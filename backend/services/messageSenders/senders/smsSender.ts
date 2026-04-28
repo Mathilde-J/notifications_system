@@ -1,12 +1,13 @@
-import type { SmsMessage } from "../../../types/message";
-import { errorMessageFixtureBase } from "../../../utils/fixtures";
-import { BaseSender } from "../baseSender";
+import { RetryDecorator } from "../../../decorators/retryDecorator.js";
+import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
+import type { SmsMessage } from "../../../types/message.js";
+import { BaseSender } from "../baseSender.js";
 
 export class SmsSender extends BaseSender<SmsMessage> {
   protected async sendMessage(sms: SmsMessage) {
     try {
       console.info(
-        `simuler l'envoie d'une sms : contenu ${sms.content} à l'attention de ${sms.receivers} de la part de ${sms.sender}`,
+        `simuler l'envoie d'une sms : contenu ${sms.content} à l'attention de ${sms.receiver} de la part de ${sms.sender}`,
       );
     } catch (error) {
       console.error(errorMessageFixtureBase.errorOccurred, error);
@@ -16,4 +17,6 @@ export class SmsSender extends BaseSender<SmsMessage> {
     }
   }
 }
-export const smsSender: SmsSender = new SmsSender();
+const smsSender: SmsSender = new SmsSender();
+export const smsSenderWithRetryDecorator: RetryDecorator<SmsMessage> =
+  new RetryDecorator(smsSender);

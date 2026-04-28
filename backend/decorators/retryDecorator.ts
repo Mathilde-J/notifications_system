@@ -1,5 +1,5 @@
-import type { MessageSender } from "../services/messageSenders/baseSender";
-import { errorMessageFixtureBase } from "../utils/fixtures";
+import { errorMessageFixtureBase } from "../helpers/fixtures.js";
+import type { MessageSender } from "../services/messageSenders/baseSender.js";
 
 export class RetryDecorator<T> implements MessageSender<T> {
   retryTimes: number = 3;

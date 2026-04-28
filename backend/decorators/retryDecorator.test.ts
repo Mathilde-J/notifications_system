@@ -1,8 +1,11 @@
-import { beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
-import type { EmailMessage } from "../types/message";
-import { errorMessageFixtureBase, messageFixtureBase } from "../utils/fixtures";
-import { RetryDecorator } from "./retryDecorator";
-import { EmailSender } from "../services/messageSenders/senders/emailSender";
+import { beforeEach, describe, expect, test, vi } from "vitest";
+import {
+  messageFixtureBase,
+  errorMessageFixtureBase,
+} from "../helpers/fixtures.js";
+import { EmailSender } from "../services/messageSenders/senders/emailSender.js";
+import type { EmailMessage } from "../types/message.js";
+import { RetryDecorator } from "./retryDecorator.js";
 
 describe("retrydecorator tests", () => {
   const email: EmailMessage = messageFixtureBase.email;

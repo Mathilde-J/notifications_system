@@ -1,2 +1,0 @@
-TODO :
-- uniformiser les erreurs

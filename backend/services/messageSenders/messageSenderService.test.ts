@@ -1,25 +1,23 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import type { EmailMessage } from "../../types/message";
-import { MessageSenderService } from "./messageSenderServices";
-import { EmailSender } from "./senders/emailSender";
+import { MessageSenderService } from "./messageSenderServices.js";
+import type { Observer } from "../../interfaces/observer/observer.js";
+import { EventResponse } from "../../types/log.js";
+import type { EmailMessage } from "../../types/message.js";
 import {
-  errorMessageFixtureBase,
   messageFixtureBase,
-} from "../../utils/fixtures";
-import type { Observer } from "../../interfaces/observer/observer";
-import { EventResponse } from "../../types/log";
+  errorMessageFixtureBase,
+} from "../../helpers/fixtures.js";
+import { EmailSender } from "./senders/emailSender.js";
 
 describe("messageSenderService", () => {
   let messageSenderService: MessageSenderService<EmailMessage>;
   let emailSender: EmailSender;
   const email: EmailMessage = messageFixtureBase.email;
 
-  describe("messageSenderService without subscribers", () => {
+  describe("messageSenderService without observers", () => {
     beforeEach(() => {
       emailSender = new EmailSender();
-      messageSenderService = new MessageSenderService<EmailMessage>(
-        emailSender,
-      );
+      messageSenderService = new MessageSenderService(emailSender);
     });
 
     test("should call sender's send method when fireMessage is called", async () => {
@@ -37,8 +35,8 @@ describe("messageSenderService", () => {
     });
   });
 
-  describe("messageSenderService with subscribers", () => {
-    const mockObserverClass = class MockObserver implements Observer<EmailMessage> {
+  describe("messageSenderService with observers", () => {
+    const mockObserverClass = class MockObserver implements Observer {
       updateOnObservableNotification(data: EmailMessage): void {
         try {
           console.log("Mock observer notification:", data);
@@ -51,41 +49,39 @@ describe("messageSenderService", () => {
       }
     };
 
-    let mockObserver: Observer<EmailMessage>;
+    let mockObserver: Observer;
 
     beforeEach(() => {
       emailSender = new EmailSender();
-      messageSenderService = new MessageSenderService<EmailMessage>(
-        emailSender,
-      );
+      messageSenderService = new MessageSenderService(emailSender);
       mockObserver = new mockObserverClass();
     });
 
-    test("should add observer to the subscribers array", () => {
+    test("should add observer to the observers array", () => {
       messageSenderService.subscribe(mockObserver);
-      expect(messageSenderService.subscribers).toContain(mockObserver);
+      expect(messageSenderService.observers).toContain(mockObserver);
     });
 
-    test("should not add observer to the subscribers array if it's already present in the array", () => {
+    test("should not add observer to the observers array if it's already present in the array", () => {
       messageSenderService.subscribe(mockObserver);
       messageSenderService.subscribe(mockObserver);
-      const filterObserver = messageSenderService.subscribers.filter(
+      const filterObserver = messageSenderService.observers.filter(
         (observer) => observer === mockObserver,
       );
       expect(filterObserver.length).toBe(1);
     });
 
-    test("should not remove the observer from the subscribers array if it is not already present in the array", () => {
+    test("should not remove the observer from the observers array if it is not already present in the array", () => {
       messageSenderService.unsubscribe(mockObserver);
-      expect(messageSenderService.subscribers.length).toBe(0);
-      expect(messageSenderService.subscribers).not.toContain(mockObserver);
+      expect(messageSenderService.observers.length).toBe(0);
+      expect(messageSenderService.observers).not.toContain(mockObserver);
     });
 
-    test("should remove observer from the subscribers array", () => {
+    test("should remove observer from the observers array", () => {
       messageSenderService.subscribe(mockObserver);
       messageSenderService.unsubscribe(mockObserver);
-      expect(messageSenderService.subscribers).not.toContain(mockObserver);
-      expect(messageSenderService.subscribers.length).toEqual(0);
+      expect(messageSenderService.observers).not.toContain(mockObserver);
+      expect(messageSenderService.observers.length).toEqual(0);
     });
 
     test("should notify observers on successful message sending", async () => {
@@ -101,7 +97,7 @@ describe("messageSenderService", () => {
       );
     });
 
-    test("should throw an error on sender's send error and notify subscribers", async () => {
+    test("should throw an error on sender's send error and notify observers", async () => {
       messageSenderService.subscribe(mockObserver);
       vi.spyOn(emailSender, "send").mockRejectedValue(new Error("fail"));
       const spyUpdateObserverMethod = vi.spyOn(
