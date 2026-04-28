@@ -11,18 +11,15 @@ export class MessageController {
 
   async createMessage(req: Request, res: Response): Promise<void> {
     try {
-      const messageFromRequestBody = req.body?.message;
-      if (!messageFromRequestBody) {
-        throw new Error(errorMessageFixtureBase.missingMessage);
-      }
+      const { message } = req.body;
 
-      const messageType: MessageType = messageFromRequestBody["messageType"];
+      const messageType: MessageType = message["message_type"];
       const service = this.services[messageType];
       if (!service) {
         throw new Error(errorMessageFixtureBase.serviceNotFound);
       }
 
-      await service.fireMessage(messageFromRequestBody);
+      await service.fireMessage(message);
 
       res.status(201).json({
         message: "Message sent successfully",
@@ -34,6 +31,7 @@ export class MessageController {
       });
     }
   }
+
   async test(_req: Request, res: Response): Promise<void> {
     try {
       (await databaseService.clientFromPool()).query("Select 1");

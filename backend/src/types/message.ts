@@ -29,3 +29,13 @@ export type NotificationMessage = Message & {
 export type SlackMessage = Message & {
   messageType: MessageType.SLACK;
 };
+
+export type DbMessage = {
+  id: string;
+  content: string;
+  sent_at: string;
+  message_type: MessageType;
+  title?: string;
+  sender: string;
+  receiver: string;
+};

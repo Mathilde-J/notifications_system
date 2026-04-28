@@ -58,4 +58,9 @@ export const errorMessageFixtureBase = {
   failedToNotifyObserver: "An error occured while notifying observer",
   missingMessage: "No message found",
   serviceNotFound: "No senderService was found",
+  bddErrorCreate: "An error occurred while creating the ressource in the database",
+  bddErrorFindById: "An error occurred while searching for the ressource in the database",
+  bddErrorFindAll: "An error occurred while searching for the ressources in the database",
+  bddErrorUpdate: "An error occurred while updating the ressource in the database",
+  bddErrorDelete: "An error occurred while deleting the ressource in the database",
 };

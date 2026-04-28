@@ -3,6 +3,11 @@ import { Pool, type PoolClient } from "pg";
 
 class DatabaseService {
   private _pool: Pool;
+
+  public get pool(): Pool {
+    return this._pool;
+  }
+
   constructor() {
     try {
       const pool = new Pool({
@@ -16,8 +21,6 @@ class DatabaseService {
         connectionTimeoutMillis: 2000,
         maxLifetimeSeconds: 60,
       });
-      console.log("DB_HOST:", process.env["DATABASE_HOST"]);
-      console.log("DB_NAME:", process.env["DATABASE_NAME"]);
       if (!pool) {
         throw new Error("Failed to create database connection pool.");
       }
