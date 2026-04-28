@@ -5,6 +5,7 @@ export enum MessageType {
   SLACK = "slack",
 }
 
+//forme complète côté métier
 export type Message = {
   id: string;
   content: string;
@@ -12,6 +13,7 @@ export type Message = {
   sender: string;
   receiver: string;
   title?: string;
+  messageType: MessageType;
 };
 
 export type EmailMessage = Message & {
@@ -30,10 +32,20 @@ export type SlackMessage = Message & {
   messageType: MessageType.SLACK;
 };
 
+// La forme base de données
 export type DbMessage = {
   id: string;
   content: string;
   sent_at: string;
+  message_type: MessageType;
+  title?: string;
+  sender: string;
+  receiver: string;
+};
+
+// Vient du client
+export type MessageInput = {
+  content: string;
   message_type: MessageType;
   title?: string;
   sender: string;

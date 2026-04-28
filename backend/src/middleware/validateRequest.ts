@@ -9,7 +9,7 @@ export const validateMessageCreation = [
     .isObject()
     .withMessage(errorMessageFixtureBase.missingMessage),
   body("message.content").notEmpty().isString().trim(),
-  body("message.message_type")
+  body("message.messageType")
     .notEmpty()
     .isString().isIn(Object.values(MessageType)),
   body("message.sender").notEmpty().isString().trim(),

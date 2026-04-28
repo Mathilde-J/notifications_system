@@ -4,17 +4,16 @@ import type { MessageSenderService } from "../../services/messageSenders/message
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 
 import { databaseService } from "../../config/database/db.js";
-import type { MessageType } from "../../types/message.js";
+import type { MessageInput } from "../../types/message.js";
 
 export class MessageController {
-  constructor(private services: Record<string, MessageSenderService<any>>) {}
+  constructor(private services: Record<string, MessageSenderService>) {}
 
   async createMessage(req: Request, res: Response): Promise<void> {
     try {
-      const { message } = req.body;
+      const { message }: { message: MessageInput } = req.body;
 
-      const messageType: MessageType = message["message_type"];
-      const service = this.services[messageType];
+      const service = this.services[message.message_type];
       if (!service) {
         throw new Error(errorMessageFixtureBase.serviceNotFound);
       }

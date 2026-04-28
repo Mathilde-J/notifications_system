@@ -1,12 +1,19 @@
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 import type { Observable } from "../../interfaces/observer/observable.js";
 import type { Observer } from "../../interfaces/observer/observer.js";
+import type { LogRepository } from "../../repositories/logRepository/logRepository.js";
+import type { MessageRepository } from "../../repositories/messageRepository/messageRepository.js";
 import { EventResponse } from "../../types/log.js";
+import type { MessageInput } from "../../types/message.js";
 import type { MessageSender } from "./baseSender.js";
 
-export class MessageSenderService<T> implements Observable {
+export class MessageSenderService implements Observable {
   observers: Observer[] = [];
-  constructor(private sender: MessageSender<T>) {}
+  constructor(
+    private sender: MessageSender,
+    // private messageRepository: MessageRepository,
+    // private logRepository: LogRepository,
+  ) {}
 
   subscribe(observer: Observer): void {
     if (!this.observers.includes(observer)) {
@@ -22,7 +29,7 @@ export class MessageSenderService<T> implements Observable {
     }
   }
 
-  notifyObserver(data: T, status: EventResponse): void {
+  notifyObserver(data: MessageInput, status: EventResponse): void {
     this.observers.forEach((subscribedObserver) => {
       try {
         subscribedObserver.updateOnObservableNotification(data, status);
@@ -32,11 +39,9 @@ export class MessageSenderService<T> implements Observable {
     });
   }
 
-  public async fireMessage(message: T) {
+  public async fireMessage(message: MessageInput) {
     let status: EventResponse = EventResponse.EVENTFAIL;
     try {
-      // on transforme le message en  messagefordb
-      // on envoie en bdd ici
       await this.sender.send(message);
       status = EventResponse.EVENTSUCCESS;
     } catch (error) {

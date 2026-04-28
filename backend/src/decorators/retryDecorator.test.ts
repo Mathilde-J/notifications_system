@@ -9,7 +9,7 @@ import type { EmailMessage } from "../types/message.js";
 
 describe("retrydecorator tests", () => {
   const email: EmailMessage = messageFixtureBase.email;
-  let emailSenderWithRetry: RetryDecorator<EmailMessage>;
+  let emailSenderWithRetry: RetryDecorator;
   let emailSender: EmailSender;
 
   beforeEach(() => {

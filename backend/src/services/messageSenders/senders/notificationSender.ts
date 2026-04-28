@@ -1,10 +1,10 @@
 import { RetryDecorator } from "../../../decorators/retryDecorator.js";
 import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
-import type { NotificationMessage } from "../../../types/message.js";
+import type { MessageInput } from "../../../types/message.js";
 import { BaseSender } from "../baseSender.js";
 
-export class NotificationSender extends BaseSender<NotificationMessage> {
-  protected async sendMessage(notification: NotificationMessage) {
+export class NotificationSender extends BaseSender {
+  protected async sendMessage(notification: MessageInput) {
     try {
       console.info(
         `simuler l'envoie d'une notification : contenu ${notification.content} à l'attention de ${notification.receiver} de la part de ${notification.sender}`,
@@ -18,5 +18,5 @@ export class NotificationSender extends BaseSender<NotificationMessage> {
   }
 }
 const notificationsSender: NotificationSender = new NotificationSender();
-export const notificationSenderWithRetryDecorator: RetryDecorator<NotificationMessage> =
+export const notificationSenderWithRetryDecorator: RetryDecorator =
   new RetryDecorator(notificationsSender);

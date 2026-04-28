@@ -1,11 +1,11 @@
 import type { Pool } from "pg";
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
-import type { DbMessage } from "../../types/message.js";
+import type { DbMessage, MessageInput } from "../../types/message.js";
 
-export class MessageReposirotry {
+export class MessageRepository {
   constructor(private pool: Pool) {}
 
-  public async save(data: DbMessage): Promise<string> {
+  public async save(data: MessageInput): Promise<string> {
     try {
       const { content, title, sender, receiver, message_type } = data;
       const query =
@@ -19,7 +19,7 @@ export class MessageReposirotry {
           message_type,
         ])
       ).rows[0];
-      return result.id;
+      return result.id!;
     } catch (error) {
       console.error(errorMessageFixtureBase.bddErrorCreate, error, "Message");
       throw new Error(

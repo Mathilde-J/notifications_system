@@ -1,11 +1,12 @@
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
+import type { MessageInput } from "../../types/message.js";
 
-export interface MessageSender<T> {
-  send: (message: T) => Promise<void>;
+export interface MessageSender {
+  send: (message: MessageInput) => Promise<void>;
 }
 
-export abstract class BaseSender<T> implements MessageSender<T> {
-  public async send(message: T): Promise<void> {
+export abstract class BaseSender implements MessageSender {
+  public async send(message: MessageInput): Promise<void> {
     try {
       await this.sendMessage(message);
     } catch (error) {
@@ -17,5 +18,5 @@ export abstract class BaseSender<T> implements MessageSender<T> {
   }
 
   // à implémenter dans les enfants
-  protected abstract sendMessage(message: T): Promise<void>;
+  protected abstract sendMessage(message: MessageInput): Promise<void>;
 }

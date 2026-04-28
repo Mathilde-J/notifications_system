@@ -6,12 +6,16 @@ import { messageFixtureBase } from "../../helpers/fixtures.js";
 
 import { emailSenderWithRetryDecorator } from "../../services/messageSenders/senders/emailSender.js";
 import { smsSenderWithRetryDecorator } from "../../services/messageSenders/senders/smsSender.js";
-import type { EmailMessage, SmsMessage, MessageType } from "../../types/message.js";
+import type {
+  EmailMessage,
+  SmsMessage,
+  MessageType,
+} from "../../types/message.js";
 
 describe("MessageController tests", () => {
   let messageController: MessageController;
   const email: EmailMessage = messageFixtureBase.email;
-  let emailService: MessageSenderService<any>;
+  let emailService: MessageSenderService;
   const req = {
     params: {},
     body: email,
@@ -26,13 +30,13 @@ describe("MessageController tests", () => {
   };
 
   beforeEach(() => {
-    const emailSenderServiceWithRetry: MessageSenderService<EmailMessage> =
+    const emailSenderServiceWithRetry: MessageSenderService =
       new MessageSenderService(emailSenderWithRetryDecorator);
-    const smsSenderServiceWithRetry: MessageSenderService<SmsMessage> =
+    const smsSenderServiceWithRetry: MessageSenderService =
       new MessageSenderService(smsSenderWithRetryDecorator);
     const serviceByType: Record<
       MessageType.EMAIL | MessageType.SMS,
-      MessageSenderService<any>
+      MessageSenderService
     > = {
       email: emailSenderServiceWithRetry,
       sms: smsSenderServiceWithRetry,
@@ -40,10 +44,6 @@ describe("MessageController tests", () => {
     emailService = serviceByType[email.messageType]!;
     messageController = new MessageController(serviceByType);
   });
-  // message
-  // pas message
-  // service présent
-  // service pas présent
 
   test("should call the service's send function and return a succes response", () => {
     // tout est ok

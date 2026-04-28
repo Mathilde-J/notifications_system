@@ -1,5 +1,6 @@
+import { databaseService } from "../../config/database/db.js";
 import { LogRepository } from "../../repositories/logRepository/logRepository.js";
-import type { EmailMessage, SmsMessage, NotificationMessage, SlackMessage, MessageType } from "../../types/message.js";
+import type { MessageType } from "../../types/message.js";
 
 import { MessageSenderService } from "./messageSenderServices.js";
 import { emailSenderWithRetryDecorator } from "./senders/emailSender.js";
@@ -7,19 +8,19 @@ import { notificationSenderWithRetryDecorator } from "./senders/notificationSend
 import { slackSenderWithRetryDecorator } from "./senders/slackSender.js";
 import { smsSenderWithRetryDecorator } from "./senders/smsSender.js";
 
-const emailSenderServiceWithRetry: MessageSenderService<EmailMessage> =
+const emailSenderServiceWithRetry: MessageSenderService =
   new MessageSenderService(emailSenderWithRetryDecorator);
 
-const smsSenderServiceWithRetry: MessageSenderService<SmsMessage> =
+const smsSenderServiceWithRetry: MessageSenderService =
   new MessageSenderService(smsSenderWithRetryDecorator);
 
-const notificationSenderServiceWithRetry: MessageSenderService<NotificationMessage> =
+const notificationSenderServiceWithRetry: MessageSenderService =
   new MessageSenderService(notificationSenderWithRetryDecorator);
 
-const slackSenderServiceWithRetry: MessageSenderService<SlackMessage> =
+const slackSenderServiceWithRetry: MessageSenderService =
   new MessageSenderService(slackSenderWithRetryDecorator);
 
-const logRespository = new LogRepository();
+const logRespository = new LogRepository(databaseService.pool);
 
 [
   emailSenderServiceWithRetry,
@@ -30,7 +31,7 @@ const logRespository = new LogRepository();
   service.subscribe(logRespository);
 });
 
-export const serviceByType: Record<MessageType, MessageSenderService<any>> = {
+export const serviceByType: Record<MessageType, MessageSenderService> = {
   email: emailSenderServiceWithRetry,
   sms: smsSenderServiceWithRetry,
   notification: notificationSenderServiceWithRetry,

@@ -1,10 +1,10 @@
 import { RetryDecorator } from "../../../decorators/retryDecorator.js";
 import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
-import type { SlackMessage } from "../../../types/message.js";
+import type { MessageInput } from "../../../types/message.js";
 import { BaseSender } from "../baseSender.js";
 
-export class SlackSender extends BaseSender<SlackMessage> {
-  protected async sendMessage(message: SlackMessage): Promise<void> {
+export class SlackSender extends BaseSender {
+  protected async sendMessage(message: MessageInput): Promise<void> {
     try {
       console.info(
         "on simule l'envoie d'un message à un canal slack",
@@ -20,5 +20,6 @@ export class SlackSender extends BaseSender<SlackMessage> {
 }
 
 const slackSender: SlackSender = new SlackSender();
-export const slackSenderWithRetryDecorator: RetryDecorator<SlackMessage> =
-  new RetryDecorator(slackSender);
+export const slackSenderWithRetryDecorator: RetryDecorator = new RetryDecorator(
+  slackSender,
+);

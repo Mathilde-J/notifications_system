@@ -1,10 +1,10 @@
 import { RetryDecorator } from "../../../decorators/retryDecorator.js";
 import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
-import type { EmailMessage } from "../../../types/message.js";
+import type { MessageInput } from "../../../types/message.js";
 import { BaseSender } from "../baseSender.js";
 
-export class EmailSender extends BaseSender<EmailMessage> {
-  protected async sendMessage(email: EmailMessage) {
+export class EmailSender extends BaseSender {
+  protected async sendMessage(email: MessageInput) {
     try {
       console.info(
         `simuler l'envoie d'un email : contenu ${email.content} à l'attention de ${email.receiver} de la part de ${email.sender}`,
@@ -20,5 +20,6 @@ export class EmailSender extends BaseSender<EmailMessage> {
 }
 
 const emailSender: EmailSender = new EmailSender();
-export const emailSenderWithRetryDecorator: RetryDecorator<EmailMessage> =
-  new RetryDecorator(emailSender);
+export const emailSenderWithRetryDecorator: RetryDecorator = new RetryDecorator(
+  emailSender,
+);

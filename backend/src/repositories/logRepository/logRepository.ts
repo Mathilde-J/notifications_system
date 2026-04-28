@@ -1,53 +1,30 @@
-
+import type { Pool } from "pg";
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 import type { Observer } from "../../interfaces/observer/observer.js";
-import type { Log } from "../../types/log.js";
+import type { EventResponse, Log } from "../../types/log.js";
 
 export class LogRepository implements Observer {
-  constructor() {}
+  constructor(private pool: Pool) {}
 
-  async createLog(log: Log): Promise<void> {
+  public async save(data: Log): Promise<void> {
     try {
-      console.info("on créé un log dans la bdd");
+      const { messageId, loggedAt, status } = data;
+      const query = "INSERT INTO log (message_id, status) VALUES ($1, $2, $3)";
+      await this.pool.query(query, [messageId, loggedAt, status]);
     } catch (error) {
-      console.error(errorMessageFixtureBase.logCreationError, error);
+      console.error(errorMessageFixtureBase.bddErrorCreate, error, "Log");
       throw new Error(
-        `${errorMessageFixtureBase.logCreationError}, error: ${error}`,
+        `${errorMessageFixtureBase.bddErrorCreate}, error: ${error}`,
       );
     }
   }
 
-  async getAllLogs(): Promise<Log[]> {
+  async updateOnObservableNotification(
+    data: any,
+    status: EventResponse,
+  ): Promise<void> {
     try {
-      console.info("récupère tous les logs de la bdd");
-      return [];
-    } catch (error) {
-      console.error(errorMessageFixtureBase.logRetrievalError, error);
-      throw new Error(
-        `${errorMessageFixtureBase.logRetrievalError}, error: ${error}`,
-      );
-    }
-  }
-
-  async getLogById(logId: string): Promise<Log> {
-    try {
-      console.info("récupère un log par son ID");
-      throw "not implemented yet";
-    } catch (error) {
-      console.error(errorMessageFixtureBase.logRetrievalError, error);
-      throw new Error(
-        `${errorMessageFixtureBase.logRetrievalError}, error: ${error}`,
-      );
-    }
-  }
-
-  async updateOnObservableNotification(data: any): Promise<void> {
-    console.info("je réagi après un envoie de message pour logger");
-    console.info("converti la data en log et envoie en bdd");
-    await this.createLog(data)
+      await this.save(data);
+    } catch (error) {}
   }
 }
-
-export const loggerRepository: LogRepository = new LogRepository(
-
-);

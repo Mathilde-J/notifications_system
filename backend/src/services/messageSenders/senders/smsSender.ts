@@ -1,10 +1,10 @@
 import { RetryDecorator } from "../../../decorators/retryDecorator.js";
 import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
-import type { SmsMessage } from "../../../types/message.js";
+import type { MessageInput } from "../../../types/message.js";
 import { BaseSender } from "../baseSender.js";
 
-export class SmsSender extends BaseSender<SmsMessage> {
-  protected async sendMessage(sms: SmsMessage) {
+export class SmsSender extends BaseSender {
+  protected async sendMessage(sms: MessageInput) {
     try {
       console.info(
         `simuler l'envoie d'une sms : contenu ${sms.content} à l'attention de ${sms.receiver} de la part de ${sms.sender}`,
@@ -18,5 +18,6 @@ export class SmsSender extends BaseSender<SmsMessage> {
   }
 }
 const smsSender: SmsSender = new SmsSender();
-export const smsSenderWithRetryDecorator: RetryDecorator<SmsMessage> =
-  new RetryDecorator(smsSender);
+export const smsSenderWithRetryDecorator: RetryDecorator = new RetryDecorator(
+  smsSender,
+);

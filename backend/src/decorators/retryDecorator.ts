@@ -1,11 +1,12 @@
 import { errorMessageFixtureBase } from "../helpers/fixtures.js";
 import type { MessageSender } from "../services/messageSenders/baseSender.js";
+import type { MessageInput } from "../types/message.js";
 
-export class RetryDecorator<T> implements MessageSender<T> {
+export class RetryDecorator implements MessageSender {
   retryTimes: number = 3;
-  constructor(private sender: MessageSender<T>) {}
+  constructor(private sender: MessageSender) {}
 
-  async trySendingMessage(message: T) {
+  async trySendingMessage(message: MessageInput) {
     console.log("RETRYCALLED");
     while (this.retryTimes > 0) {
       try {
@@ -24,7 +25,7 @@ export class RetryDecorator<T> implements MessageSender<T> {
     }
   }
 
-  async send(message: T) {
+  async send(message: MessageInput) {
     try {
       await this.trySendingMessage(message);
     } catch (error) {
