@@ -5,10 +5,9 @@ import {
 } from "../helpers/fixtures.js";
 import { EmailSender } from "../services/messageSenders/senders/emailSender.js";
 import { RetryDecorator } from "./retryDecorator.js";
-import type { EmailMessage } from "../types/message.js";
 
 describe("retrydecorator tests", () => {
-  const email: EmailMessage = messageFixtureBase.email;
+  const emailInput = messageFixtureBase.emailInput;
   let emailSenderWithRetry: RetryDecorator;
   let emailSender: EmailSender;
 
@@ -19,17 +18,17 @@ describe("retrydecorator tests", () => {
 
   test("emailSenderWithRetry's send method should calls the trySendingMessage method", async () => {
     const spy = vi.spyOn(emailSenderWithRetry, "trySendingMessage");
-    await emailSenderWithRetry.send(email);
+    await emailSenderWithRetry.send(emailInput);
     expect(spy).toHaveBeenCalledOnce();
-    expect(spy).toHaveBeenCalledExactlyOnceWith(email);
+    expect(spy).toHaveBeenCalledExactlyOnceWith(emailInput);
   });
 
   test("emailSenderWithRetry's trySendingMessage method should call the sender's send method once on success", async () => {
     const spy = vi.spyOn(emailSender, "send");
 
-    await emailSenderWithRetry.trySendingMessage(email);
+    await emailSenderWithRetry.trySendingMessage(emailInput);
 
-    expect(spy).toHaveBeenCalledExactlyOnceWith(email);
+    expect(spy).toHaveBeenCalledExactlyOnceWith(emailInput);
     expect(emailSenderWithRetry.retryTimes).toBe(3);
   });
 
@@ -39,7 +38,7 @@ describe("retrydecorator tests", () => {
       .mockRejectedValue(new Error("fail"));
 
     await expect(
-      async () => await emailSenderWithRetry.trySendingMessage(email),
+      async () => await emailSenderWithRetry.trySendingMessage(emailInput),
     ).rejects.toThrow(errorMessageFixtureBase.failedToSendMessageAfterRetries);
     expect(spySender).toHaveBeenCalledTimes(3);
     expect(emailSenderWithRetry.retryTimes).toBe(0);
@@ -52,7 +51,7 @@ describe("retrydecorator tests", () => {
       .mockRejectedValueOnce(new Error("fail"))
       .mockImplementationOnce(() => Promise.resolve());
 
-    await emailSenderWithRetry.trySendingMessage(email);
+    await emailSenderWithRetry.trySendingMessage(emailInput);
 
     expect(spySender).toHaveBeenCalledTimes(3);
     expect(emailSenderWithRetry.retryTimes).toBe(1);

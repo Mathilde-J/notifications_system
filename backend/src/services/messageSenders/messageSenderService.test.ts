@@ -10,9 +10,9 @@ import { EventResponse } from "../../types/log.js";
 import type { EmailMessage } from "../../types/message.js";
 
 describe("messageSenderService", () => {
-  let messageSenderService: MessageSenderService<EmailMessage>;
+  let messageSenderService: MessageSenderService;
   let emailSender: EmailSender;
-  const email: EmailMessage = messageFixtureBase.email;
+  const emailInput = messageFixtureBase.emailInput;
 
   describe("messageSenderService without observers", () => {
     beforeEach(() => {
@@ -22,15 +22,15 @@ describe("messageSenderService", () => {
 
     test("should call sender's send method when fireMessage is called", async () => {
       const spySenderSendMethod = vi.spyOn(emailSender, "send");
-      await messageSenderService.fireMessage(email);
-      expect(spySenderSendMethod).toHaveBeenCalledExactlyOnceWith(email);
+      await messageSenderService.fireMessage(emailInput);
+      expect(spySenderSendMethod).toHaveBeenCalledExactlyOnceWith(emailInput);
     });
 
     test("should throw an error on sender's send error", async () => {
       vi.spyOn(emailSender, "send").mockRejectedValue(new Error("fail"));
 
       await expect(
-        async () => await messageSenderService.fireMessage(email),
+        async () => await messageSenderService.fireMessage(emailInput),
       ).rejects.toThrow(Error("An error Occured, error: Error: fail"));
     });
   });
@@ -42,7 +42,7 @@ describe("messageSenderService", () => {
         status: EventResponse,
       ): Promise<void> {
         try {
-          console.log("Mock observer notification:", data);
+          console.log("Mock observer notification:", data, status);
         } catch (error) {
           console.error(errorMessageFixtureBase.failedToNotifyObserver, error);
           throw new Error(
@@ -93,9 +93,9 @@ describe("messageSenderService", () => {
         mockObserver,
         "updateOnObservableNotification",
       );
-      await messageSenderService.fireMessage(email);
+      await messageSenderService.fireMessage(emailInput);
       expect(spyUpdateObserverMethod).toHaveBeenCalledExactlyOnceWith(
-        email,
+        emailInput,
         EventResponse.EVENTSUCCESS,
       );
     });
@@ -109,11 +109,11 @@ describe("messageSenderService", () => {
       );
 
       await expect(
-        async () => await messageSenderService.fireMessage(email),
+        async () => await messageSenderService.fireMessage(emailInput),
       ).rejects.toThrow(Error("An error Occured, error: Error: fail"));
 
       expect(spyUpdateObserverMethod).toHaveBeenCalledExactlyOnceWith(
-        email,
+        emailInput,
         EventResponse.EVENTFAIL,
       );
     });
@@ -125,11 +125,11 @@ describe("messageSenderService", () => {
         "updateOnObservableNotification",
       );
       messageSenderService.subscribe(mockObserver);
-      await messageSenderService.fireMessage(email);
+      await messageSenderService.fireMessage(emailInput);
 
-      expect(spySenderSendMethod).toHaveBeenCalledExactlyOnceWith(email);
+      expect(spySenderSendMethod).toHaveBeenCalledExactlyOnceWith(emailInput);
       expect(spyObserverUpdateMethod).toHaveBeenCalledExactlyOnceWith(
-        email,
+        emailInput,
         EventResponse.EVENTSUCCESS,
       );
     });
@@ -150,10 +150,10 @@ describe("messageSenderService", () => {
         "updateOnObservableNotification",
       );
 
-      await messageSenderService.fireMessage(email);
+      await messageSenderService.fireMessage(emailInput);
 
       expect(spyObserverUpdateMethod).toHaveBeenCalledExactlyOnceWith(
-        email,
+        emailInput,
         EventResponse.EVENTSUCCESS,
       );
     });

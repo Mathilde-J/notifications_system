@@ -4,6 +4,7 @@ import {
   type SmsMessage,
   type NotificationMessage,
   type SlackMessage,
+  type MessageInput,
 } from "../types/message.js";
 
 export const messageFixtureBase = {
@@ -43,6 +44,13 @@ export const messageFixtureBase = {
     subject: "subject1",
     messageType: MessageType.SLACK,
   } as SlackMessage,
+  emailInput: {
+    content: "content1",
+    sender: "idsender",
+    receiver: "idreceiver1",
+    title: "subject1",
+    message_type: MessageType.EMAIL,
+  } as MessageInput,
 };
 
 export const errorMessageFixtureBase = {
@@ -58,9 +66,14 @@ export const errorMessageFixtureBase = {
   failedToNotifyObserver: "An error occured while notifying observer",
   missingMessage: "No message found",
   serviceNotFound: "No senderService was found",
-  bddErrorCreate: "An error occurred while creating the ressource in the database",
-  bddErrorFindById: "An error occurred while searching for the ressource in the database",
-  bddErrorFindAll: "An error occurred while searching for the ressources in the database",
-  bddErrorUpdate: "An error occurred while updating the ressource in the database",
-  bddErrorDelete: "An error occurred while deleting the ressource in the database",
+  bddErrorCreate:
+    "An error occurred while creating the ressource in the database",
+  bddErrorFindById:
+    "An error occurred while searching for the ressource in the database",
+  bddErrorFindAll:
+    "An error occurred while searching for the ressources in the database",
+  bddErrorUpdate:
+    "An error occurred while updating the ressource in the database",
+  bddErrorDelete:
+    "An error occurred while deleting the ressource in the database",
 };
