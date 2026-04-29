@@ -7,7 +7,7 @@ import {
 } from "../../helpers/fixtures.js";
 import { EmailSender } from "./senders/emailSender.js";
 import { EventResponse } from "../../types/log.js";
-import type { EmailMessage } from "../../types/message.js";
+import type { MessageInput } from "../../types/message.js";
 
 describe("messageSenderService", () => {
   let messageSenderService: MessageSenderService;
@@ -38,7 +38,7 @@ describe("messageSenderService", () => {
   describe("messageSenderService with observers", () => {
     const mockObserverClass = class MockObserver implements Observer {
       async updateOnObservableNotification(
-        data: EmailMessage,
+        data: MessageInput,
         status: EventResponse,
       ): Promise<void> {
         try {

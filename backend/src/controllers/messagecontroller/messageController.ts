@@ -11,7 +11,7 @@ export class MessageController {
     try {
       const { message }: { message: MessageInput } = req.body;
 
-      const service = this.services[message.message_type];
+      const service = this.services[message.messageType];
       if (!service) {
         throw new Error(errorMessageFixtureBase.serviceNotFound);
       }

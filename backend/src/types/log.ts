@@ -4,7 +4,6 @@ export enum EventResponse {
 }
 
 export type Log = {
-  id: string;
   messageId: string;
   loggedAt: string;
   status: EventResponse;

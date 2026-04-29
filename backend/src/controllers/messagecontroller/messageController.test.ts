@@ -1,4 +1,4 @@
-import { beforeEach } from "node:test";
+import { beforeEach } from "vitest";
 import { describe, expect, test, vi } from "vitest";
 import { MessageController } from "./messageController.js";
 import { MessageSenderService } from "../../services/messageSenders/messageSenderServices.js";
@@ -66,7 +66,7 @@ describe("MessageController tests", () => {
     });
   });
 
-  test("should return an error response with 'No senderService was found' message", async () => {
+  test("should return an error response with 'An error Occured", async () => {
     const spy = vi.spyOn(emailService, "fireMessage");
     const req = mockReq({ body: { message: emailInput } });
     const res = mockRes();

@@ -7,7 +7,7 @@ export class MessageRepository {
 
   public async save(data: MessageInput): Promise<string> {
     try {
-      const { content, title, sender, receiver, message_type } = data;
+      const { content, title, sender, receiver, messageType } = data;
       const query =
         "INSERT INTO message (content, title, sender, receiver, message_type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id";
       const result: DbMessage = (
@@ -16,7 +16,7 @@ export class MessageRepository {
           title,
           sender,
           receiver,
-          message_type,
+          messageType,
         ])
       ).rows[0];
       return result.id!;

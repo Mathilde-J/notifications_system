@@ -19,21 +19,16 @@ export type DbMessage = {
 // La forme qui vient du client
 export type MessageInput = {
   content: string;
-  message_type: MessageType;
+  messageType: MessageType;
   title?: string;
   sender: string;
   receiver: string;
 };
 
 //La forme complète côté métier
-export type Message = {
+export type Message = MessageInput & {
   id: string;
-  content: string;
   sentAt: string;
-  sender: string;
-  receiver: string;
-  title?: string;
-  messageType: MessageType;
 };
 
 export type EmailMessage = Message & {

@@ -1,7 +1,6 @@
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 import type { Observable } from "../../interfaces/observer/observable.js";
 import type { Observer } from "../../interfaces/observer/observer.js";
-import type { LogRepository } from "../../repositories/logRepository/logRepository.js";
 import type { MessageRepository } from "../../repositories/messageRepository/messageRepository.js";
 import { EventResponse } from "../../types/log.js";
 import type { MessageInput } from "../../types/message.js";
@@ -11,8 +10,7 @@ export class MessageSenderService implements Observable {
   observers: Observer[] = [];
   constructor(
     private sender: MessageSender,
-    // private messageRepository: MessageRepository,
-    // private logRepository: LogRepository,
+    private messageRepository: MessageRepository,
   ) {}
 
   subscribe(observer: Observer): void {
@@ -29,10 +27,10 @@ export class MessageSenderService implements Observable {
     }
   }
 
-  notifyObserver(data: MessageInput, status: EventResponse): void {
+  notifyObserver(messageId: string, status: EventResponse): void {
     this.observers.forEach((subscribedObserver) => {
       try {
-        subscribedObserver.updateOnObservableNotification(data, status);
+        subscribedObserver.updateOnObservableNotification(messageId, status);
       } catch (error) {
         console.error(errorMessageFixtureBase.failedToNotifyObserver, error);
       }
@@ -41,7 +39,9 @@ export class MessageSenderService implements Observable {
 
   public async fireMessage(message: MessageInput) {
     let status: EventResponse = EventResponse.EVENTFAIL;
+    let messageId: string | undefined;
     try {
+      messageId = await this.messageRepository.save(message);
       await this.sender.send(message);
       status = EventResponse.EVENTSUCCESS;
     } catch (error) {
@@ -50,7 +50,8 @@ export class MessageSenderService implements Observable {
         `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,
       );
     } finally {
-      if (this.observers.length !== 0) this.notifyObserver(message, status);
+      if (this.observers.length !== 0 && messageId)
+        this.notifyObserver(messageId, status);
     }
   }
 }

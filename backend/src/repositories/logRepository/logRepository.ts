@@ -20,11 +20,21 @@ export class LogRepository implements Observer {
   }
 
   async updateOnObservableNotification(
-    data: any,
+    messageId: string,
     status: EventResponse,
   ): Promise<void> {
     try {
-      await this.save(data);
-    } catch (error) {}
+      const log: Log = {
+        messageId: messageId,
+        loggedAt: new Date().toISOString(),
+        status: status,
+      };
+      await this.save(log);
+    } catch (error) {
+      console.error(errorMessageFixtureBase.bddErrorCreate, error, "Log");
+      throw new Error(
+        `${errorMessageFixtureBase.bddErrorCreate}, error: ${error}`,
+      );
+    }
   }
 }

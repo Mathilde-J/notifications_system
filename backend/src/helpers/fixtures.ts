@@ -2,9 +2,6 @@ import { vi } from "vitest";
 import {
   MessageType,
   type EmailMessage,
-  type SmsMessage,
-  type NotificationMessage,
-  type SlackMessage,
   type MessageInput,
 } from "../types/message.js";
 
@@ -18,39 +15,13 @@ export const messageFixtureBase = {
     title: "subject1",
     messageType: MessageType.EMAIL,
   } as EmailMessage,
-  sms: {
-    id: "id1",
-    content: "content1",
-    sentAt: "timestampz",
-    sender: "idsender",
-    receiver: "idreceiver1",
-    subject: "subject1",
-    messageType: MessageType.SMS,
-  } as SmsMessage,
-  notification: {
-    id: "id1",
-    content: "content1",
-    sentAt: "timestampz",
-    sender: "idsender",
-    receiver: "idreceiver1",
-    subject: "subject1",
-    messageType: MessageType.PUSH,
-  } as NotificationMessage,
-  slack: {
-    id: "id1",
-    content: "content1",
-    sentAt: "timestampz",
-    sender: "idsender",
-    receiver: "idreceiver1",
-    subject: "subject1",
-    messageType: MessageType.SLACK,
-  } as SlackMessage,
+
   emailInput: {
     content: "content1",
     sender: "idsender",
     receiver: "idreceiver1",
     title: "subject1",
-    message_type: MessageType.EMAIL,
+    messageType: MessageType.EMAIL,
   } as MessageInput,
 };
 

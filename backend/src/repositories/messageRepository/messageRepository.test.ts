@@ -17,39 +17,42 @@ describe("MessageRepository", () => {
 
   test("should save a message and return its id", async () => {
     const expectedId = "12345";
-    const fakeQuery = "fake_query";
-
+    const query =
+      "INSERT INTO message (content, title, sender, receiver, message_type) VALUES ($1, $2, $3, $4, $5) RETURNING id";
     const spy = vi.spyOn(pool, "query").mockResolvedValueOnce({
       rows: [{ id: expectedId }],
     } as any);
 
     const result = await messageRepository.save(emailInput);
-
-    expect(spy).toHaveBeenCalledExactlyOnceWith(fakeQuery, [
+    expect(spy).toHaveBeenCalledWith(query, [
       emailInput.content,
       emailInput.title,
       emailInput.sender,
       emailInput.receiver,
-      emailInput.message_type,
+      emailInput.messageType,
     ]);
+
     expect(result).toBe(expectedId);
   });
 
   test("should throw an error if the database query fails", async () => {
-    const fakeQuery = "fake_query";
+    const query =
+      "INSERT INTO message (content, title, sender, receiver, message_type) VALUES ($1, $2, $3, $4, $5) RETURNING id";
     const spy = vi
       .spyOn(pool, "query")
       .mockRejectedValueOnce(new Error("Database error"));
 
-    await expect(messageRepository.save(emailInput)).rejects.toThrow(
-      "An error occurred while creating the ressource in the database, error: Error: Database error",
-    );
-    expect(spy).toHaveBeenCalledExactlyOnceWith(fakeQuery, [
+    await messageRepository.save(emailInput);
+    expect(spy).toHaveBeenCalledWith(query, [
       emailInput.content,
       emailInput.title,
       emailInput.sender,
       emailInput.receiver,
-      emailInput.message_type,
+      emailInput.messageType,
     ]);
+
+    await expect(messageRepository.save(emailInput)).rejects.toThrow(
+      "An error occurred while creating the ressource in the database, error: Error: Database error",
+    );
   });
 });

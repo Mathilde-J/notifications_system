@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { DatabaseService } from "./db.js";
-import { beforeEach } from "node:test";
+import { beforeEach } from "vitest";
 import { Pool } from "pg";
 
 describe("Database configuration tests", () => {
@@ -28,9 +28,7 @@ describe("Database configuration tests", () => {
       maxLifetimeSeconds: 60,
     };
 
-    await expect(
-      async () => new DatabaseService(customOptionsforFailure),
-    ).rejects.toThrow(
+    expect(() => new DatabaseService(customOptionsforFailure)).toThrow(
       `An error occurred while connecting to the database, error: Failed to create database connection pool.`,
     );
   });
