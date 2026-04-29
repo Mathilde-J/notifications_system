@@ -1,5 +1,6 @@
 import { databaseService } from "../../config/database/db.js";
-import { LogRepository } from "../../repositories/logRepository/logRepository.js";
+import { logRepository, LogRepository } from "../../repositories/logRepository/logRepository.js";
+import { messageRespository } from "../../repositories/messageRepository/messageRepository.js";
 import type { MessageType } from "../../types/message.js";
 
 import { MessageSenderService } from "./messageSenderServices.js";
@@ -9,18 +10,20 @@ import { slackSenderWithRetryDecorator } from "./senders/slackSender.js";
 import { smsSenderWithRetryDecorator } from "./senders/smsSender.js";
 
 const emailSenderServiceWithRetry: MessageSenderService =
-  new MessageSenderService(emailSenderWithRetryDecorator);
+  new MessageSenderService(emailSenderWithRetryDecorator, messageRespository);
 
 const smsSenderServiceWithRetry: MessageSenderService =
-  new MessageSenderService(smsSenderWithRetryDecorator);
+  new MessageSenderService(smsSenderWithRetryDecorator, messageRespository);
 
 const notificationSenderServiceWithRetry: MessageSenderService =
-  new MessageSenderService(notificationSenderWithRetryDecorator);
+  new MessageSenderService(
+    notificationSenderWithRetryDecorator,
+    messageRespository,
+  );
 
 const slackSenderServiceWithRetry: MessageSenderService =
-  new MessageSenderService(slackSenderWithRetryDecorator);
+  new MessageSenderService(slackSenderWithRetryDecorator, messageRespository);
 
-const logRespository = new LogRepository(databaseService.pool);
 
 [
   emailSenderServiceWithRetry,
@@ -28,7 +31,7 @@ const logRespository = new LogRepository(databaseService.pool);
   notificationSenderServiceWithRetry,
   slackSenderServiceWithRetry,
 ].forEach((service) => {
-  service.subscribe(logRespository);
+  service.subscribe(logRepository);
 });
 
 export const serviceByType: Record<MessageType, MessageSenderService> = {

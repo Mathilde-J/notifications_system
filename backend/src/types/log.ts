@@ -1,6 +1,6 @@
 export enum EventResponse {
-  EVENTSUCCESS,
-  EVENTFAIL,
+  EVENTSUCCESS = "success",
+  EVENTFAIL = "fail",
 }
 
 export type Log = LogInput & {
