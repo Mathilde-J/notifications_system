@@ -24,6 +24,7 @@ describe("MessageRepository", () => {
     } as any);
 
     const result = await messageRepository.save(emailInput);
+    
     expect(spy).toHaveBeenCalledWith(query, [
       emailInput.content,
       emailInput.title,
@@ -31,7 +32,6 @@ describe("MessageRepository", () => {
       emailInput.receiver,
       emailInput.messageType,
     ]);
-
     expect(result).toBe(expectedId);
   });
 

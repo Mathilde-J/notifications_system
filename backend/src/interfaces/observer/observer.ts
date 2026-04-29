@@ -1,6 +1,8 @@
 import type { EventResponse } from "../../types/log.js";
 
-
 export interface Observer {
-   updateOnObservableNotification(data: any, status: EventResponse): Promise<void>;
+  updateOnObservableNotification(
+    messageId: string,
+    status: EventResponse,
+  ): Promise<void>;
 }

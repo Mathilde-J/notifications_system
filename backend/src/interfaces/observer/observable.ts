@@ -6,5 +6,5 @@ export interface Observable {
   observers: Observer[];
   subscribe(observer: Observer): void;
   unsubscribe(observer: Observer): void;
-  notifyObserver(data: any, status: EventResponse): void;
+  notifyObserver(messageId: string, status: EventResponse): void;
 }

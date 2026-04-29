@@ -12,20 +12,32 @@ import { EmailSender } from "../../services/messageSenders/senders/emailSender.j
 import { SmsSender } from "../../services/messageSenders/senders/smsSender.js";
 import { type MessageInput } from "../../types/message.js";
 import { RetryDecorator } from "../../decorators/retryDecorator.js";
+import type { Pool } from "pg";
+import { mock } from "vitest-mock-extended";
+import { MessageRepository } from "../../repositories/messageRepository/messageRepository.js";
 
 describe("MessageController tests", () => {
   let messageController: MessageController;
   let emailService: MessageSenderService;
+  let messageRepository: MessageRepository;
   const emailInput: MessageInput = messageFixtureBase.emailInput;
 
   beforeEach(() => {
+    const pool = mock<Pool>();
+    messageRepository = new MessageRepository(pool);
     const emailSender = new EmailSender();
     const emailSenderWithDecorator = new RetryDecorator(emailSender);
-    emailService = new MessageSenderService(emailSenderWithDecorator);
+    emailService = new MessageSenderService(
+      emailSenderWithDecorator,
+      messageRepository,
+    );
 
     const smsSender = new SmsSender();
     const smsSenderWithDecorator = new RetryDecorator(smsSender);
-    const smsService = new MessageSenderService(smsSenderWithDecorator);
+    const smsService = new MessageSenderService(
+      smsSenderWithDecorator,
+      messageRepository,
+    );
 
     messageController = new MessageController({
       sms: smsService,
@@ -34,7 +46,9 @@ describe("MessageController tests", () => {
   });
 
   test("should call the service's send function and return a succes response", async () => {
-    const spy = vi.spyOn(emailService, "fireMessage");
+    const spy = vi
+      .spyOn(emailService, "fireMessage")
+      .mockResolvedValue(undefined);
     const req = mockReq({ body: { message: emailInput } });
     const res = mockRes();
 
@@ -50,7 +64,7 @@ describe("MessageController tests", () => {
 
   test("should return an error response with 'No senderService was found' message", async () => {
     const req = mockReq({
-      body: { message: { ...emailInput, message_type: "unknown" } },
+      body: { message: { ...emailInput, messageType: "unknown" } },
     });
     const res = mockRes();
 
@@ -58,7 +72,7 @@ describe("MessageController tests", () => {
 
     expect(req.body.message).toEqual({
       ...emailInput,
-      message_type: "unknown",
+      messageType: "unknown",
     });
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({

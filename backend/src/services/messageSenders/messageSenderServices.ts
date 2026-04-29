@@ -28,9 +28,12 @@ export class MessageSenderService implements Observable {
   }
 
   notifyObserver(messageId: string, status: EventResponse): void {
-    this.observers.forEach((subscribedObserver) => {
+    this.observers.forEach(async (subscribedObserver) => {
       try {
-        subscribedObserver.updateOnObservableNotification(messageId, status);
+        await subscribedObserver.updateOnObservableNotification(
+          messageId,
+          status,
+        );
       } catch (error) {
         console.error(errorMessageFixtureBase.failedToNotifyObserver, error);
       }
