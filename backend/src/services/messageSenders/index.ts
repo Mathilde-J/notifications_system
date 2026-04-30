@@ -1,5 +1,4 @@
-import { databaseService } from "../../config/database/db.js";
-import { logRepository, LogRepository } from "../../repositories/logRepository/logRepository.js";
+import { logRepository } from "../../repositories/logRepository/logRepository.js";
 import { messageRespository } from "../../repositories/messageRepository/messageRepository.js";
 import type { MessageType } from "../../types/message.js";
 
@@ -23,7 +22,6 @@ const notificationSenderServiceWithRetry: MessageSenderService =
 
 const slackSenderServiceWithRetry: MessageSenderService =
   new MessageSenderService(slackSenderWithRetryDecorator, messageRespository);
-
 
 [
   emailSenderServiceWithRetry,
