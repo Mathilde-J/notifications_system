@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import type { Request, Response } from "express";
 import {
@@ -18,7 +17,7 @@ messageRouter.post(
   },
 );
 
-messageRouter.get("/", async ( res: Response) => {
+messageRouter.get("/", async (req: Request, res: Response) => {
   await messageController.getAllMessages(res);
 });
 

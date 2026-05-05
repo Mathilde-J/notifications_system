@@ -19,7 +19,7 @@ export class MessageRepository {
           messageType,
         ])
       ).rows[0];
-      return result.id!;
+      return result.id;
     } catch (error) {
       console.error(errorMessageFixtureBase.bddErrorCreate, error, "Message");
       throw new Error(
@@ -31,9 +31,13 @@ export class MessageRepository {
   public async getAllMessages(): Promise<Message[]> {
     try {
       const query = "SELECT * FROM message";
-      const result: DbMessage[] = (await this.pool.query(query)).rows[0];
-      return result.map((dbMessage) => ({
-        ...dbMessage,
+      const { rows }: { rows: DbMessage[] } = await this.pool.query(query);
+      return rows.map((dbMessage) => ({
+        id: dbMessage.id!,
+        content: dbMessage.content,
+        title: dbMessage.title ?? undefined,
+        sender: dbMessage.sender,
+        receiver: dbMessage.receiver,
         sentAt: dbMessage.sent_at,
         messageType: dbMessage.message_type,
       }));

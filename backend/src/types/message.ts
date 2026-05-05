@@ -11,7 +11,7 @@ export type DbMessage = {
   content: string;
   sent_at: string;
   message_type: MessageType;
-  title?: string;
+  title: string | null;
   sender: string;
   receiver: string;
 };
@@ -20,7 +20,7 @@ export type DbMessage = {
 export type MessageInput = {
   content: string;
   messageType: MessageType;
-  title?: string;
+  title?: string | undefined;
   sender: string;
   receiver: string;
 };
