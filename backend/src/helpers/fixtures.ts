@@ -4,6 +4,7 @@ import {
   type EmailMessage,
   type MessageInput,
 } from "../types/message.js";
+import type { Request, Response } from "express";
 
 export const messageFixtureBase = {
   email: {
@@ -37,6 +38,12 @@ export const errorMessageFixtureBase = {
   logRetrievalError: "An error occurred while retrieving the log",
   failedToNotifyObserver: "An error occured while notifying observer",
   missingMessage: "No message found",
+  missingContent: "No content found in message",
+  missingMessageType: "No messageType found in message",
+  missingSender: "No sender found in message",
+  missingReceiver: "No receiver found in message",
+  invalidMessageType: "Invalid messageType value",
+  emptyTitle: "Title cannot be empty if provided",
   serviceNotFound: "No senderService was found",
   bddErrorCreate:
     "An error occurred while creating the ressource in the database",
@@ -49,9 +56,6 @@ export const errorMessageFixtureBase = {
   bddErrorDelete:
     "An error occurred while deleting the ressource in the database",
 };
-
-// test/helpers.ts
-import type { Request, Response } from "express";
 
 export function mockReq(overrides: Partial<Request> = {}): Request {
   return {

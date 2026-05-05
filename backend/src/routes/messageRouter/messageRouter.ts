@@ -17,8 +17,4 @@ messageRouter.post(
   },
 );
 
-messageRouter.get("/test", async (req, res) => {
-  await messageController.test(req, res);
-});
-
 export default messageRouter;
