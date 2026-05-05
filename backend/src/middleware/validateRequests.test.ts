@@ -1,7 +1,10 @@
 import { describe, expect, test, beforeEach, vi } from "vitest";
 import { validationResult } from "express-validator";
 import type { NextFunction, Request, Response } from "express";
-import { validateMessageCreation, validateRequestMiddleware } from "./validateRequest.js";
+import {
+  validateMessageCreation,
+  validateRequestMiddleware,
+} from "./validateRequest.js";
 import { messageFixtureBase, mockReq, mockRes } from "../helpers/fixtures.js";
 import { errorMessageFixtureBase } from "../helpers/fixtures.js";
 
@@ -52,7 +55,9 @@ describe("validateMessageCreation", () => {
   });
 
   test("Invalid messageType — invalid messageType error", async () => {
-    fakeReq.body = { message: { ...messageFixtureBase.email, messageType: "carrier_pigeon" } };
+    fakeReq.body = {
+      message: { ...messageFixtureBase.email, messageType: "carrier_pigeon" },
+    };
     const result = await runValidators(fakeReq);
     const errors = result.array();
     expect(result.isEmpty()).toBe(false);
@@ -96,15 +101,11 @@ describe("validateMessageCreation", () => {
 describe("validateRequestMiddleware", () => {
   let fakeReq: Request;
   let fakeRes: Response;
-  let statusMock: ReturnType<typeof vi.fn>;
-  let jsonMock: ReturnType<typeof vi.fn>;
   let nextMock: NextFunction;
 
   beforeEach(() => {
     fakeReq = mockReq();
-    jsonMock = vi.fn();
-    statusMock = vi.fn().mockReturnValue({ json: jsonMock });
-    fakeRes = mockRes()
+    fakeRes = mockRes();
     nextMock = vi.fn();
   });
 
@@ -115,7 +116,6 @@ describe("validateRequestMiddleware", () => {
     }
     validateRequestMiddleware(fakeReq, fakeRes, nextMock);
     expect(nextMock).toHaveBeenCalledOnce();
-    expect(statusMock).not.toHaveBeenCalled();
   });
 
   test("Validation errors — returns 400", async () => {
@@ -124,8 +124,12 @@ describe("validateRequestMiddleware", () => {
       await validator.run(fakeReq);
     }
     validateRequestMiddleware(fakeReq, fakeRes, nextMock);
-    expect(statusMock).toHaveBeenCalledWith(400);
-    expect(jsonMock).toHaveBeenCalled();
+
+    expect(fakeRes.status).toHaveBeenCalledWith(400);
+    expect(fakeRes.json).toHaveBeenCalledExactlyOnceWith({
+      error: "Validation failed",
+      details: expect.any(Array),
+    });
     expect(nextMock).not.toHaveBeenCalled();
   });
 });

@@ -9,7 +9,7 @@ export class LogRepository implements Observer {
   public async save(log: LogInput): Promise<void> {
     try {
       const { messageId, status } = log;
-      const query = "INSERT INTO log (message_id,  status) VALUES ($1, $2)";
+      const query = "INSERT INTO log (message_id, status) VALUES ($1, $2)";
       await this.pool.query(query, [messageId, status]);
     } catch (error) {
       console.error(errorMessageFixtureBase.bddErrorCreate, error, "Log");
