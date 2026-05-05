@@ -17,7 +17,7 @@ messageRouter.post(
   },
 );
 
-messageRouter.get("/", async (req: Request, res: Response) => {
+messageRouter.get("/", async (_req: Request, res: Response) => {
   await messageController.getAllMessages(res);
 });
 
