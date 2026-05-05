@@ -8,13 +8,27 @@ export const validateMessageCreation = [
   body("message")
     .isObject()
     .withMessage(errorMessageFixtureBase.missingMessage),
-  body("message.content").notEmpty().isString().trim(),
+  body("message.content")
+    .notEmpty().withMessage(errorMessageFixtureBase.missingContent)
+    .isString().withMessage(errorMessageFixtureBase.missingContent)
+    .trim(),
   body("message.messageType")
-    .notEmpty()
-    .isString().isIn(Object.values(MessageType)),
-  body("message.sender").notEmpty().isString().trim(),
-  body("message.receiver").notEmpty().isString().trim(),
-  body("message.title").optional().notEmpty().isString().trim(),
+    .notEmpty().withMessage(errorMessageFixtureBase.missingMessageType)
+    .isString().withMessage(errorMessageFixtureBase.missingMessageType)
+    .isIn(Object.values(MessageType)).withMessage(errorMessageFixtureBase.invalidMessageType),
+  body("message.sender")
+    .notEmpty().withMessage(errorMessageFixtureBase.missingSender)
+    .isString().withMessage(errorMessageFixtureBase.missingSender)
+    .trim(),
+  body("message.receiver")
+    .notEmpty().withMessage(errorMessageFixtureBase.missingReceiver)
+    .isString().withMessage(errorMessageFixtureBase.missingReceiver)
+    .trim(),
+  body("message.title")
+    .optional()
+    .notEmpty().withMessage(errorMessageFixtureBase.emptyTitle)
+    .isString().withMessage(errorMessageFixtureBase.emptyTitle)
+    .trim(),
 ];
 
 export const validateRequestMiddleware = (

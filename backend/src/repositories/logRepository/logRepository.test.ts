@@ -21,13 +21,13 @@ describe("LogRepository", () => {
 
     const query = "INSERT INTO log (message_id, status) VALUES ($1, $2)";
 
-    const spy = vi.spyOn(pool, "query").mockResolvedValueOnce({
+    (pool.query as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       rows: [],
     } as any);
 
     await logRepository.save(logInput);
 
-    expect(spy).toHaveBeenCalledWith(query, [
+    expect(pool.query).toHaveBeenCalledWith(query, [
       logInput.messageId,
       logInput.status,
     ]);
@@ -39,14 +39,17 @@ describe("LogRepository", () => {
       status: EventResponse.EVENTSUCCESS,
     };
     const query = "INSERT INTO log (message_id, status) VALUES ($1, $2)";
-    const spy = vi
-      .spyOn(pool, "query")
-      .mockRejectedValueOnce(new Error("Database error"));
 
-    await expect(logRepository.save(logInput)).rejects.toThrow(
+    (pool.query as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
+      new Error("Database error"),
+    );
+    expect(async () => {
+      await logRepository.save(logInput);
+    }).rejects.toThrow(
       "An error occurred while creating the ressource in the database, error: Error: Database error",
     );
-    expect(spy).toHaveBeenCalledWith(query, [
+
+    expect(pool.query).toHaveBeenCalledWith(query, [
       logInput.messageId,
       logInput.status,
     ]);
