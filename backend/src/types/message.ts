@@ -11,7 +11,7 @@ export type DbMessage = {
   content: string;
   sent_at: string;
   message_type: MessageType;
-  title?: string;
+  title: string | null;
   sender: string;
   receiver: string;
 };
@@ -20,7 +20,7 @@ export type DbMessage = {
 export type MessageInput = {
   content: string;
   messageType: MessageType;
-  title?: string;
+  title?: string | undefined;
   sender: string;
   receiver: string;
 };
@@ -29,20 +29,4 @@ export type MessageInput = {
 export type Message = MessageInput & {
   id: string;
   sentAt: string;
-};
-
-export type EmailMessage = Message & {
-  messageType: MessageType.EMAIL;
-};
-
-export type SmsMessage = Message & {
-  messageType: MessageType.SMS;
-};
-
-export type NotificationMessage = Message & {
-  messageType: MessageType.PUSH;
-};
-
-export type SlackMessage = Message & {
-  messageType: MessageType.SLACK;
 };
