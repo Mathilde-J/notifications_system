@@ -4,21 +4,23 @@ import {
   validateMessageCreation,
   validateRequestMiddleware,
 } from "../../middleware/validateRequest.js";
-import { messageController } from "../../controllers/index.js";
+import type { MessageController } from "../../controllers/messagecontroller/messageController.js";
 
-const messageRouter = Router();
+export const createMessageRouter = (controller: MessageController): Router => {
+  const messageRouter = Router();
 
-messageRouter.post(
-  "/",
-  validateMessageCreation,
-  validateRequestMiddleware,
-  async (req: Request, res: Response) => {
-    await messageController.createMessage(req, res);
-  },
-);
+  messageRouter.post(
+    "/",
+    validateMessageCreation,
+    validateRequestMiddleware,
+    async (req: Request, res: Response) => {
+      await controller.createMessage(req, res);
+    },
+  );
 
-messageRouter.get("/", async (_req: Request, res: Response) => {
-  await messageController.getAllMessages(res);
-});
+  messageRouter.get("/", async (_req: Request, res: Response) => {
+    await controller.getAllMessages(res);
+  });
 
-export default messageRouter;
+  return messageRouter;
+};

@@ -1,20 +1,25 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import router from "./src/routes/index.js";
+import { MessageController } from "./src/controllers/messagecontroller/messageController.js";
+import { createMessageRouter } from "./src/routes/messageRouter/messageRouter.js";
+import { messageController } from "./src/controllers/index.js";
+import { createMainRouter } from "./src/routes/index.js";
+
+const createApp = (messageController: MessageController) => {
+  const router = createMainRouter(createMessageRouter(messageController));
+  const app = express();
+  app.use(express.json(), cors());
+  app.use("/api", router);
+  return app;
+};
 
 const PORT = process.env["PORT"] || 3000;
 const NODEENV = process.env["NODE_ENV"] || "development";
-const app = express();
-
 console.log(`Running in ${NODEENV} mode`);
 
-app.use(express.json(), cors());
-
-app.use("/api", router);
+const app = createApp(messageController);
 
 app.listen(PORT, (): void => {
   console.log(`Typescript API server http://localhost:${PORT}/`);
 });
-
-export { app };

@@ -1,7 +1,7 @@
-import messageRouter from "./messageRouter/messageRouter.js";
 import { Router } from "express";
 
-const router = Router();
-router.use("/messages", messageRouter);
-
-export default router;
+export const createMainRouter = (messageRouter: Router): Router => {
+  const router = Router();
+  router.use("/messages", messageRouter);
+  return router;
+};
