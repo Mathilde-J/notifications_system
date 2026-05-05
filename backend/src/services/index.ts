@@ -1,8 +1,8 @@
 import { messageRepository, logRepository } from "../repositories/index.js";
 import type { MessageType } from "../types/message.js";
 import { MessageQueryService } from "./messageQueryService/messageQueryService.js";
-import { emailSenderWithRetryDecorator, smsSenderWithRetryDecorator, notificationSenderWithRetryDecorator, slackSenderWithRetryDecorator } from "./messageSenders/index.js";
-import { MessageSenderService } from "./messageSenders/messageSenderServices.js";
+import { emailSenderWithRetryDecorator, smsSenderWithRetryDecorator, notificationSenderWithRetryDecorator, slackSenderWithRetryDecorator } from "./messageSenderService/index.js";
+import { MessageSenderService } from "./messageSenderService/messageSenderServices.js";
 
 const emailSenderServiceWithRetry: MessageSenderService =
   new MessageSenderService(emailSenderWithRetryDecorator, messageRepository);

@@ -3,8 +3,8 @@ import {
   messageFixtureBase,
   errorMessageFixtureBase,
 } from "../helpers/fixtures.js";
-import { EmailSender } from "../services/messageSenders/senders/emailSender.js";
 import { RetryDecorator } from "./retryDecorator.js";
+import { EmailSender } from "../services/messageSenderService/senders/emailSender.js";
 
 describe("retrydecorator tests", () => {
   const emailInput = messageFixtureBase.emailInput;

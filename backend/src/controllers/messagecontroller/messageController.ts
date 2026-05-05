@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
-import type { MessageSenderService } from "../../services/messageSenders/messageSenderServices.js";
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 import type { MessageInput } from "../../types/message.js";
 import type { MessageQueryService } from "../../services/messageQueryService/messageQueryService.js";
+import type { MessageSenderService } from "../../services/messageSenderService/messageSenderServices.js";
 
 export class MessageController {
   constructor(
@@ -47,5 +47,3 @@ export class MessageController {
     }
   }
 }
-
-
