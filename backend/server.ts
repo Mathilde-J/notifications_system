@@ -6,7 +6,7 @@ import { createMessageRouter } from "./src/routes/messageRouter/messageRouter.js
 import { messageController } from "./src/controllers/index.js";
 import { createMainRouter } from "./src/routes/index.js";
 
-const createApp = (messageController: MessageController) => {
+export const createApp = (messageController: MessageController) => {
   const router = createMainRouter(createMessageRouter(messageController));
   const app = express();
   app.use(express.json(), cors());

@@ -1,25 +1,27 @@
 import { beforeEach } from "vitest";
 import { describe, expect, test, vi } from "vitest";
 import { MessageController } from "./messageController.js";
-import { MessageSenderService } from "../../services/messageSenders/messageSenderServices.js";
 import {
   messageFixtureBase,
   mockReq,
   mockRes,
 } from "../../helpers/fixtures.js";
 
-import { EmailSender } from "../../services/messageSenders/senders/emailSender.js";
-import { SmsSender } from "../../services/messageSenders/senders/smsSender.js";
 import { type MessageInput } from "../../types/message.js";
 import { RetryDecorator } from "../../decorators/retryDecorator.js";
 import type { Pool } from "pg";
 import { mock } from "vitest-mock-extended";
 import { MessageRepository } from "../../repositories/messageRepository/messageRepository.js";
+import { MessageSenderService } from "../../services/messageSenderService/messageSenderServices.js";
+import { EmailSender } from "../../services/messageSenderService/senders/emailSender.js";
+import { SmsSender } from "../../services/messageSenderService/senders/smsSender.js";
+import type { MessageQueryService } from "../../services/messageQueryService/messageQueryService.js";
 
 describe("MessageController tests", () => {
   let messageController: MessageController;
   let emailService: MessageSenderService;
   let messageRepository: MessageRepository;
+  let messageQueryService: MessageQueryService;
   const emailInput: MessageInput = messageFixtureBase.emailInput;
 
   beforeEach(() => {
@@ -31,6 +33,7 @@ describe("MessageController tests", () => {
       emailSenderWithDecorator,
       messageRepository,
     );
+    messageQueryService = mock<MessageQueryService>();
 
     const smsSender = new SmsSender();
     const smsSenderWithDecorator = new RetryDecorator(smsSender);
@@ -39,10 +42,13 @@ describe("MessageController tests", () => {
       messageRepository,
     );
 
-    messageController = new MessageController({
-      sms: smsService,
-      email: emailService,
-    });
+    messageController = new MessageController(
+      {
+        sms: smsService,
+        email: emailService,
+      },
+      messageQueryService,
+    );
   });
 
   test("should call the service's send function and return a succes response", async () => {
