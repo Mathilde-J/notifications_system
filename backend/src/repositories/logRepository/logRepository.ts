@@ -2,7 +2,6 @@ import type { Pool } from "pg";
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 import type { Observer } from "../../interfaces/observer/observer.js";
 import type { EventResponse, LogInput } from "../../types/log.js";
-import { databaseService } from "../../config/database/db.js";
 
 export class LogRepository implements Observer {
   constructor(private pool: Pool) {}
@@ -31,7 +30,3 @@ export class LogRepository implements Observer {
     await this.save(log);
   }
 }
-
-export const logRepository: LogRepository = new LogRepository(
-  databaseService.pool,
-);

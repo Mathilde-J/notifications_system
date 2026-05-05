@@ -1,7 +1,6 @@
 import type { Pool } from "pg";
 import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 import type { DbMessage, MessageInput } from "../../types/message.js";
-import { databaseService } from "../../config/database/db.js";
 
 export class MessageRepository {
   constructor(private pool: Pool) {}
@@ -29,7 +28,3 @@ export class MessageRepository {
     }
   }
 }
-
-export const messageRespository: MessageRepository = new MessageRepository(
-  databaseService.pool,
-);
