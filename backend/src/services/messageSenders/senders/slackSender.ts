@@ -1,4 +1,3 @@
-import { RetryDecorator } from "../../../decorators/retryDecorator.js";
 import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
 import type { MessageInput } from "../../../types/message.js";
 import { BaseSender } from "../baseSender.js";
@@ -18,8 +17,3 @@ export class SlackSender extends BaseSender {
     }
   }
 }
-
-const slackSender: SlackSender = new SlackSender();
-export const slackSenderWithRetryDecorator: RetryDecorator = new RetryDecorator(
-  slackSender,
-);

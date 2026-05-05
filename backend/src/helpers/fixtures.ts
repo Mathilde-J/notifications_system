@@ -1,22 +1,11 @@
 import { vi } from "vitest";
 import {
   MessageType,
-  type EmailMessage,
   type MessageInput,
 } from "../types/message.js";
 import type { Request, Response } from "express";
 
 export const messageFixtureBase = {
-  email: {
-    id: "id1",
-    content: "content1",
-    sentAt: "timestampz",
-    sender: "idsender",
-    receiver: "idreceiver1",
-    title: "subject1",
-    messageType: MessageType.EMAIL,
-  } as EmailMessage,
-
   emailInput: {
     content: "content1",
     sender: "idsender",
@@ -27,6 +16,8 @@ export const messageFixtureBase = {
 };
 
 export const errorMessageFixtureBase = {
+  messagesNotRetrieved: "Messages were not retrieved",
+  messageNotSent: "Message was not sent",
   errorOccurred: "An error Occured",
   messageCleaningError: "An error Occured while cleaning the message",
   invalidEmailFormat: "Invalid email format",

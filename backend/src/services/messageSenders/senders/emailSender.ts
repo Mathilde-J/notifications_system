@@ -1,4 +1,3 @@
-import { RetryDecorator } from "../../../decorators/retryDecorator.js";
 import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
 import type { MessageInput } from "../../../types/message.js";
 import { BaseSender } from "../baseSender.js";
@@ -18,8 +17,3 @@ export class EmailSender extends BaseSender {
     }
   }
 }
-
-const emailSender: EmailSender = new EmailSender();
-export const emailSenderWithRetryDecorator: RetryDecorator = new RetryDecorator(
-  emailSender,
-);

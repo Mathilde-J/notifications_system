@@ -1,4 +1,3 @@
-import { RetryDecorator } from "../../../decorators/retryDecorator.js";
 import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
 import type { MessageInput } from "../../../types/message.js";
 import { BaseSender } from "../baseSender.js";
@@ -17,6 +16,4 @@ export class NotificationSender extends BaseSender {
     }
   }
 }
-const notificationsSender: NotificationSender = new NotificationSender();
-export const notificationSenderWithRetryDecorator: RetryDecorator =
-  new RetryDecorator(notificationsSender);
+

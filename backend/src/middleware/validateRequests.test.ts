@@ -23,7 +23,7 @@ describe("validateMessageCreation", () => {
   });
 
   test("Valid message — no errors", async () => {
-    fakeReq.body = { message: messageFixtureBase.email };
+    fakeReq.body = { message: messageFixtureBase.emailInput };
     const result = await runValidators(fakeReq);
     expect(result.isEmpty()).toBe(true);
   });
@@ -37,7 +37,7 @@ describe("validateMessageCreation", () => {
   });
 
   test("Missing content — missing content error", async () => {
-    const { content, ...withoutContent } = messageFixtureBase.email;
+    const { content, ...withoutContent } = messageFixtureBase.emailInput;
     fakeReq.body = { message: withoutContent };
     const result = await runValidators(fakeReq);
     const errors = result.array();
@@ -46,7 +46,7 @@ describe("validateMessageCreation", () => {
   });
 
   test("Missing messageType — missing messageType error", async () => {
-    const { messageType, ...withoutType } = messageFixtureBase.email;
+    const { messageType, ...withoutType } = messageFixtureBase.emailInput;
     fakeReq.body = { message: withoutType };
     const result = await runValidators(fakeReq);
     const errors = result.array();
@@ -56,7 +56,7 @@ describe("validateMessageCreation", () => {
 
   test("Invalid messageType — invalid messageType error", async () => {
     fakeReq.body = {
-      message: { ...messageFixtureBase.email, messageType: "carrier_pigeon" },
+      message: { ...messageFixtureBase.emailInput, messageType: "carrier_pigeon" },
     };
     const result = await runValidators(fakeReq);
     const errors = result.array();
@@ -65,7 +65,7 @@ describe("validateMessageCreation", () => {
   });
 
   test("Missing sender — missing sender error", async () => {
-    const { sender, ...withoutSender } = messageFixtureBase.email;
+    const { sender, ...withoutSender } = messageFixtureBase.emailInput;
     fakeReq.body = { message: withoutSender };
     const result = await runValidators(fakeReq);
     const errors = result.array();
@@ -74,7 +74,7 @@ describe("validateMessageCreation", () => {
   });
 
   test("Missing receiver — missing receiver error", async () => {
-    const { receiver, ...withoutReceiver } = messageFixtureBase.email;
+    const { receiver, ...withoutReceiver } = messageFixtureBase.emailInput;
     fakeReq.body = { message: withoutReceiver };
     const result = await runValidators(fakeReq);
     const errors = result.array();
@@ -83,7 +83,7 @@ describe("validateMessageCreation", () => {
   });
 
   test("Title present but empty — empty title error", async () => {
-    fakeReq.body = { message: { ...messageFixtureBase.email, title: "" } };
+    fakeReq.body = { message: { ...messageFixtureBase.emailInput, title: "" } };
     const result = await runValidators(fakeReq);
     const errors = result.array();
     expect(result.isEmpty()).toBe(false);
@@ -91,7 +91,7 @@ describe("validateMessageCreation", () => {
   });
 
   test("Title absent — no error (optional)", async () => {
-    const { title, ...withoutTitle } = messageFixtureBase.email;
+    const { title, ...withoutTitle } = messageFixtureBase.emailInput;
     fakeReq.body = { message: withoutTitle };
     const result = await runValidators(fakeReq);
     expect(result.isEmpty()).toBe(true);
@@ -110,7 +110,7 @@ describe("validateRequestMiddleware", () => {
   });
 
   test("No validation errors — next() is called", async () => {
-    fakeReq.body = { message: messageFixtureBase.email };
+    fakeReq.body = { message: messageFixtureBase.emailInput };
     for (const validator of validateMessageCreation) {
       await validator.run(fakeReq);
     }

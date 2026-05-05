@@ -30,19 +30,3 @@ export type Message = MessageInput & {
   id: string;
   sentAt: string;
 };
-
-export type EmailMessage = Message & {
-  messageType: MessageType.EMAIL;
-};
-
-export type SmsMessage = Message & {
-  messageType: MessageType.SMS;
-};
-
-export type NotificationMessage = Message & {
-  messageType: MessageType.PUSH;
-};
-
-export type SlackMessage = Message & {
-  messageType: MessageType.SLACK;
-};

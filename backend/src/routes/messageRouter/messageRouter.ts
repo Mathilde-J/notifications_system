@@ -17,4 +17,10 @@ messageRouter.post(
   },
 );
 
+messageRouter.get(
+  "/",
+  async (req: Request, res: Response) => {
+  },
+);
+
 export default messageRouter;
