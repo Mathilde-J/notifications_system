@@ -1,8 +1,5 @@
 import { vi } from "vitest";
-import {
-  MessageType,
-  type MessageInput,
-} from "../types/message.js";
+import { MessageType, type MessageInput } from "../types/message.js";
 import type { Request, Response } from "express";
 
 export const messageFixtureBase = {
@@ -31,6 +28,8 @@ export const errorMessageFixtureBase = {
   missingMessage: "No message found",
   missingContent: "No content found in message",
   missingMessageType: "No messageType found in message",
+  missingMessageTypeNotAvailable:
+    "MessageService not available for this messageType",
   missingSender: "No sender found in message",
   missingReceiver: "No receiver found in message",
   invalidMessageType: "Invalid messageType value",
@@ -46,6 +45,8 @@ export const errorMessageFixtureBase = {
     "An error occurred while updating the ressource in the database",
   bddErrorDelete:
     "An error occurred while deleting the ressource in the database",
+  missingEnvVariables:
+    "Missing required environment variables: SENDER_EMAIL and RECEIVER_EMAIL",
 };
 
 export function mockReq(overrides: Partial<Request> = {}): Request {

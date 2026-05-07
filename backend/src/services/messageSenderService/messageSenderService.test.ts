@@ -10,17 +10,20 @@ import { EventResponse } from "../../types/log.js";
 import { MessageRepository } from "../../repositories/messageRepository/messageRepository.js";
 import { mock } from "vitest-mock-extended";
 import type { Pool } from "pg";
+import type { Resend } from "resend";
 
 describe("messageSenderService", () => {
   let messageSenderService: MessageSenderService;
   let emailSender: EmailSender;
   let messageRepository: MessageRepository;
   const emailInput = messageFixtureBase.emailInput;
+  let mockResendService: Resend;
 
   describe("messageSenderService without observers", () => {
     beforeEach(() => {
+      mockResendService = mock<Resend>();
       const pool = mock<Pool>();
-      emailSender = new EmailSender();
+      emailSender = new EmailSender(mockResendService);
       messageRepository = new MessageRepository(pool);
       messageSenderService = new MessageSenderService(
         emailSender,
@@ -64,11 +67,13 @@ describe("messageSenderService", () => {
     };
 
     let mockObserver: Observer;
+    let mockResendService: Resend;
 
     beforeEach(() => {
+      mockResendService = mock<Resend>();
       const pool = mock<Pool>();
       messageRepository = new MessageRepository(pool);
-      emailSender = new EmailSender();
+      emailSender = new EmailSender(mockResendService);
       messageSenderService = new MessageSenderService(
         emailSender,
         messageRepository,

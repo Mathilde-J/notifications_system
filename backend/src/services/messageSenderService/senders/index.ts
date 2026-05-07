@@ -1,10 +1,11 @@
 import { RetryDecorator } from "../../../decorators/retryDecorator.js";
+import { resend } from "../resend/index.js";
 import { EmailSender } from "./emailSender.js";
 import { NotificationSender } from "./notificationSender.js";
 import { SlackSender } from "./slackSender.js";
 import { SmsSender } from "./smsSender.js";
 
-const emailSender: EmailSender = new EmailSender();
+const emailSender: EmailSender = new EmailSender(resend);
 const emailSenderWithRetryDecorator: RetryDecorator = new RetryDecorator(
   emailSender,
 );
