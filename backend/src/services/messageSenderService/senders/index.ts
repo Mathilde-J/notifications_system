@@ -1,8 +1,8 @@
-import { RetryDecorator } from "../../decorators/retryDecorator.js";
-import { EmailSender } from "./senders/emailSender.js";
-import { NotificationSender } from "./senders/notificationSender.js";
-import { SlackSender } from "./senders/slackSender.js";
-import { SmsSender } from "./senders/smsSender.js";
+import { RetryDecorator } from "../../../decorators/retryDecorator.js";
+import { EmailSender } from "./emailSender.js";
+import { NotificationSender } from "./notificationSender.js";
+import { SlackSender } from "./slackSender.js";
+import { SmsSender } from "./smsSender.js";
 
 const emailSender: EmailSender = new EmailSender();
 const emailSenderWithRetryDecorator: RetryDecorator = new RetryDecorator(

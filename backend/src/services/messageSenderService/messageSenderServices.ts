@@ -4,7 +4,7 @@ import type { Observer } from "../../interfaces/observer/observer.js";
 import type { MessageRepository } from "../../repositories/messageRepository/messageRepository.js";
 import { EventResponse } from "../../types/log.js";
 import type { MessageInput } from "../../types/message.js";
-import type { MessageSender } from "./baseSender.js";
+import type { MessageSender } from "./senders/baseSender.js";
 
 export class MessageSenderService implements Observable {
   observers: Observer[] = [];

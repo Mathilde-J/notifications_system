@@ -1,5 +1,6 @@
-import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
-import type { MessageInput } from "../../types/message.js";
+import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
+import type { MessageInput } from "../../../types/message.js";
+
 
 export interface MessageSender {
   send: (message: MessageInput) => Promise<void>;

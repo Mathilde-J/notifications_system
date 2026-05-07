@@ -1,6 +1,6 @@
 import { errorMessageFixtureBase } from "../../../helpers/fixtures.js";
 import type { MessageInput } from "../../../types/message.js";
-import { BaseSender } from "../baseSender.js";
+import { BaseSender } from "./baseSender.js";
 
 export class SlackSender extends BaseSender {
   protected async sendMessage(message: MessageInput): Promise<void> {
