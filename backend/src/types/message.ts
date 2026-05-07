@@ -5,6 +5,7 @@ export enum MessageType {
   SLACK = "slack",
 }
 
+
 // La forme base de données
 export type DbMessage = {
   id: string;

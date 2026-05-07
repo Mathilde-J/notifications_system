@@ -15,7 +15,7 @@ export const validateMessageCreation = [
   body("message.messageType")
     .notEmpty().withMessage(errorMessageFixtureBase.missingMessageType)
     .isString().withMessage(errorMessageFixtureBase.missingMessageType)
-    .isIn(Object.values(MessageType)).withMessage(errorMessageFixtureBase.invalidMessageType),
+    .isIn([MessageType.EMAIL]).withMessage(errorMessageFixtureBase.invalidMessageType),
   body("message.sender")
     .notEmpty().withMessage(errorMessageFixtureBase.missingSender)
     .isString().withMessage(errorMessageFixtureBase.missingSender)

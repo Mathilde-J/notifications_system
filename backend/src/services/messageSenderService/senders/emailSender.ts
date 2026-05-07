@@ -9,9 +9,12 @@ export class EmailSender extends BaseSender {
   }
 
   protected async sendMessage(email: MessageInput) {
+    const sender = process.env["SENDER_EMAIL"]!;
+    const receiver = process.env["RECEIVER_EMAIL"]!;
+
     const { error } = await this.resend.emails.send({
-      from: email.sender,
-      to: [email.receiver],
+      from: sender,
+      to: [receiver],
       subject: email.title ?? "",
       html: `<p>${email.content}</p>`,
     });

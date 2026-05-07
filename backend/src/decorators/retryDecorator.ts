@@ -7,7 +7,6 @@ export class RetryDecorator implements MessageSender {
   constructor(private sender: MessageSender) {}
 
   async trySendingMessage(message: MessageInput) {
-    console.log(this.retryTimes);
     while (this.retryTimes > 0) {
       try {
         await this.sender.send(message);

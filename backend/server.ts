@@ -6,6 +6,8 @@ import { createMessageRouter } from "./src/routes/messageRouter/messageRouter.js
 import { messageController } from "./src/controllers/index.js";
 import { createMainRouter } from "./src/routes/index.js";
 
+checkEnvVariables();
+
 export const createApp = (messageController: MessageController) => {
   const router = createMainRouter(createMessageRouter(messageController));
   const app = express();
@@ -23,3 +25,7 @@ const app = createApp(messageController);
 app.listen(PORT, (): void => {
   console.log(`Typescript API server http://localhost:${PORT}/`);
 });
+function checkEnvVariables() {
+  throw new Error("Function not implemented.");
+}
+
