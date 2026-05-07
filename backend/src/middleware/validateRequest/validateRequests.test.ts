@@ -5,8 +5,8 @@ import {
   validateMessageCreation,
   validateRequestMiddleware,
 } from "./validateRequest.js";
-import { messageFixtureBase, mockReq, mockRes } from "../helpers/fixtures.js";
-import { errorMessageFixtureBase } from "../helpers/fixtures.js";
+import { messageFixtureBase, mockReq, mockRes } from "../../helpers/fixtures.js";
+import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 
 const runValidators = async (req: Request) => {
   for (const validator of validateMessageCreation) {

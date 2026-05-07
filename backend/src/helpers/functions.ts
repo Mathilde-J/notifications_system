@@ -1,4 +1,4 @@
-const checkEnvVariables = () => {
+export const checkEnvVariables = () => {
   const REQUIRED = [
     "DATABASE_PORT",
     "DATABASE_USER",
