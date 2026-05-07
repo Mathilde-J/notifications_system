@@ -16,6 +16,7 @@ import { MessageSenderService } from "../../services/messageSenderService/messag
 import { EmailSender } from "../../services/messageSenderService/senders/emailSender.js";
 import { SmsSender } from "../../services/messageSenderService/senders/smsSender.js";
 import type { MessageQueryService } from "../../services/messageQueryService/messageQueryService.js";
+import type { Resend } from "resend";
 
 describe("MessageController tests", () => {
   let messageController: MessageController;
@@ -23,11 +24,13 @@ describe("MessageController tests", () => {
   let messageRepository: MessageRepository;
   let messageQueryService: MessageQueryService;
   const emailInput: MessageInput = messageFixtureBase.emailInput;
+  let mockResendService: Resend;
 
   beforeEach(() => {
     const pool = mock<Pool>();
+    mockResendService = mock<Resend>();
     messageRepository = new MessageRepository(pool);
-    const emailSender = new EmailSender();
+    const emailSender = new EmailSender(mockResendService);
     const emailSenderWithDecorator = new RetryDecorator(emailSender);
     emailService = new MessageSenderService(
       emailSenderWithDecorator,
