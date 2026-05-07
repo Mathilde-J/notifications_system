@@ -1,13 +1,17 @@
 import { beforeAll, describe, expect, test, vi } from "vitest";
 import { EmailSender } from "./emailSender.js";
 import { messageFixtureBase } from "../../../helpers/fixtures.js";
+import type { Resend } from "resend";
+import { mock } from "vitest-mock-extended";
 
 describe("sender group", () => {
   const emailInput = messageFixtureBase.emailInput;
   let sender: EmailSender;
+  let mockResendService: Resend;
 
   beforeAll(() => {
-    sender = new EmailSender();
+    mockResendService = mock<Resend>();
+    sender = new EmailSender(mockResendService);
   });
 
   test("test method send in sender uses sendMessage", async () => {

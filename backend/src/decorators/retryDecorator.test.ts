@@ -5,14 +5,18 @@ import {
 } from "../helpers/fixtures.js";
 import { RetryDecorator } from "./retryDecorator.js";
 import { EmailSender } from "../services/messageSenderService/senders/emailSender.js";
+import { mock } from "vitest-mock-extended";
+import type { Resend } from "resend";
 
 describe("retrydecorator tests", () => {
   const emailInput = messageFixtureBase.emailInput;
   let emailSenderWithRetry: RetryDecorator;
   let emailSender: EmailSender;
+  let mockResendService: Resend;
 
   beforeEach(() => {
-    emailSender = new EmailSender();
+    mockResendService = mock<Resend>();
+    emailSender = new EmailSender(mockResendService);
     emailSenderWithRetry = new RetryDecorator(emailSender);
   });
 

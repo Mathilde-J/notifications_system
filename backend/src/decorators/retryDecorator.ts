@@ -1,5 +1,5 @@
 import { errorMessageFixtureBase } from "../helpers/fixtures.js";
-import type { MessageSender } from "../services/messageSenders/baseSender.js";
+import type { MessageSender } from "../services/messageSenderService/senders/baseSender.js";
 import type { MessageInput } from "../types/message.js";
 
 export class RetryDecorator implements MessageSender {
@@ -7,7 +7,7 @@ export class RetryDecorator implements MessageSender {
   constructor(private sender: MessageSender) {}
 
   async trySendingMessage(message: MessageInput) {
-    console.log("RETRYCALLED");
+    console.log(this.retryTimes);
     while (this.retryTimes > 0) {
       try {
         await this.sender.send(message);
@@ -20,7 +20,7 @@ export class RetryDecorator implements MessageSender {
     }
     if (this.retryTimes === 0) {
       throw new Error(
-        `${errorMessageFixtureBase.failedToSendMessageAfterRetries}, message: ${message}`,
+        `${errorMessageFixtureBase.failedToSendMessageAfterRetries}, `,
       );
     }
   }
