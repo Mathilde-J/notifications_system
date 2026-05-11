@@ -27,7 +27,7 @@ describe("MessageController tests", () => {
   let messageQueryService: MessageQueryService;
   const emailInput: MessageInput = messageFixtureBase.emailInput;
   let mockResendService: Resend;
-  let mockNextFunction: ReturnType<typeof mock<NextFunction>>;
+  let mockNextFunction: NextFunction;
 
   beforeEach(() => {
     const pool = mock<Pool>();
@@ -55,7 +55,7 @@ describe("MessageController tests", () => {
       },
       messageQueryService,
     );
-    mockNextFunction = mock<NextFunction>();
+    mockNextFunction = vi.fn() as unknown as NextFunction;
   });
 
   test("should call the service's send function and return a succes response", async () => {

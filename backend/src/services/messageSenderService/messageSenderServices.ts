@@ -49,6 +49,7 @@ export class MessageSenderService implements Observable {
       messageSent = await this.messageRepository.save(messageInput);
       await this.sender.send(messageInput);
       status = EventResponse.EVENTSUCCESS;
+      return messageSent;
     } catch (error) {
       console.error(errorMessageFixtureBase.errorOccurred, error);
       throw new Error(
@@ -58,7 +59,6 @@ export class MessageSenderService implements Observable {
       if (this.observers.length !== 0 && messageSent) {
         this.notifyObserver(messageSent.id, status);
       }
-      return messageSent;
     }
   }
 }

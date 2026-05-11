@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import { mockReq, mockRes } from "../../helpers/fixtures.js";
 import type { NextFunction, Request, Response } from "express";
 import { mock } from "vitest-mock-extended";
-import { errorMiddleware } from "./errorMiddleWare.js";
 import { ClientError } from "../../class/ErrorClass.js";
+import { errorMiddleware } from "./errorMiddleware.js";
 
 describe("errorMiddleware tests", () => {
   let fakeReq: Request;

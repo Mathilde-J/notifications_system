@@ -23,6 +23,9 @@ describe("messageSenderService", () => {
     const expectedMessage = messageFixtureBase.messageFromInput;
     beforeEach(() => {
       mockResendService = mock<Resend>();
+      (mockResendService as any).emails = {
+        send: vi.fn().mockResolvedValue({ data: null, error: null }),
+      };
       const pool = mock<Pool>();
       emailSender = new EmailSender(mockResendService);
       messageRepository = new MessageRepository(pool);
@@ -74,6 +77,9 @@ describe("messageSenderService", () => {
 
     beforeEach(() => {
       mockResendService = mock<Resend>();
+      (mockResendService as any).emails = {
+        send: vi.fn().mockResolvedValue({ data: null, error: null }),
+      };
       const pool = mock<Pool>();
       messageRepository = new MessageRepository(pool);
       emailSender = new EmailSender(mockResendService);

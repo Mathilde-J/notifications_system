@@ -8,7 +8,6 @@ describe("MessageRepository", () => {
   let pool: Pool;
   let messageRepository: MessageRepository;
   let emailInput = messageFixtureBase.emailInput;
-  let message = messageFixtureBase.messageFromInput;
 
   beforeEach(() => {
     pool = mock<Pool>();

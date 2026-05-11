@@ -16,6 +16,9 @@ describe("retrydecorator tests", () => {
 
   beforeEach(() => {
     mockResendService = mock<Resend>();
+    (mockResendService as any).emails = {
+      send: vi.fn().mockResolvedValue({ data: null, error: null }),
+    };
     emailSender = new EmailSender(mockResendService);
     emailSenderWithRetry = new RetryDecorator(emailSender);
   });

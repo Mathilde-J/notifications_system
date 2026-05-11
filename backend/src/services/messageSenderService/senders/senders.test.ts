@@ -1,22 +1,26 @@
-import { beforeAll, describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { EmailSender } from "./emailSender.js";
 import { messageFixtureBase } from "../../../helpers/fixtures.js";
 import type { Resend } from "resend";
 import { mock } from "vitest-mock-extended";
+import { beforeEach } from "vitest";
 
 describe("sender group", () => {
   const emailInput = messageFixtureBase.emailInput;
   let sender: EmailSender;
   let mockResendService: Resend;
 
-  beforeAll(() => {
+  beforeEach(() => {
     mockResendService = mock<Resend>();
+    (mockResendService as any).emails = {
+      send: vi.fn().mockResolvedValue({ data: null, error: null }),
+    };
     sender = new EmailSender(mockResendService);
   });
 
   test("test method send in sender uses sendMessage", async () => {
     const spy = vi.spyOn(sender! as any, "sendMessage");
-      
+
     await sender!.send(emailInput);
 
     expect(spy).toHaveBeenCalledOnce();
