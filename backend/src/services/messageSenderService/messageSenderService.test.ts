@@ -23,6 +23,9 @@ describe("messageSenderService", () => {
     const expectedMessage = messageFixtureBase.messageFromInput;
     beforeEach(() => {
       mockResendService = mock<Resend>();
+      (mockResendService as any).emails = {
+        send: vi.fn().mockResolvedValue({ data: null, error: null }),
+      };
       const pool = mock<Pool>();
       emailSender = new EmailSender(mockResendService);
       messageRepository = new MessageRepository(pool);
@@ -47,7 +50,7 @@ describe("messageSenderService", () => {
       vi.spyOn(messageRepository, "save").mockResolvedValue(expectedMessage);
       await expect(
         async () => await messageSenderService.fireMessage(emailInput),
-      ).rejects.toThrow(Error("An error Occured, error: Error: fail"));
+      ).rejects.toThrow(Error("An error Occurred, error: Error: fail"));
     });
   });
 
@@ -74,6 +77,9 @@ describe("messageSenderService", () => {
 
     beforeEach(() => {
       mockResendService = mock<Resend>();
+      (mockResendService as any).emails = {
+        send: vi.fn().mockResolvedValue({ data: null, error: null }),
+      };
       const pool = mock<Pool>();
       messageRepository = new MessageRepository(pool);
       emailSender = new EmailSender(mockResendService);
@@ -136,7 +142,7 @@ describe("messageSenderService", () => {
       vi.spyOn(messageRepository, "save").mockRejectedValue(new Error("fail"));
       await expect(
         async () => await messageSenderService.fireMessage(emailInput),
-      ).rejects.toThrow(Error("An error Occured, error: Error: fail"));
+      ).rejects.toThrow(Error("An error Occurred, error: Error: fail"));
 
       expect(spyUpdateObserverMethod).not.toHaveBeenCalled();
     });
@@ -152,7 +158,7 @@ describe("messageSenderService", () => {
 
       await expect(
         async () => await messageSenderService.fireMessage(emailInput),
-      ).rejects.toThrow(Error("An error Occured, error: Error: fail"));
+      ).rejects.toThrow(Error("An error Occurred, error: Error: fail"));
 
       expect(spyUpdateObserverMethod).toHaveBeenCalledExactlyOnceWith(
         expectedMessage.id,

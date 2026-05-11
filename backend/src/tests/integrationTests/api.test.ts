@@ -7,7 +7,7 @@ import type { MessageInput } from "../../types/message.js";
 import { messageFixtureBase } from "../../helpers/fixtures.js";
 import rateLimit from "express-rate-limit";
 
-describe("API integration test", () => {
+describe("API integration test with mocked controller", () => {
   let messageController: ReturnType<typeof mock<MessageController>>;
   let app: ReturnType<typeof createApp>;
   let messageInput: MessageInput = messageFixtureBase.emailInput;

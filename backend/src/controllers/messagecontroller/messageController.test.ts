@@ -27,7 +27,7 @@ describe("MessageController tests", () => {
   let messageQueryService: MessageQueryService;
   const emailInput: MessageInput = messageFixtureBase.emailInput;
   let mockResendService: Resend;
-  let mockNextFunction: ReturnType<typeof mock<NextFunction>>;
+  let mockNextFunction: NextFunction;
 
   beforeEach(() => {
     const pool = mock<Pool>();
@@ -55,7 +55,7 @@ describe("MessageController tests", () => {
       },
       messageQueryService,
     );
-    mockNextFunction = mock<NextFunction>();
+    mockNextFunction = vi.fn() as unknown as NextFunction;
   });
 
   test("should call the service's send function and return a succes response", async () => {
@@ -92,11 +92,11 @@ describe("MessageController tests", () => {
     expect(mockNextFunction).toHaveBeenCalledExactlyOnceWith(serverError);
   });
 
-  test("should return an error response with 'An error Occured", async () => {
+  test("should return an error response with 'An error Occurred", async () => {
     const spy = vi.spyOn(emailService, "fireMessage");
     const req = mockReq({ body: { message: emailInput } });
     const res = mockRes();
-    const error = new Error("An error Occured");
+    const error = new Error("An error Occurred");
     spy.mockRejectedValueOnce(error);
 
     await messageController.createMessage(req, res, mockNextFunction);

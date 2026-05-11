@@ -14,13 +14,31 @@ describe("MessageRepository", () => {
     messageRepository = new MessageRepository(pool);
   });
 
-  test("should save a message and return its id", async () => {
-    const expectedId = "12345";
+  test("should save a message and return it as MEssage", async () => {
+    const expectedMessage = {
+      id: "test",
+      content: "string",
+      sentAt: "string",
+      messageType: "email",
+      title: "string",
+      sender: "string",
+      receiver: "string",
+    };
     const query =
-      "INSERT INTO message (content, title, sender, receiver, message_type) VALUES ($1, $2, $3, $4, $5) RETURNING id";
+      "INSERT INTO message (content, title, sender, receiver, message_type) VALUES ($1, $2, $3, $4, $5) RETURNING *";
 
     (pool.query as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
-      rows: [{ id: expectedId }],
+      rows: [
+        {
+          id: "test",
+          content: "string",
+          sent_at: "string",
+          message_type: "email",
+          title: "string",
+          sender: "string",
+          receiver: "string",
+        },
+      ],
     } as any);
 
     const result = await messageRepository.save(emailInput);
@@ -32,18 +50,20 @@ describe("MessageRepository", () => {
       emailInput.receiver,
       emailInput.messageType,
     ]);
-    expect(result).toBe(expectedId);
+    expect(result).toEqual(expectedMessage);
   });
 
   test("should throw an error if the database query fails", async () => {
     const query =
-      "INSERT INTO message (content, title, sender, receiver, message_type) VALUES ($1, $2, $3, $4, $5) RETURNING id";
+      "INSERT INTO message (content, title, sender, receiver, message_type) VALUES ($1, $2, $3, $4, $5) RETURNING *";
 
     (pool.query as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
       new Error("Database error"),
     );
 
-    expect(async () => await messageRepository.save(emailInput)).rejects.toThrow(
+    expect(
+      async () => await messageRepository.save(emailInput),
+    ).rejects.toThrow(
       "An error occurred while creating the ressource in the database, error: Error: Database error",
     );
 
