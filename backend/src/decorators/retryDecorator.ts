@@ -19,7 +19,7 @@ export class RetryDecorator implements MessageSender {
     }
     if (this.retryTimes === 0) {
       throw new Error(
-        `${errorMessageFixtureBase.failedToSendMessageAfterRetries}, `,
+        `${errorMessageFixtureBase.failedToSendMessageAfterRetries}`,
       );
     }
   }

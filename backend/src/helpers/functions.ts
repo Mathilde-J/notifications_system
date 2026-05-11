@@ -8,7 +8,7 @@ export const checkEnvVariables = () => {
     "RESEND_API_KEY",
     "SENDER_EMAIL",
     "RECEIVER_EMAIL",
-    "ALLOWED_ORIGIN"
+    "ALLOWED_ORIGIN",
   ];
 
   const missingEnvVariables = REQUIRED.filter(

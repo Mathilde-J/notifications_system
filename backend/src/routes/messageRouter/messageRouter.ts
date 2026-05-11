@@ -1,5 +1,5 @@
 import { Router } from "express";
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import {
   validateMessageCreation,
   validateRequestMiddleware,
@@ -13,13 +13,13 @@ export const createMessageRouter = (controller: MessageController): Router => {
     "/",
     validateMessageCreation,
     validateRequestMiddleware,
-    async (req: Request, res: Response) => {
-      await controller.createMessage(req, res);
+    async (req: Request, res: Response, next: NextFunction) => {
+      await controller.createMessage(req, res, next);
     },
   );
 
-  messageRouter.get("/", async (_req: Request, res: Response) => {
-    await controller.getAllMessages(res);
+  messageRouter.get("/", async (_req: Request, res: Response, next: NextFunction) => {
+    await controller.getAllMessages(_req, res, next);
   });
 
   return messageRouter;

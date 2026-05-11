@@ -5,12 +5,12 @@ import type { DbMessage, Message, MessageInput } from "../../types/message.js";
 export class MessageRepository {
   constructor(private pool: Pool) {}
 
-  public async save(data: MessageInput): Promise<string> {
+  public async save(data: MessageInput): Promise<Message> {
     try {
       const { content, title, sender, receiver, messageType } = data;
       const query =
-        "INSERT INTO message (content, title, sender, receiver, message_type) VALUES ($1, $2, $3, $4, $5) RETURNING id";
-      const result: DbMessage = (
+        "INSERT INTO message (content, title, sender, receiver, message_type) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+      const dbMessage: DbMessage = (
         await this.pool.query(query, [
           content,
           title,
@@ -19,7 +19,16 @@ export class MessageRepository {
           messageType,
         ])
       ).rows[0];
-      return result.id;
+      return {
+        id: dbMessage.id!,
+        content: dbMessage.content,
+        title: dbMessage.title ?? undefined,
+        sender: dbMessage.sender,
+        receiver: dbMessage.receiver,
+        sentAt: dbMessage.sent_at,
+        messageType: dbMessage.message_type,
+      }
+
     } catch (error) {
       console.error(errorMessageFixtureBase.bddErrorCreate, error, "Message");
       throw new Error(
