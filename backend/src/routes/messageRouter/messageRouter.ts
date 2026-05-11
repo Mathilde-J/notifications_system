@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import {
   validateMessageCreation,
   validateRequestMiddleware,
-} from "../../middleware/validateRequest.js";
+} from "../../middleware/validateRequest/validateRequest.js";
 import type { MessageController } from "../../controllers/messagecontroller/messageController.js";
 
 export const createMessageRouter = (controller: MessageController): Router => {

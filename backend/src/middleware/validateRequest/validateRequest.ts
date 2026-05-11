@@ -1,8 +1,8 @@
 import type { NextFunction } from "express";
 import { body, validationResult } from "express-validator";
-import { MessageType } from "../types/message.js";
+import { MessageType } from "../../types/message.js";
 import type { Request, Response } from "express";
-import { errorMessageFixtureBase } from "../helpers/fixtures.js";
+import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
 
 export const validateMessageCreation = [
   body("message")
@@ -41,7 +41,7 @@ export const validateRequestMiddleware = (
   if (!errors.isEmpty()) {
     return res
       .status(400)
-      .json({ error: "Validation failed", details: errors.array() });
+      .json({ message: "Validation failed", details: errors.array() });
   }
 
   return next();
