@@ -16,7 +16,9 @@ describe("sender group", () => {
 
   test("test method send in sender uses sendMessage", async () => {
     const spy = vi.spyOn(sender! as any, "sendMessage");
+      
     await sender!.send(emailInput);
+
     expect(spy).toHaveBeenCalledOnce();
     expect(spy).toHaveBeenCalledExactlyOnceWith(emailInput);
   });
@@ -26,7 +28,7 @@ describe("sender group", () => {
       new Error("fail"),
     );
     await expect(async () => await sender!.send(emailInput)).rejects.toThrow(
-      Error("An error Occured, error: Error: fail"),
+      Error("An error Occurred, error: Error: fail"),
     );
   });
 });

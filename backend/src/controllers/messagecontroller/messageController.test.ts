@@ -92,11 +92,11 @@ describe("MessageController tests", () => {
     expect(mockNextFunction).toHaveBeenCalledExactlyOnceWith(serverError);
   });
 
-  test("should return an error response with 'An error Occured", async () => {
+  test("should return an error response with 'An error Occurred", async () => {
     const spy = vi.spyOn(emailService, "fireMessage");
     const req = mockReq({ body: { message: emailInput } });
     const res = mockRes();
-    const error = new Error("An error Occured");
+    const error = new Error("An error Occurred");
     spy.mockRejectedValueOnce(error);
 
     await messageController.createMessage(req, res, mockNextFunction);

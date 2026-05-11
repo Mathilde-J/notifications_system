@@ -47,7 +47,7 @@ describe("messageSenderService", () => {
       vi.spyOn(messageRepository, "save").mockResolvedValue(expectedMessage);
       await expect(
         async () => await messageSenderService.fireMessage(emailInput),
-      ).rejects.toThrow(Error("An error Occured, error: Error: fail"));
+      ).rejects.toThrow(Error("An error Occurred, error: Error: fail"));
     });
   });
 
@@ -136,7 +136,7 @@ describe("messageSenderService", () => {
       vi.spyOn(messageRepository, "save").mockRejectedValue(new Error("fail"));
       await expect(
         async () => await messageSenderService.fireMessage(emailInput),
-      ).rejects.toThrow(Error("An error Occured, error: Error: fail"));
+      ).rejects.toThrow(Error("An error Occurred, error: Error: fail"));
 
       expect(spyUpdateObserverMethod).not.toHaveBeenCalled();
     });
@@ -152,7 +152,7 @@ describe("messageSenderService", () => {
 
       await expect(
         async () => await messageSenderService.fireMessage(emailInput),
-      ).rejects.toThrow(Error("An error Occured, error: Error: fail"));
+      ).rejects.toThrow(Error("An error Occurred, error: Error: fail"));
 
       expect(spyUpdateObserverMethod).toHaveBeenCalledExactlyOnceWith(
         expectedMessage.id,
