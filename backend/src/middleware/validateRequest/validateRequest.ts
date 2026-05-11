@@ -41,7 +41,7 @@ export const validateRequestMiddleware = (
   if (!errors.isEmpty()) {
     return res
       .status(400)
-      .json({ error: "Validation failed", details: errors.array() });
+      .json({ message: "Validation failed", details: errors.array() });
   }
 
   return next();
