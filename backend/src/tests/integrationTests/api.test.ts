@@ -5,12 +5,20 @@ import { createApp } from "../../../server.js";
 import request from "supertest";
 import type { MessageInput } from "../../types/message.js";
 import { messageFixtureBase } from "../../helpers/fixtures.js";
-import { rateLimiter } from "../../middleware/rateLimit/rateLimit.js";
+import rateLimit from "express-rate-limit";
 
 describe("API integration test", () => {
   let messageController: ReturnType<typeof mock<MessageController>>;
   let app: ReturnType<typeof createApp>;
   let messageInput: MessageInput = messageFixtureBase.emailInput;
+  const expectedData = messageFixtureBase.messageFromInput;
+  const rateLimiter = rateLimit({
+    windowMs: 20 * 60 * 1000,
+    limit: 1000,
+    message: { message: "Too many requests, please try again later." },
+    standardHeaders: "draft-8",
+    legacyHeaders: false,
+  });
 
   beforeEach(() => {
     messageController = mock<MessageController>();
@@ -19,9 +27,9 @@ describe("API integration test", () => {
 
   test("POST /api/messages/", async () => {
     messageController.createMessage.mockImplementationOnce(
-      async (_req, res) => {
+      async (_req, res, _mockNextFunction) => {
         res.status(201).json({
-          message: "Message sent successfully",
+          data: expectedData,
         });
       },
     );
@@ -32,7 +40,7 @@ describe("API integration test", () => {
 
     expect(response.status).toBe(201);
     expect(response.body).toEqual({
-      message: "Message sent successfully",
+      data: expectedData,
     });
   });
 
@@ -56,25 +64,18 @@ describe("API integration test", () => {
   });
 
   test("GET /api/messages/", async () => {
-    messageController.getAllMessages.mockImplementation(async (res) => {
-      res.status(200).json({
-        message: "Messages retrieved successfully",
-        data: [],
-      });
-    });
+    messageController.getAllMessages.mockImplementation(
+      async (_req, res, _mockNextFunction) => {
+        res.status(200).json({
+          data: [],
+        });
+      },
+    );
     const response = await request(app)
       .get("/api/messages/")
       .set("Content-Type", "application/json");
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual({
-      message: "Messages retrieved successfully",
-      data: [],
-    });
-    expect(response.body).toHaveProperty(
-      "message",
-      "Messages retrieved successfully",
-    );
     expect(response.body).toHaveProperty("data", []);
   });
 });

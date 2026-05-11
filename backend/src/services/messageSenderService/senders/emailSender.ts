@@ -20,9 +20,9 @@ export class EmailSender extends BaseSender {
     });
 
     if (error) {
-      console.error(errorMessageFixtureBase.errorOccurred, error.message);
+      console.error(errorMessageFixtureBase.errorOccurred, error);
       throw new Error(
-        `${errorMessageFixtureBase.errorOccurred}, error: ${error.message}`,
+        `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,
       );
     }
   }

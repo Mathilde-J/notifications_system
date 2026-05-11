@@ -3,7 +3,7 @@ import type { Observable } from "../../interfaces/observer/observable.js";
 import type { Observer } from "../../interfaces/observer/observer.js";
 import type { MessageRepository } from "../../repositories/messageRepository/messageRepository.js";
 import { EventResponse } from "../../types/log.js";
-import type { MessageInput } from "../../types/message.js";
+import type { Message, MessageInput } from "../../types/message.js";
 import type { MessageSender } from "./senders/baseSender.js";
 
 export class MessageSenderService implements Observable {
@@ -40,12 +40,14 @@ export class MessageSenderService implements Observable {
     });
   }
 
-  public async fireMessage(message: MessageInput) {
+  public async fireMessage(
+    messageInput: MessageInput,
+  ): Promise<Message | undefined> {
     let status: EventResponse = EventResponse.EVENTFAIL;
-    let messageId: string | undefined;
+    let messageSent: Message | undefined;
     try {
-      messageId = await this.messageRepository.save(message);
-      await this.sender.send(message);
+      messageSent = await this.messageRepository.save(messageInput);
+      await this.sender.send(messageInput);
       status = EventResponse.EVENTSUCCESS;
     } catch (error) {
       console.error(errorMessageFixtureBase.errorOccurred, error);
@@ -53,8 +55,10 @@ export class MessageSenderService implements Observable {
         `${errorMessageFixtureBase.errorOccurred}, error: ${error}`,
       );
     } finally {
-      if (this.observers.length !== 0 && messageId)
-        this.notifyObserver(messageId, status);
+      if (this.observers.length !== 0 && messageSent) {
+        this.notifyObserver(messageSent.id, status);
+      }
+      return messageSent;
     }
   }
 }

@@ -17,6 +17,8 @@ import { EmailSender } from "../../services/messageSenderService/senders/emailSe
 import { SmsSender } from "../../services/messageSenderService/senders/smsSender.js";
 import type { MessageQueryService } from "../../services/messageQueryService/messageQueryService.js";
 import type { Resend } from "resend";
+import type { NextFunction } from "express";
+import { ServerError } from "../../class/ErrorClass.js";
 
 describe("MessageController tests", () => {
   let messageController: MessageController;
@@ -25,6 +27,7 @@ describe("MessageController tests", () => {
   let messageQueryService: MessageQueryService;
   const emailInput: MessageInput = messageFixtureBase.emailInput;
   let mockResendService: Resend;
+  let mockNextFunction: ReturnType<typeof mock<NextFunction>>;
 
   beforeEach(() => {
     const pool = mock<Pool>();
@@ -52,22 +55,24 @@ describe("MessageController tests", () => {
       },
       messageQueryService,
     );
+    mockNextFunction = mock<NextFunction>();
   });
 
   test("should call the service's send function and return a succes response", async () => {
+    const expectedMessage = messageFixtureBase.messageFromInput;
     const spy = vi
       .spyOn(emailService, "fireMessage")
-      .mockResolvedValue(undefined);
+      .mockResolvedValue(expectedMessage);
     const req = mockReq({ body: { message: emailInput } });
     const res = mockRes();
 
-    await messageController.createMessage(req, res);
+    await messageController.createMessage(req, res, mockNextFunction);
 
     expect(req.body.message).toEqual(emailInput);
     expect(spy).toHaveBeenCalledWith(emailInput);
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith({
-      message: "Message sent successfully",
+      data: expectedMessage,
     });
   });
 
@@ -76,32 +81,28 @@ describe("MessageController tests", () => {
       body: { message: { ...emailInput, messageType: "unknown" } },
     });
     const res = mockRes();
+    const serverError = new ServerError();
 
-    await messageController.createMessage(req, res);
+    await messageController.createMessage(req, res, mockNextFunction);
 
     expect(req.body.message).toEqual({
       ...emailInput,
       messageType: "unknown",
     });
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      message: `Message was not sent : Error: No senderService was found`,
-    });
+    expect(mockNextFunction).toHaveBeenCalledExactlyOnceWith(serverError);
   });
 
   test("should return an error response with 'An error Occured", async () => {
     const spy = vi.spyOn(emailService, "fireMessage");
     const req = mockReq({ body: { message: emailInput } });
     const res = mockRes();
-    spy.mockRejectedValueOnce(new Error("An error Occured"));
+    const error = new Error("An error Occured");
+    spy.mockRejectedValueOnce(error);
 
-    await messageController.createMessage(req, res);
+    await messageController.createMessage(req, res, mockNextFunction);
 
     expect(req.body.message).toEqual(emailInput);
     expect(spy).toHaveBeenCalledWith(emailInput);
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      message: `Message was not sent : Error: An error Occured`,
-    });
+    expect(mockNextFunction).toHaveBeenCalledExactlyOnceWith(error);
   });
 });

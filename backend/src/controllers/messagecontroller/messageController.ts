@@ -1,8 +1,8 @@
-import type { Request, Response } from "express";
-import { errorMessageFixtureBase } from "../../helpers/fixtures.js";
+import type { NextFunction, Request, Response } from "express";
 import type { MessageInput } from "../../types/message.js";
 import type { MessageQueryService } from "../../services/messageQueryService/messageQueryService.js";
 import type { MessageSenderService } from "../../services/messageSenderService/messageSenderServices.js";
+import { ServerError } from "../../class/ErrorClass.js";
 
 export class MessageController {
   constructor(
@@ -10,40 +10,44 @@ export class MessageController {
     private queryService: MessageQueryService,
   ) {}
 
-  async createMessage(req: Request, res: Response): Promise<void> {
+  async createMessage(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     try {
       const { message }: { message: MessageInput } = req.body;
 
       const service = this.services[message.messageType];
       if (!service) {
-        throw new Error(errorMessageFixtureBase.serviceNotFound);
+        throw new ServerError();
       }
 
-      await service.fireMessage(message);
+      const messageSent = await service.fireMessage(message);
+      if (!messageSent) {
+        throw new ServerError();
+      }
 
       res.status(201).json({
-        message: "Message sent successfully",
+        data: messageSent,
       });
     } catch (error) {
-      console.error(errorMessageFixtureBase.errorOccurred, error);
-      res.status(400).json({
-        message: `${errorMessageFixtureBase.messageNotSent} : ${error}`,
-      });
+      next(error);
     }
   }
 
-  async getAllMessages( res: Response): Promise<void> {
+  async getAllMessages(
+    _req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     try {
       const messages = await this.queryService.getAllMessages();
       res.status(200).json({
-        message: "Messages retrieved successfully",
         data: messages,
       });
     } catch (error) {
-      console.error(errorMessageFixtureBase.errorOccurred, error);
-      res.status(400).json({
-        message: `${errorMessageFixtureBase.messagesNotRetrieved} : ${error}`,
-      });
+      next(error);
     }
   }
 }

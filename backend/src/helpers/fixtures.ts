@@ -1,5 +1,9 @@
 import { vi } from "vitest";
-import { MessageType, type MessageInput } from "../types/message.js";
+import {
+  MessageType,
+  type Message,
+  type MessageInput,
+} from "../types/message.js";
 import type { Request, Response } from "express";
 
 export const messageFixtureBase = {
@@ -9,7 +13,16 @@ export const messageFixtureBase = {
     receiver: "idreceiver1",
     title: "subject1",
     messageType: MessageType.EMAIL,
-  } as MessageInput,
+  } satisfies MessageInput,
+  messageFromInput: {
+    content: "content1",
+    sender: "idsender",
+    receiver: "idreceiver1",
+    title: "subject1",
+    messageType: MessageType.EMAIL,
+    id: "message123",
+    sentAt: "datetime",
+  } satisfies Message,
 };
 
 export const errorMessageFixtureBase = {
@@ -47,6 +60,7 @@ export const errorMessageFixtureBase = {
     "An error occurred while deleting the ressource in the database",
   missingEnvVariables:
     "Missing required environment variables: SENDER_EMAIL and RECEIVER_EMAIL",
+    messageUndefined : "Message is undefined"
 };
 
 export function mockReq(overrides: Partial<Request> = {}): Request {

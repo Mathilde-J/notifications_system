@@ -9,25 +9,36 @@ export const validateMessageCreation = [
     .isObject()
     .withMessage(errorMessageFixtureBase.missingMessage),
   body("message.content")
-    .notEmpty().withMessage(errorMessageFixtureBase.missingContent)
-    .isString().withMessage(errorMessageFixtureBase.missingContent)
+    .notEmpty()
+    .withMessage(errorMessageFixtureBase.missingContent)
+    .isString()
+    .withMessage(errorMessageFixtureBase.missingContent)
     .trim(),
   body("message.messageType")
-    .notEmpty().withMessage(errorMessageFixtureBase.missingMessageType)
-    .isString().withMessage(errorMessageFixtureBase.missingMessageType)
-    .isIn([MessageType.EMAIL]).withMessage(errorMessageFixtureBase.invalidMessageType),
+    .notEmpty()
+    .withMessage(errorMessageFixtureBase.missingMessageType)
+    .isString()
+    .withMessage(errorMessageFixtureBase.missingMessageType)
+    .isIn([MessageType.EMAIL])
+    .withMessage(errorMessageFixtureBase.invalidMessageType),
   body("message.sender")
-    .notEmpty().withMessage(errorMessageFixtureBase.missingSender)
-    .isString().withMessage(errorMessageFixtureBase.missingSender)
+    .notEmpty()
+    .withMessage(errorMessageFixtureBase.missingSender)
+    .isString()
+    .withMessage(errorMessageFixtureBase.missingSender)
     .trim(),
   body("message.receiver")
-    .notEmpty().withMessage(errorMessageFixtureBase.missingReceiver)
-    .isString().withMessage(errorMessageFixtureBase.missingReceiver)
+    .notEmpty()
+    .withMessage(errorMessageFixtureBase.missingReceiver)
+    .isString()
+    .withMessage(errorMessageFixtureBase.missingReceiver)
     .trim(),
   body("message.title")
     .optional()
-    .notEmpty().withMessage(errorMessageFixtureBase.emptyTitle)
-    .isString().withMessage(errorMessageFixtureBase.emptyTitle)
+    .notEmpty()
+    .withMessage(errorMessageFixtureBase.emptyTitle)
+    .isString()
+    .withMessage(errorMessageFixtureBase.emptyTitle)
     .trim(),
 ];
 
@@ -41,7 +52,7 @@ export const validateRequestMiddleware = (
   if (!errors.isEmpty()) {
     return res
       .status(400)
-      .json({ message: "Validation failed", details: errors.array() });
+      .json({ error: "Validation failed", details: errors.array() });
   }
 
   return next();

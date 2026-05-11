@@ -9,6 +9,7 @@ import { checkEnvVariables } from "./src/helpers/functions.js";
 import { rateLimiter } from "./src/middleware/rateLimit/rateLimit.js";
 import type { RateLimitRequestHandler } from "express-rate-limit";
 import helmet from "helmet";
+import { errorMiddleware } from "./src/middleware/errorMiddleware/errorMiddleWare.js";
 
 export const createApp = (
   messageController: MessageController,
@@ -25,6 +26,7 @@ export const createApp = (
     }),
   );
   app.use("/api", router);
+  app.use(errorMiddleware)
   return app;
 };
 
