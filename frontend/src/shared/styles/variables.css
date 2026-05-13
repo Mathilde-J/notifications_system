@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap");
+
+:root {
+  /* FONT */
+  font-family: "Geom", sans-serif;
+  font-optical-sizing: auto;
+  color: var(--black);
+
+  /* COLORS */
+  --backgroun_color: #eceff2;
+  --plain_white: #ffffff;
+  --white_secondary: #fcfcfc;
+  --pink: #e7638d;
+  --green: #72e163;
+  --red: #e16363;
+  --orange: #e49f20;
+  --black: #000000;
+
+  /* RADIUS */
+  --radius_twenty: 20px;
+  --radius_forty: 40px;
+  --radius_five: 5px;
+
+  /* BORDER */
+  --main_border: var(--black) solid 2px;
+  --secondary_border: var(--black) solid 1px;
+
+  /* BOX SHADOW */
+  --main_box_shadow: 0px 15px 0px 0px var(--black);
+  --secondary_box_shadow: 0px 5px 0px 0px var(--black);
+
+  /* PADDING */
+  --main_padding_twenty: 20px;
+  --secondary_padding_ten: 10px;
+  --secondary_padding_sixteen: 16px;
+  --secondary_padding_thirty: 30px;
+  --tertiary_padding_seven: 7px;
+  --tertiary_padding_twelve: 12px;
+}
+
+span {
+  font-family: "Geom", sans-serif;
+}

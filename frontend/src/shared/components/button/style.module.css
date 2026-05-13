@@ -1,0 +1,5 @@
+.buttonBase {
+  border: var(--secondary_border);
+  border-radius: var(--radius_twenty);
+  padding: var(--secondary_padding_ten) var(--main_padding_twenty);
+}
