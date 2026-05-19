@@ -7,10 +7,18 @@ export const MessageType = {
 
 export type Message = {
   content: string;
-  messageType: typeof MessageType[keyof typeof MessageType];
+  messageType: (typeof MessageType)[keyof typeof MessageType];
   title?: string | undefined;
   sender: string;
   receiver: string;
   id: string;
   sentAt: string;
+};
+
+export type MessageInput = {
+  content: string;
+  messageType: (typeof MessageType)[keyof typeof MessageType];
+  title?: string | undefined;
+  sender: string;
+  receiver: string;
 };
