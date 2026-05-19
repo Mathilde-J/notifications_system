@@ -1,5 +1,15 @@
-.buttonBase {
+.button_base {
   border: var(--secondary_border);
   border-radius: var(--radius_twenty);
   padding: var(--secondary_padding_ten) var(--main_padding_twenty);
+}
+
+.button_secondary {
+  box-shadow: var(--tertiary_box_shadow);
+}
+
+.button_action {
+  color: var(--plain_white);
+  background-color: var(--pink);
+  box-shadow: var(--tertiary_box_shadow);
 }

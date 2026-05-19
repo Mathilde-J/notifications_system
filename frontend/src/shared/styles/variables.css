@@ -27,7 +27,8 @@
 
   /* BOX SHADOW */
   --main_box_shadow: 0px 15px 0px 0px var(--black);
-  --secondary_box_shadow: 0px 5px 0px 0px var(--black);
+  --secondary_box_shadow: 0px 2px 0px 0px var(--black);
+  --tertiary_box_shadow: 0px 5px 0px 0px var(--black);
 
   /* PADDING */
   --main_padding_twenty: 20px;
