@@ -7,6 +7,7 @@
 }
 
 .input_field {
+  outline: none;
   border: none;
   width: 100vmax;
   padding: var(--tertiary_padding_seven) 0;
@@ -15,4 +16,8 @@
 .input_icon {
   height: 20px;
   margin-right: 5px;
+}
+
+.input_container:focus-within {
+  outline: var(--main_border);
 }
