@@ -10,9 +10,16 @@ const ButtonType = {
 interface ButtonProps {
   title: string;
   buttonType: (typeof ButtonType)[keyof typeof ButtonType];
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
-const CustomButton: React.FC<ButtonProps> = ({ title, buttonType }) => {
+const CustomButton: React.FC<ButtonProps> = ({
+  title,
+  buttonType,
+  onClick,
+  type = "button",
+}) => {
   const buttonStyle =
     buttonType == ButtonType.secondary
       ? "button_secondary"
@@ -21,7 +28,11 @@ const CustomButton: React.FC<ButtonProps> = ({ title, buttonType }) => {
         : "";
 
   return (
-    <button className={`${style.button_base} ${buttonStyle}`} type="button">
+    <button
+      onClick={onClick}
+      className={`${style.button_base} ${buttonStyle}`}
+      type={type}
+    >
       <span className="text_regular">{title}</span>
     </button>
   );
