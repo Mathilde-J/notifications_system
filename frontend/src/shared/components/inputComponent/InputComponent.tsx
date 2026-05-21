@@ -1,5 +1,5 @@
 import { useId, type InputHTMLAttributes } from "react";
-import styles from "./style.module.css";
+import style from "./style.module.css";
 import clsx from "clsx";
 import { Icons } from "../../icons";
 
@@ -25,11 +25,10 @@ export function InputComponent({
   const inputId = id ?? generatedId;
   const errorId = `${inputId}_error`;
   const hasError = Boolean(errorMessage);
-  const Icon = variant === "search" ? Icons.search : null
+  const Icon = variant === "search" ? Icons.search : null;
 
   return (
-    <div className={styles.input_wrapper}>
-
+    <div className={style.input_wrapper}>
       <label htmlFor={inputId} className="sr_only">
         {label}
         {required && <span aria-hidden="true"> *</span>}
@@ -37,37 +36,35 @@ export function InputComponent({
 
       <div
         className={clsx(
-          styles.input_container,
-          Icon && styles.input_container__with_icon,
-          hasError && styles.input_container__error,
-          disabled && styles.input_container__disabled,
+          style.input_container,
+          Icon && style.input_container__with_icon,
+          hasError && style.input_container__error,
+          disabled && style.input_container__disabled,
         )}
       >
         {Icon && (
-          <span className={styles.input_icon} aria-hidden="true">
+          <span className={style.input_icon} aria-hidden="true">
             <Icon />
           </span>
         )}
 
         <input
           id={inputId}
-          type={variant === "search" ? "search" : rest.type ?? "text"}
+          type={variant === "search" ? "search" : (rest.type ?? "text")}
           disabled={disabled}
           required={required}
           aria-describedby={hasError ? errorId : undefined}
           aria-invalid={hasError ? "true" : undefined}
-          className={clsx(styles.input_field, className, "text_small_light")}
+          className={clsx(style.input_field, className, "text_small_light")}
           {...rest}
-        >
-          </input>
+        ></input>
       </div>
 
       {hasError && (
-        <p id={errorId} className={styles.input_error} role="alert">
+        <p id={errorId} className={style.input_error} role="alert">
           {errorMessage}
         </p>
       )}
-
     </div>
   );
 }

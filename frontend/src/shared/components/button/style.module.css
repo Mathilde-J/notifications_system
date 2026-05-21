@@ -2,6 +2,12 @@
   border: var(--secondary_border);
   border-radius: var(--radius_twenty);
   padding: var(--secondary_padding_ten) var(--main_padding_twenty);
+  display: flex;
+  align-items: center;
+}
+
+.button_base.button__with_icon {
+  padding-right: 15px;
 }
 
 .button_secondary {
@@ -14,4 +20,6 @@
   box-shadow: var(--tertiary_box_shadow);
 }
 
-
+.input_icon {
+  margin-left: 5px;
+}

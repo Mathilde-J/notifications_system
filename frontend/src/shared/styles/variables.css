@@ -20,7 +20,7 @@
   --radius_twenty: 20px;
   --radius_forty: 40px;
   --radius_five: 5px;
-
+  --radius_fifteen: 15px;
   /* BORDER */
   --main_border: var(--black) solid 2px;
   --secondary_border: var(--black) solid 1px;
