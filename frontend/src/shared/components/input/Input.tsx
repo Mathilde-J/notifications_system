@@ -3,15 +3,15 @@ import style from "./style.module.css";
 import clsx from "clsx";
 import { Icons } from "../../icons";
 
-type InputComponentVariant = "default" | "search";
+type InputVariant = "default" | "search";
 
-export interface InputComponentProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  variant?: InputComponentVariant;
+  variant?: InputVariant;
   errorMessage?: string;
 }
 
-export function InputComponent({
+export const Input = ({
   id,
   label,
   variant = "default",
@@ -20,7 +20,7 @@ export function InputComponent({
   required = false,
   className,
   ...rest
-}: InputComponentProps) {
+}: InputProps) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const errorId = `${inputId}_error`;
@@ -67,4 +67,4 @@ export function InputComponent({
       )}
     </div>
   );
-}
+};

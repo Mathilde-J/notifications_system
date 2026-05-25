@@ -6,6 +6,8 @@ const ButtonType = {
   ACTION: "action",
 } as const;
 
+type ButtonTypeValue = (typeof ButtonType)[keyof typeof ButtonType];
+
 const LabelType = {
   EMAIL: {
     icon: Icons.email,
@@ -22,4 +24,5 @@ const LabelType = {
   },
 } as const;
 
-export { ButtonType, LabelType };
+export { LabelType, ButtonType };
+export type { ButtonTypeValue };

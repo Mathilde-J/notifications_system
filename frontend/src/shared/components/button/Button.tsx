@@ -1,22 +1,17 @@
 import React from "react";
 import style from "./style.module.css";
 import clsx from "clsx";
-
-const ButtonType = {
-  primary: "primary",
-  secondary: "secondary",
-  action: "action",
-} as const;
+import { ButtonType, type ButtonTypeValue } from "../constant";
 
 interface ButtonProps {
   title: string;
-  buttonType: (typeof ButtonType)[keyof typeof ButtonType];
+  buttonType: ButtonTypeValue;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
-const CustomButton: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   title,
   buttonType,
   onClick,
@@ -24,9 +19,9 @@ const CustomButton: React.FC<ButtonProps> = ({
   icon: Icon,
 }) => {
   const buttonStyle =
-    buttonType == ButtonType.secondary
+    buttonType === ButtonType.SECONDARY
       ? "button_secondary"
-      : buttonType == ButtonType.action
+      : buttonType === ButtonType.ACTION
         ? "button_action"
         : "";
 
@@ -50,4 +45,3 @@ const CustomButton: React.FC<ButtonProps> = ({
   );
 };
 
-export default CustomButton;

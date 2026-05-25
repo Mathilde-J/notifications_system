@@ -1,0 +1,37 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  padding: 0.4rem 0 var(--spacing_md_2) 0;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody td {
+  padding: 20px;
+}
+
+thead {
+  border-bottom: 2px solid var(--black);
+}
+
+.messages_page_table_container {
+  padding: var(--spacing_md);
+  border-radius: var(--radius_xl);
+  background-color: var(--plain_white);
+  border: var(--border_main);
+  box-shadow: var(--shadow_main);
+}

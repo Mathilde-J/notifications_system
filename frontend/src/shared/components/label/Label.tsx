@@ -1,14 +1,14 @@
 import React from "react";
 import type { LabelType } from "../constant";
 import clsx from "clsx";
-import style from "./style.module.css";
+import style from "./style.module.css"
 export type LabelTypeValue = (typeof LabelType)[keyof typeof LabelType];
 
-interface ComponentProps {
+interface LabelProps {
   type: LabelTypeValue;
 }
 
-const LabelComponent: React.FC<ComponentProps> = ({ type }) => {
+export const Label: React.FC<LabelProps> = ({ type }) => {
   const Icon = "icon" in type ? type.icon : null;
 
   return (
@@ -26,4 +26,3 @@ const LabelComponent: React.FC<ComponentProps> = ({ type }) => {
   );
 };
 
-export default LabelComponent;

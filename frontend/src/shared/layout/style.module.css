@@ -1,0 +1,10 @@
+.main_layout {
+  min-height: 100dvh;
+  padding: var(--spacing_lg) var(--spacing_mdlg);
+}
+
+.main_layout_header {
+  display: flex;
+  justify-content: end;
+  margin-bottom: var(--spacing_sm);
+}

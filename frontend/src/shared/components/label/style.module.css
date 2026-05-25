@@ -1,14 +1,14 @@
 .label_base {
-  padding: var(--tertiary_padding_seven) var(--tertiary_padding_twelve);
+  padding: var(--spacing_xs) var(--spacing_sm);
   display: flex;
   align-items: center;
   justify-content: center;
   width: min-content;
-  border: var(--secondary_border);
+  border: var(--border_secondary);
   border-radius: var(--radius_fifteen);
 }
 .label__with_icon .label_icon {
-  margin-right: 5px;
+  margin-right: 0.3rem;
 }
 
 .label_base.email {
