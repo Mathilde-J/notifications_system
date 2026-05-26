@@ -1,22 +1,20 @@
-import React from "react";
+import React, { type TableHTMLAttributes } from "react";
 import style from "./style.module.css";
 
-interface MessagesTablesProps {
-  title: string;
-}
-
-const MessagesTable: React.FC<MessagesTablesProps> = ({ title }) => {
-  console.log("🚀 ~ MessagesTable ~ title:", title);
+const MessagesTable: React.FC<TableHTMLAttributes<HTMLTableElement>> = ({
+  ...rest
+}) => {
   return (
     <div className={style.messages_page_table_container}>
-      <table className={style.messages_page_table}>
+      <table {...rest} className={style.messages_page_table}>
+        <caption className="sr_only">Messages envoyé</caption>
         <thead>
           <tr>
-            <th>Colonne 1</th>
-            <th>Colonne 2</th>
-            <th>Colonne 3</th>
-            <th>Colonne 4</th>
-            <th>Colonne 5</th>
+            <th scope="col">Colonne 1</th>
+            <th scope="col">Colonne 2</th>
+            <th scope="col">Colonne 3</th>
+            <th scope="col">Colonne 4</th>
+            <th scope="col">Colonne 5</th>
           </tr>
         </thead>
         <tbody>

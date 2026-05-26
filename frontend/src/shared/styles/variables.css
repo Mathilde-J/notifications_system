@@ -46,9 +46,9 @@
   --border_secondary: var(--black) solid 1px;
 
   /* BOX SHADOW */
-  --shadow_main: 0px 15px 0px 0px var(--black);
-  --shadow_secondary: 0px 2px 0px 0px var(--black);
-  --shadow_tertiary: 0px 5px 0px 0px var(--black);
+  --shadow_main: inset 0px -15px 0px 0px var(--black);
+  --shadow_secondary: inset 0px -2px 0px 0px var(--black);
+  --shadow_tertiary: inset 0px -5px 0px 0px var(--black);
 }
 
 .h1 {

@@ -1,9 +1,10 @@
 import React from "react";
+import { motion, scale, type HTMLMotionProps } from "motion/react";
 import style from "./style.module.css";
 import clsx from "clsx";
 import { ButtonType, type ButtonTypeValue } from "../constant";
 
-interface ButtonProps {
+interface ButtonProps extends Omit<HTMLMotionProps<"button">, "title"> {
   title: string;
   buttonType: ButtonTypeValue;
   onClick?: () => void;
@@ -17,17 +18,23 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   type = "button",
   icon: Icon,
+  ...rest
 }) => {
-  const buttonStyle =
-    buttonType === ButtonType.SECONDARY
-      ? "button_secondary"
-      : buttonType === ButtonType.ACTION
-        ? "button_action"
-        : "";
+  const isSecondary = buttonType === ButtonType.SECONDARY;
+  const isAction = buttonType === ButtonType.ACTION;
+  const isPrimary = buttonType === ButtonType.PRIMARY;
+  const buttonStyle = isSecondary
+    ? "button_secondary"
+    : isAction
+      ? "button_action"
+      : "";
 
   return (
-    <button
+    <motion.button
+      {...rest}
       onClick={onClick}
+      initial={{ scale: 1 }}
+      whileHover={{ scale: !isAction ? 1.05 : 1 }}
       className={clsx(
         style.button_base,
         Icon && style.button__with_icon,
@@ -41,7 +48,6 @@ export const Button: React.FC<ButtonProps> = ({
           <Icon />
         </span>
       )}
-    </button>
+    </motion.button>
   );
 };
-

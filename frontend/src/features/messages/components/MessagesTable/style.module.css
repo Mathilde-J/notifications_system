@@ -21,7 +21,7 @@ tbody tr:last-child {
 }
 
 tbody td {
-  padding: 20px;
+  padding: var(--spacing_s_2) 0;
 }
 
 thead {

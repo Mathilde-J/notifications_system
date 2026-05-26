@@ -4,8 +4,9 @@ import { Button } from "../../shared/components/button/Button";
 import { ButtonType } from "../../shared/components/constant";
 import { Icons } from "../../shared/icons";
 import { Input } from "../../shared/components/input/Input";
-import { PageTitle } from "../../shared/components/pageTitle/PageTitleComponent";
+import { PageTitle } from "../../shared/components/pageTitle/PageTitle";
 import MessagesTable from "../../features/messages/components/MessagesTable/MessagesTable";
+import { Accordion } from "../../shared/components/accordion/Accordion";
 
 const MessagesPage: React.FC = () => {
   return (
@@ -25,7 +26,20 @@ const MessagesPage: React.FC = () => {
             buttonType={ButtonType.ACTION}
           />
         </div>
-        <MessagesTable title={""} />
+        <MessagesTable />
+        <Accordion
+          children={
+            <div>
+              heldokeofkeokfoe
+              <p>,kenfkne</p>
+              <p>,kenfkne</p>
+              <p>,kenfkne</p>
+              <p>,kenfkne</p>
+              <p>,kenfkne</p>
+            </div>
+          }
+          title={"titre de l'acordéon"}
+        />
       </section>
     </>
   );

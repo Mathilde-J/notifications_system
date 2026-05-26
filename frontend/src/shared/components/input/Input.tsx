@@ -25,7 +25,8 @@ export const Input = ({
   const inputId = id ?? generatedId;
   const errorId = `${inputId}_error`;
   const hasError = Boolean(errorMessage);
-  const Icon = variant === "search" ? Icons.search : null;
+  const isSearchVariant = variant === "search";
+  const Icon = isSearchVariant ? Icons.search : null;
 
   return (
     <div className={style.input_wrapper}>
@@ -49,14 +50,15 @@ export const Input = ({
         )}
 
         <input
+          {...rest}
           id={inputId}
-          type={variant === "search" ? "search" : (rest.type ?? "text")}
+          type={isSearchVariant ? "search" : (rest.type ?? "text")}
           disabled={disabled}
           required={required}
           aria-describedby={hasError ? errorId : undefined}
           aria-invalid={hasError ? "true" : undefined}
           className={clsx(style.input_field, className, "text_small_light")}
-          {...rest}
+          role={isSearchVariant ? "search" : "textbox"}
         ></input>
       </div>
 
