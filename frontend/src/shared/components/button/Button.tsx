@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, scale, type HTMLMotionProps } from "motion/react";
+import { motion, type HTMLMotionProps } from "motion/react";
 import style from "./style.module.css";
 import clsx from "clsx";
 import { ButtonType, type ButtonTypeValue } from "../constant";
@@ -22,7 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const isSecondary = buttonType === ButtonType.SECONDARY;
   const isAction = buttonType === ButtonType.ACTION;
-  const isPrimary = buttonType === ButtonType.PRIMARY;
+
   const buttonStyle = isSecondary
     ? "button_secondary"
     : isAction
