@@ -3,12 +3,12 @@ import { AnimatePresence, motion } from "motion/react";
 import style from "./style.module.css";
 import { Icons } from "../../icons";
 
-interface AccordionProps {
+interface AppAccordionProps {
   children: React.ReactNode;
   title: string;
 }
 
-export const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
+export const AppAccordion: React.FC<AppAccordionProps> = ({ title, children }) => {
   const Icon = Icons.arrow;
   const [isAccordionOpen, setIsAccordion] = useState(false);
   return (

@@ -29,6 +29,7 @@ thead {
 }
 
 .messages_page_table_container {
+  overflow: hidden;
   padding: var(--spacing_md);
   border-radius: var(--radius_xl);
   background-color: var(--plain_white);

@@ -1,45 +1,21 @@
 import React from "react";
 import style from "./style.module.css";
-import { Button } from "../../shared/components/button/Button";
-import { ButtonType } from "../../shared/components/constant";
-import { Icons } from "../../shared/icons";
-import { Input } from "../../shared/components/input/Input";
-import { PageTitle } from "../../shared/components/pageTitle/PageTitle";
+import { AppPageTitle } from "../../shared/components/appPageTitle/AppPageTitle";
 import MessagesTable from "../../features/messages/components/MessagesTable/MessagesTable";
-import { Accordion } from "../../shared/components/accordion/Accordion";
+import { useMessages } from "../../features/messages/hooks/useMessages/useMessages";
 
 const MessagesPage: React.FC = () => {
+  const { data, error, isLoading } = useMessages();
+
   return (
     <>
-      <PageTitle title={"messages"} />
-      <section>
-        <div className={style.messages_page_section}>
-          <Input variant="search" label={"Rechercher des messages..."} />
-          <div className={style.messages_page_filter}>
-            <Button title={"Type"} buttonType={ButtonType.PRIMARY} />
-            <Button title={"Date"} buttonType={ButtonType.PRIMARY} />
-            <Button title={"Status"} buttonType={ButtonType.PRIMARY} />
-          </div>
-          <Button
-            title={"Nouveau Message"}
-            icon={Icons.plus}
-            buttonType={ButtonType.ACTION}
-          />
-        </div>
-        <MessagesTable />
-        <Accordion
-          children={
-            <div>
-              heldokeofkeokfoe
-              <p>,kenfkne</p>
-              <p>,kenfkne</p>
-              <p>,kenfkne</p>
-              <p>,kenfkne</p>
-              <p>,kenfkne</p>
-            </div>
-          }
-          title={"titre de l'acordéon"}
-        />
+      <AppPageTitle title={"messages"} />
+      <section aria-label="Liste des messages">
+        {/* TODO : recherche et filtres */}
+        <div className={style.messages_page_section}></div>
+        {isLoading && <p>Chargement...</p>}
+        {error && <p>Error</p>}
+        {data && <MessagesTable data={data} />}
       </section>
     </>
   );

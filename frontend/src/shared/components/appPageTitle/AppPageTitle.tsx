@@ -2,11 +2,11 @@ import React from "react";
 import style from "./style.module.css";
 import clsx from "clsx";
 
-interface PageTitleProps {
+interface AppPageTitleProps {
   title: string;
 }
 
-export const PageTitle: React.FC<PageTitleProps> = ({ title }) => {
+export const AppPageTitle: React.FC<AppPageTitleProps> = ({ title }) => {
   return (
     <div>
       <h1 className={clsx("h1", style.page_title_h1)}>{title.toUpperCase()}</h1>

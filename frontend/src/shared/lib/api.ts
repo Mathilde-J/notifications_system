@@ -1,5 +1,8 @@
 import { urlApiBase, urlMessages } from "../../constants";
-import type { Message, MessageInput } from "../../features/messages/types/message";
+import type {
+  Message,
+  MessageInput,
+} from "../../features/messages/types/message";
 
 type MethodAuthorized = "GET" | "POST";
 const defaultHeaders = { "Content-Type": "application/json" };

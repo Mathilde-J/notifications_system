@@ -4,7 +4,7 @@ import style from "./style.module.css";
 import clsx from "clsx";
 import { ButtonType, type ButtonTypeValue } from "../constant";
 
-interface ButtonProps extends Omit<HTMLMotionProps<"button">, "title"> {
+interface AppButtonProps extends Omit<HTMLMotionProps<"button">, "title"> {
   title: string;
   buttonType: ButtonTypeValue;
   onClick?: () => void;
@@ -12,7 +12,7 @@ interface ButtonProps extends Omit<HTMLMotionProps<"button">, "title"> {
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const AppButton: React.FC<AppButtonProps> = ({
   title,
   buttonType,
   onClick,
@@ -22,6 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const isSecondary = buttonType === ButtonType.SECONDARY;
   const isAction = buttonType === ButtonType.ACTION;
+  const isPrimary = buttonType === ButtonType.PRIMARY;
 
   const buttonStyle = isSecondary
     ? "button_secondary"
@@ -34,7 +35,10 @@ export const Button: React.FC<ButtonProps> = ({
       {...rest}
       onClick={onClick}
       initial={{ scale: 1 }}
-      whileHover={{ scale: !isAction ? 1.05 : 1 }}
+      whileHover={{
+        scale: isPrimary ? 1.03 : 1,
+        transform: "translateY(4px)",
+      }}
       className={clsx(
         style.button_base,
         Icon && style.button__with_icon,

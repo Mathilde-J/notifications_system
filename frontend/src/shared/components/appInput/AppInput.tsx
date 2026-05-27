@@ -5,13 +5,13 @@ import { Icons } from "../../icons";
 
 type InputVariant = "default" | "search";
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface AppInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   variant?: InputVariant;
   errorMessage?: string;
 }
 
-export const Input = ({
+export const AppInput = ({
   id,
   label,
   variant = "default",
@@ -20,7 +20,7 @@ export const Input = ({
   required = false,
   className,
   ...rest
-}: InputProps) => {
+}: AppInputProps) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const errorId = `${inputId}_error`;

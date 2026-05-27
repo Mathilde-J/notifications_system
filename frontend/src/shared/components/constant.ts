@@ -9,20 +9,26 @@ const ButtonType = {
 type ButtonTypeValue = (typeof ButtonType)[keyof typeof ButtonType];
 
 const LabelType = {
-  EMAIL: {
+  email: {
     icon: Icons.email,
-    classname: "email",
+    key: "email",
     text: "Email",
   },
-  FAIL: {
-    classname: "fail",
+  sms: {
+    key: "sms",
+    text: "Sms",
+  },
+  fail: {
+    key: "fail",
     text: "Echec",
   },
-  SUCCESS: {
-    classname: "success",
+  success: {
+    key: "success",
     text: "Validé",
   },
 } as const;
+
+export type LabelTypeKey = (keyof typeof LabelType);
 
 export { LabelType, ButtonType };
 export type { ButtonTypeValue };
