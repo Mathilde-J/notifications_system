@@ -27,8 +27,8 @@ export class MessageRepository {
         receiver: dbMessage.receiver,
         sentAt: dbMessage.sent_at,
         messageType: dbMessage.message_type,
-      }
-
+        status: dbMessage.status,
+      };
     } catch (error) {
       console.error(errorMessageFixtureBase.bddErrorCreate, error, "Message");
       throw new Error(
@@ -39,7 +39,8 @@ export class MessageRepository {
 
   public async getAllMessages(): Promise<Message[]> {
     try {
-      const query = "SELECT * FROM message";
+      const query =
+        "SELECT message.*, log.status FROM message INNER JOIN log ON log.message_id = message.id";
       const { rows }: { rows: DbMessage[] } = await this.pool.query(query);
       return rows.map((dbMessage) => ({
         id: dbMessage.id!,
@@ -49,6 +50,7 @@ export class MessageRepository {
         receiver: dbMessage.receiver,
         sentAt: dbMessage.sent_at,
         messageType: dbMessage.message_type,
+        status: dbMessage.status,
       }));
     } catch (error) {
       console.error(errorMessageFixtureBase.bddErrorCreate, error, "Message");
