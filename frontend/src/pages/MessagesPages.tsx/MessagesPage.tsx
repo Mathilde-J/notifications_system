@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./style.module.css";
 import { AppPageTitle } from "../../shared/components/appPageTitle/AppPageTitle";
-import MessagesTable from "../../features/messages/components/MessagesTable/MessagesTable";
+import { MessagesTable } from "../../features/messages/components/MessagesTable/MessagesTable";
 
 const MessagesPage: React.FC = () => {
   return (

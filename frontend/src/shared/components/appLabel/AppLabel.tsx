@@ -9,6 +9,7 @@ interface AppLabelProps {
 
 export const AppLabel: React.FC<AppLabelProps> = ({ type }) => {
   const labelType = LabelType[type];
+  if (!labelType) return null;
   const Icon = "icon" in labelType ? labelType.icon : null;
 
   return (

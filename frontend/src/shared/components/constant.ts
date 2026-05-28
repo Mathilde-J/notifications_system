@@ -20,15 +20,17 @@ const LabelType = {
   },
   fail: {
     key: "fail",
-    text: "Echec",
+    text: "Echoué",
   },
   success: {
     key: "success",
     text: "Validé",
   },
+  notification: { key: "notification", text: "Push" },
+  slack: { key: "slack", text: "Slack" },
 } as const;
 
-export type LabelTypeKey = (keyof typeof LabelType);
+export type LabelTypeKey = keyof typeof LabelType;
 
 export { LabelType, ButtonType };
 export type { ButtonTypeValue };

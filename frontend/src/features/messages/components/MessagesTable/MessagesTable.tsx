@@ -14,12 +14,8 @@ interface Column {
   render?: (value: Message[ColumnKey]) => React.ReactNode;
 }
 
+
 const columns: Column[] = [
-  {
-    key: "sentAt",
-    label: "Date",
-    render: (value) => new Date(value as string).toLocaleDateString(),
-  },
   {
     key: "messageType",
     label: "Type",
@@ -28,13 +24,18 @@ const columns: Column[] = [
   { key: "sender", label: "Expéditeur" },
   { key: "receiver", label: "Destinataire" },
   {
+    key: "sentAt",
+    label: "Date",
+    render: (value) => new Date(value as string).toLocaleDateString(),
+  },
+  {
     key: "status",
     label: "Statut",
     render: (value) => <AppLabel type={value as LabelTypeKey} />,
   },
 ];
 
-const MessagesTable: React.FC<TableHTMLAttributes<HTMLTableElement>> = ({
+export const MessagesTable: React.FC<TableHTMLAttributes<HTMLTableElement>> = ({
   ...rest
 }) => {
   const { data, error, isLoading } = useMessages();
@@ -56,11 +57,6 @@ const MessagesTable: React.FC<TableHTMLAttributes<HTMLTableElement>> = ({
                 <th key={column.key} scope="col">
                   {column.label}
                 </th>
-              ))}
-            </tr>
-            <tr className={style.messages_page_table_header}>
-              {columns.map((column) => (
-                <td key={column.key} scope="col"></td>
               ))}
             </tr>
           </thead>
@@ -85,5 +81,3 @@ const MessagesTable: React.FC<TableHTMLAttributes<HTMLTableElement>> = ({
     </motion.div>
   );
 };
-
-export default MessagesTable;
