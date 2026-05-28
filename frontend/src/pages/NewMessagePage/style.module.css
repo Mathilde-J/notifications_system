@@ -27,7 +27,7 @@
   resize: none;
   width: 100%;
   border-radius: var(--radius_lg);
-  border: var(--border_secondary);
+  border: var(--border_main);
   padding: var(--spacing_s);
 }
 
