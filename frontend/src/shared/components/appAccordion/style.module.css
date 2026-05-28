@@ -5,7 +5,6 @@
   border-radius: var(--radius_lg);
   padding: var(--spacing_md) var(--spacing_s_2);
   height: auto;
-  width: 20vw;
 }
 
 .accordion_header {
