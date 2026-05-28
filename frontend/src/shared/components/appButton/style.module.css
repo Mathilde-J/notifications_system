@@ -1,0 +1,28 @@
+.button_base {
+  cursor: pointer;
+  border: var(--border_secondary);
+  border-radius: var(--radius_lg);
+  padding: var(--spacing_s) var(--spacing_md);
+  display: flex;
+  align-items: center;
+  background-color: var(--plain_white);
+}
+
+.button_base.button__with_icon {
+  padding-right: 0.9rem;
+}
+
+.button_secondary {
+  box-shadow: 0px 2px 0px 0px var(--black);
+  background-color: var(--plain_white);
+}
+
+.button_action {
+  color: var(--plain_white);
+  background-color: var(--pink);
+  box-shadow: 0px 5px 0px 0px var(--black);
+}
+
+.input_icon {
+  margin-left: 0.3rem;
+}

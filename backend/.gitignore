@@ -2,3 +2,4 @@ NOTES.md
 /node_modules
 .env
 ERRORS_DOCUMENTATION.md
+api_test.http

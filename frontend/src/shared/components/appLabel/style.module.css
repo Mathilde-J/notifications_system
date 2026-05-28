@@ -1,0 +1,29 @@
+.label_base {
+  padding: var(--spacing_xs) var(--spacing_sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min-content;
+  border: var(--border_secondary);
+  border-radius: var(--radius_md);
+}
+
+.label__with_icon .label_icon {
+  margin-right: 0.3rem;
+}
+
+.label_base.email {
+  background-color: var(--orange);
+}
+
+.label_base.sms {
+  background-color: var(--pink);
+}
+
+.label_base.fail {
+  background-color: var(--red);
+}
+
+.label_base.success {
+  background-color: var(--green);
+}

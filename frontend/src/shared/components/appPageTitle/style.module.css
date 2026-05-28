@@ -1,0 +1,9 @@
+.title_separator {
+  height: 4px;
+  background-color: var(--black);
+}
+
+.page_title_h1 {
+  margin-bottom: var(--spacing_s);
+  margin-left: var(--spacing_s);
+}

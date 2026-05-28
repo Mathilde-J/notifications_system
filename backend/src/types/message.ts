@@ -1,10 +1,11 @@
+import type { DbLog, Log } from "./log.js";
+
 export enum MessageType {
   EMAIL = "email",
   SMS = "sms",
   PUSH = "notification",
   SLACK = "slack",
 }
-
 
 // La forme base de données
 export type DbMessage = {
@@ -15,6 +16,7 @@ export type DbMessage = {
   title: string | null;
   sender: string;
   receiver: string;
+  status: Pick<DbLog, "status">;
 };
 
 // La forme qui vient du client
@@ -30,4 +32,5 @@ export type MessageInput = {
 export type Message = MessageInput & {
   id: string;
   sentAt: string;
+  status: Pick<Log, "status"> | undefined;
 };
