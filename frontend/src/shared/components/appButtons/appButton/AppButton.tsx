@@ -1,8 +1,8 @@
 import React from "react";
 import { motion, type HTMLMotionProps } from "motion/react";
-import style from "./style.module.css";
+import style from "../style.module.css";
 import clsx from "clsx";
-import { ButtonType, type ButtonTypeValue } from "../constant";
+import { ButtonType, type ButtonTypeValue } from "../../constant";
 
 interface AppButtonProps extends Omit<HTMLMotionProps<"button">, "title"> {
   title: string;
@@ -43,6 +43,7 @@ export const AppButton: React.FC<AppButtonProps> = ({
         style.button_base,
         Icon && style.button__with_icon,
         style[buttonStyle],
+        rest.className
       )}
       type={type}
     >
