@@ -12,7 +12,6 @@ export default function MainLayout() {
           buttonType={ButtonType.SECONDARY}
         />
       </header>
-
       <Outlet />
     </main>
   );

@@ -13,7 +13,16 @@ tr {
 }
 
 th {
-  padding: 0.4rem 0 var(--spacing_md_2) 0;
+  padding-top: var(--spacing_md_2);
+  padding-bottom: var(--spacing_md_2);
+}
+
+th:first-child {
+  padding-left: var(--spacing_md);
+}
+
+th:last-child {
+  padding-right: var(--spacing_md);
 }
 
 tbody tr:last-child {
@@ -25,14 +34,29 @@ tbody td {
 }
 
 thead {
-  border-bottom: 2px solid var(--black);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--plain_white);
+}
+
+.messages_page_table_header td {
+  background-color: var(--black);
+  height: 2px;
+}
+
+thead tr {
+  border: none;
+}
+
+tbody tr td:first-child {
+  padding-left: var(--spacing_md);
 }
 
 .messages_page_table_container {
-  overflow: hidden;
-  padding: var(--spacing_md);
   border-radius: var(--radius_xl);
   background-color: var(--plain_white);
   border: var(--border_main);
   box-shadow: var(--shadow_main);
+  overflow-y: auto;
 }

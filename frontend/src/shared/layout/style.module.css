@@ -1,6 +1,8 @@
 .main_layout {
-  min-height: 100dvh;
+  height: 100vh;
   padding: var(--spacing_lg) var(--spacing_mdlg);
+  display: flex;
+  flex-direction: column;
 }
 
 .main_layout_header {
