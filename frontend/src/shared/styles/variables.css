@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap");
+
+:root {
+  font-family: "Geom", sans-serif;
+  font-optical-sizing: auto;
+  color: var(--black);
+
+  /* COLORS */
+  --background_color: #eceff2;
+  --plain_white: #ffffff;
+  --white_secondary: #fcfcfc;
+  --pink: #e7638d;
+  --green: #72e163;
+  --red: #e16363;
+  --orange: #e49f20;
+  --black: #000000;
+
+  /* TYPOGRAPHY */
+  /* Texte — fixe */
+  --text_xs: 0.75rem; /* 12px */
+  --text_sm: 0.875rem; /* 14px */
+  --text_base: 1rem; /* 16px */
+
+  /* Titres — fluides */
+  --text_lg: clamp(1.25rem, 3vw, 1.5rem); /* 20px → 24px */
+  --text_xl: clamp(1.5rem, 3vw, 1.8rem); /* 24px → 30px */
+
+  /* SPACING */
+  --spacing_xs: 0.5rem; /* ~8px */
+  --spacing_sm: 0.75rem; /* ~12px */
+  --spacing_s: 0.625rem; /* ~10px */
+  --spacing_s_2: 0.9rem; /* ~15px */
+  --spacing_md: 1.25rem; /* ~20px */
+  --spacing_md_2: 1.5rem; /* ~25px */
+  --spacing_lg: 1.875rem; /* ~30px */
+  --spacing_mdlg: 2.5rem; /* ~40px */
+
+  /* RADIUS */
+  --radius_sm: 5px;
+  --radius_md: 15px;
+  --radius_lg: 20px;
+  --radius_xl: 40px;
+
+  /* BORDER */
+  --border_main: var(--black) solid 2px;
+  --border_secondary: var(--black) solid 1px;
+
+  /* BOX SHADOW */
+  --shadow_main: 0px 15px 0px 0px var(--black);
+  --shadow_secondary: 0px 2px 0px 0px var(--black);
+  --shadow_tertiary: 0px 5px 0px 0px var(--black);
+}
+
+.h1 {
+  font-weight: 800;
+  font-size: var(--text_xl);
+  line-height: 1.2;
+}
+
+.h2 {
+  font-weight: 500;
+  font-size: var(--text_lg);
+  line-height: 1.3;
+}
+
+.text_regular {
+  font-weight: 400;
+  font-size: var(--text_base);
+  line-height: 1.5;
+}
+
+.text_medium {
+  font-weight: 500;
+  font-size: var(--text_base);
+  line-height: 1.5;
+}
+
+.text_xsmall_bold {
+  font-weight: 700;
+  font-size: var(--text_xs);
+  line-height: 1.4;
+}
+
+.text_small_light {
+  font-weight: 200;
+  font-size: var(--text_sm);
+  line-height: 1.5;
+}
+
+.sr_only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

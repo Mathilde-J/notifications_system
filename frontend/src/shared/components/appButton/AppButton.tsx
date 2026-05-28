@@ -1,0 +1,57 @@
+import React from "react";
+import { motion, type HTMLMotionProps } from "motion/react";
+import style from "./style.module.css";
+import clsx from "clsx";
+import { ButtonType, type ButtonTypeValue } from "../constant";
+
+interface AppButtonProps extends Omit<HTMLMotionProps<"button">, "title"> {
+  title: string;
+  buttonType: ButtonTypeValue;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+}
+
+export const AppButton: React.FC<AppButtonProps> = ({
+  title,
+  buttonType,
+  onClick,
+  type = "button",
+  icon: Icon,
+  ...rest
+}) => {
+  const isSecondary = buttonType === ButtonType.SECONDARY;
+  const isAction = buttonType === ButtonType.ACTION;
+  const isPrimary = buttonType === ButtonType.PRIMARY;
+
+  const buttonStyle = isSecondary
+    ? "button_secondary"
+    : isAction
+      ? "button_action"
+      : "";
+
+  return (
+    <motion.button
+      {...rest}
+      onClick={onClick}
+      initial={{ scale: 1 }}
+      whileHover={{
+        scale: isPrimary ? 1.03 : 1,
+        transform: "translateY(4px)",
+      }}
+      className={clsx(
+        style.button_base,
+        Icon && style.button__with_icon,
+        style[buttonStyle],
+      )}
+      type={type}
+    >
+      <span className="text_regular">{title}</span>
+      {Icon && (
+        <span className={style.input_icon} aria-hidden="true">
+          <Icon />
+        </span>
+      )}
+    </motion.button>
+  );
+};

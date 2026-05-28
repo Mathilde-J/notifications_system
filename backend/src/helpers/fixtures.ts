@@ -22,6 +22,7 @@ export const messageFixtureBase = {
     messageType: MessageType.EMAIL,
     id: "message123",
     sentAt: "datetime",
+    status: undefined,
   } satisfies Message,
 };
 
@@ -60,7 +61,7 @@ export const errorMessageFixtureBase = {
     "An error occurred while deleting the ressource in the database",
   missingEnvVariables:
     "Missing required environment variables: SENDER_EMAIL and RECEIVER_EMAIL",
-    messageUndefined : "Message is undefined"
+  messageUndefined: "Message is undefined",
 };
 
 export function mockReq(overrides: Partial<Request> = {}): Request {

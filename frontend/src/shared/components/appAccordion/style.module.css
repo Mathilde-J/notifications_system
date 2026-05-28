@@ -1,0 +1,24 @@
+.accordion_wrapper {
+  background-color: var(--plain_white);
+  border: var(--border_main);
+  box-shadow: var(--shadow_tertiary);
+  border-radius: var(--radius_lg);
+  padding: var(--spacing_md) var(--spacing_s_2);
+  height: auto;
+  width: 20vw;
+}
+
+.accordion_header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.accordion_content {
+  overflow-y: hidden;
+}
+
+.accordion_button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

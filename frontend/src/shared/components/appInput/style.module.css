@@ -1,0 +1,29 @@
+.input_wrapper {
+  width: clamp(10rem, 20rem, 40rem);
+}
+
+.input_container {
+  display: flex;
+  align-items: center;
+  border: var(--border_secondary);
+  border-radius: var(--radius_sm);
+  background-color: var(--plain_white);
+  padding: 0 var(--spacing_s);
+}
+
+.input_field {
+  border-radius: inherit;
+  outline: none;
+  border: none;
+  padding: var(--spacing_xs) 0;
+  width: 100%;
+}
+
+.input_icon {
+  height: 1.25rem;
+  margin-right: 0.3rem;
+}
+
+.input_container:focus-within {
+  outline: var(--border_main);
+}
