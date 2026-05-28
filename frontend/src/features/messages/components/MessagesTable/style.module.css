@@ -38,11 +38,7 @@ thead {
   top: 0;
   z-index: 1;
   background-color: var(--plain_white);
-}
-
-.messages_page_table_header td {
-  background-color: var(--black);
-  height: 2px;
+  box-shadow: 0 2px 0 0 var(--black);
 }
 
 thead tr {
