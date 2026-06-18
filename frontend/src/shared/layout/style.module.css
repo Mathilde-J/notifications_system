@@ -21,10 +21,4 @@ a {
   align-items: center;
   background-color: var(--plain_white);
   box-shadow: var(--shadow_secondary);
-  transition: transform 0.2s ease-in-out;
-}
-
-a:hover {
-  transform: translateY(4px);
-  transition: transform 0.2s ease-in-out;
 }

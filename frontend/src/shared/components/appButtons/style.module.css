@@ -25,4 +25,7 @@
 
 .input_icon {
   margin-left: 0.3rem;
+  height: stretch;
+  display: flex;
+  align-items: center;
 }

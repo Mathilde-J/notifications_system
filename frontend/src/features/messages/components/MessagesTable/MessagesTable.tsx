@@ -14,7 +14,6 @@ interface Column {
   render?: (value: Message[ColumnKey]) => React.ReactNode;
 }
 
-
 const columns: Column[] = [
   {
     key: "messageType",
@@ -69,7 +68,7 @@ export const MessagesTable: React.FC<TableHTMLAttributes<HTMLTableElement>> = ({
                       <td key={column.key}>
                         {column.render
                           ? column.render(message[column.key])
-                          : String(message[column.key] ?? "-")}
+                          : `${message[column.key] ?? "-"}`}
                       </td>
                     );
                   })}

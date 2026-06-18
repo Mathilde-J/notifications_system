@@ -8,7 +8,10 @@ interface AppAccordionProps {
   title: string;
 }
 
-export const AppAccordion: React.FC<AppAccordionProps> = ({ title, children }) => {
+export const AppAccordion: React.FC<AppAccordionProps> = ({
+  title,
+  children,
+}) => {
   const Icon = Icons.arrow;
   const [isAccordionOpen, setIsAccordion] = useState(false);
   return (
@@ -16,6 +19,7 @@ export const AppAccordion: React.FC<AppAccordionProps> = ({ title, children }) =
       <div className={style.accordion_header}>
         <h3>{title}</h3>
         <motion.button
+          type="button"
           aria-controls="accordion_content_id"
           aria-expanded={isAccordionOpen}
           initial={{ rotate: 0 }}

@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import style from "../style.module.css";
 import clsx from "clsx";
 import { ButtonType, type ButtonTypeValue } from "../../constant";
+import { buttonVariants, commonWhileTap } from "../shared";
 
 interface AppLinkButtonProps extends Omit<LinkProps, "title"> {
   title: string;
@@ -29,10 +30,13 @@ export const AppLinkButton: React.FC<AppLinkButtonProps> = ({
 
   return (
     <motion.div
-      initial={{ scale: 1 }}
-      whileHover={{
+      variants={buttonVariants}
+      initial={"rest"}
+      whileHover={"hover"}
+      whileTap={{
+        ...commonWhileTap,
         scale: isPrimary ? 1.03 : 1,
-        transform: "translateY(4px)",
+        boxShadow: isPrimary ? "none" : "var(--shadow_secondary)" ,
       }}
     >
       <Link

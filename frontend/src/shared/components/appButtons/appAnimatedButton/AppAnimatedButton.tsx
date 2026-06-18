@@ -1,24 +1,35 @@
 import React from "react";
-import { motion, type HTMLMotionProps } from "motion/react";
+import { AnimatePresence, motion, type HTMLMotionProps } from "motion/react";
 import style from "../style.module.css";
 import clsx from "clsx";
 import { ButtonType, type ButtonTypeValue } from "../../constant";
 import { buttonVariants, commonWhileTap, iconVariants } from "../shared";
 
-interface AppButtonProps extends Omit<HTMLMotionProps<"button">, "title"> {
+interface AppAnimatedButtonProps extends Omit<
+  HTMLMotionProps<"button">,
+  "title"
+> {
   title: string;
   buttonType: ButtonTypeValue;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  loadingTitle?: string;
+  loadingSuccess?: string;
+  isLoading?: boolean;
+  isSuccess?: boolean;
 }
 
-export const AppButton: React.FC<AppButtonProps> = ({
+export const AppAnimatedButton: React.FC<AppAnimatedButtonProps> = ({
   title,
   buttonType,
   onClick,
   type = "button",
   icon: Icon,
+  isLoading = false,
+  loadingTitle,
+  isSuccess = false,
+  loadingSuccess,
   ...rest
 }) => {
   const isSecondary = buttonType === ButtonType.SECONDARY;
@@ -52,7 +63,29 @@ export const AppButton: React.FC<AppButtonProps> = ({
       )}
       type={type}
     >
-      <motion.span className="text_regular">{title}</motion.span>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          // quand il arrive il apparait depuis la gauche et fade quand il part
+          <motion.span key="loading" className="text_regular">
+            {loadingTitle}
+          </motion.span>
+        )}
+
+        {isSuccess && (
+          // quand il arrive il apparait depuis la gauche et fade quand il part
+          <motion.span key="success" className="text_regular">
+            {loadingSuccess}
+          </motion.span>
+        )}
+
+        {!isLoading && !isSuccess && (
+          // quand il part il disparait simplement
+          <motion.span exit={{}} key="default" className="text_regular">
+            {title}
+          </motion.span>
+        )}
+      </AnimatePresence>
+
       {Icon && (
         <motion.span
           variants={iconVariants}

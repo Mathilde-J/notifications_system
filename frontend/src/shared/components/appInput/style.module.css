@@ -27,3 +27,12 @@
 .input_container:focus-within {
   outline: var(--border_main);
 }
+
+.input_container__error input,
+.input_error {
+  color: var(--red);
+}
+
+.input_container__error {
+  border-color: var(--red);
+}

@@ -63,7 +63,7 @@ export const AppInput = ({
       </div>
 
       {hasError && (
-        <p id={errorId} className={style.input_error} role="alert">
+        <p id={errorId} className={clsx(style.input_error, "text_small_light")} role="alert">
           {errorMessage}
         </p>
       )}

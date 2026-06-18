@@ -10,7 +10,7 @@
   border: var(--border_main);
   box-shadow: var(--shadow_main);
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1.7fr 1fr;
   column-gap: var(--spacing_md);
   padding: var(--spacing_lg) var(--spacing_s_2) var(--spacing_md)
     var(--spacing_s_2);
@@ -29,6 +29,7 @@
   border-radius: var(--radius_lg);
   border: var(--border_main);
   padding: var(--spacing_s);
+  transition: width 0.2s ease-in-out;
 }
 
 .new_message_settings h2,
@@ -46,6 +47,21 @@
 }
 .new_message_settings_list {
   flex-grow: 1;
+}
+
+.setting_accordion_input {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 2px;
+}
+
+.input_label {
+  margin-right: var(--spacing_s);
+}
+
+.setting_accordion_input:nth-child(2) {
+  margin: var(--spacing_s) 0;
 }
 
 @media (max-width: 768px) {

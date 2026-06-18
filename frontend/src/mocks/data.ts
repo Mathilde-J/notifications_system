@@ -6,7 +6,8 @@ export const fakeMessages = [
     sender: "mathilde",
     receiver: "un inconnu",
     sentAt: "2026-04-29T19:01:20.649Z",
-    messageType: "sms"
+    messageType: "sms",
+    status: "success",
   },
   {
     id: "7f14d5d0-2b60-4477-82cc-01a0afc67cf2",
@@ -15,7 +16,8 @@ export const fakeMessages = [
     sender: "mathilde",
     receiver: "un inconnu",
     sentAt: "2026-04-29T19:03:39.368Z",
-    messageType: "sms"
+    messageType: "sms",
+    status: "success",
   },
   {
     id: "cf9cbb8c-90a6-42ae-ab1d-5abe38cb1db2",
@@ -24,7 +26,8 @@ export const fakeMessages = [
     sender: "mathilde",
     receiver: "un inconnu",
     sentAt: "2026-04-29T19:04:06.469Z",
-    messageType: "sms"
+    messageType: "sms",
+    status: "success",
   },
   {
     id: "fb0664c9-acdb-40b3-93d0-efeabfb2a3c6",
@@ -33,7 +36,8 @@ export const fakeMessages = [
     sender: "mathilde",
     receiver: "un inconnu",
     sentAt: "2026-04-29T19:06:06.531Z",
-    messageType: "sms"
+    messageType: "sms",
+    status: "success",
   },
   {
     id: "06cfde2b-0a7f-4892-80d3-6403a626bdaf",
@@ -42,7 +46,8 @@ export const fakeMessages = [
     sender: "mathilde",
     receiver: "mthldjanssen@gmail.com",
     sentAt: "2026-05-07T13:45:57.089Z",
-    messageType: "sms"
+    messageType: "sms",
+    status: "success",
   },
   {
     id: "58f9da74-91c4-4e21-aed6-7f34484bb584",
@@ -51,7 +56,8 @@ export const fakeMessages = [
     sender: "mathilde",
     receiver: "mthldjanssen@gmail.com",
     sentAt: "2026-05-07T13:47:37.746Z",
-    messageType: "email"
+    messageType: "email",
+    status: "success",
   },
   {
     id: "2e90bc5c-da17-4c13-b2d3-f5a89b156978",
@@ -60,7 +66,8 @@ export const fakeMessages = [
     sender: "math@test.com",
     receiver: "mthldjanssen@gmail.com",
     sentAt: "2026-05-07T13:50:01.266Z",
-    messageType: "email"
+    messageType: "email",
+    status: "success",
   },
   {
     id: "a5858390-5127-4861-a19b-c319d8310d6c",
@@ -69,7 +76,8 @@ export const fakeMessages = [
     sender: "math@test.com",
     receiver: "mthldjanssen@gmail.com",
     sentAt: "2026-05-07T13:54:07.288Z",
-    messageType: "email"
+    messageType: "email",
+    status: "fail",
   },
   {
     id: "d53d5395-724a-4992-9ad7-4e37324dc272",
@@ -78,7 +86,8 @@ export const fakeMessages = [
     sender: "math@test.com",
     receiver: "mthldjanssen@gmail.com",
     sentAt: "2026-05-07T13:55:23.943Z",
-    messageType: "email"
+    messageType: "email",
+    status: "fail",
   },
   {
     id: "01e9e9ff-1ced-40af-9153-0283e8b5faf3",
@@ -87,6 +96,7 @@ export const fakeMessages = [
     sender: "math@testmath.com",
     receiver: "mthldjanssen@gmail.com",
     sentAt: "2026-05-07T13:55:45.068Z",
-    messageType: "email"
-  }
-]
+    messageType: "email",
+    status: "fail",
+  },
+];
