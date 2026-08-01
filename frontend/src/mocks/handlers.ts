@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { urlApiBase, urlMessages } from "../constants";
+import { urlApiBase, urlMessages } from "../shared/constants";
 import { fakeMessages } from "./data";
 
 export const handlers = [

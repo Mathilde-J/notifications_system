@@ -1,7 +1,8 @@
 import { Outlet } from "react-router";
 import style from "./style.module.css";
-import { githubLink } from "../../constants";
+
 import { AppLinkButton } from "../components/appButtons/appLinkButton/AppLinkButton";
+import { githubLink } from "../constants";
 
 export default function MainLayout() {
   return (

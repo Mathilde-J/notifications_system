@@ -7,7 +7,7 @@
 }
 
 .messages_page_options {
-  padding: var(--spacing_md) var(--spacing_md) 0 var(--spacing_md);
+  padding: 0 var(--spacing_md);
   display: flex;
   justify-content: flex-end;
 }

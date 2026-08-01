@@ -4,7 +4,6 @@
 
 .new_message_container {
   height: 100%;
-  margin-top: var(--spacing_md);
   border-radius: var(--radius_xl);
   background-color: var(--plain_white);
   border: var(--border_main);
