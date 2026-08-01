@@ -20,9 +20,12 @@
 .button_action {
   color: var(--plain_white);
   background-color: var(--pink);
-  box-shadow: var(--shadow_primary);
+  box-shadow: var(--shadow_tertiary);
 }
 
 .input_icon {
   margin-left: 0.3rem;
+  height: stretch;
+  display: flex;
+  align-items: center;
 }

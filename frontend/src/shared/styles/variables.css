@@ -27,9 +27,9 @@
 
   /* SPACING */
   --spacing_xs: 0.5rem; /* ~8px */
-  --spacing_sm: 0.75rem; /* ~12px */
   --spacing_s: 0.625rem; /* ~10px */
   --spacing_s_2: 0.9rem; /* ~15px */
+  --spacing_sm: 0.75rem; /* ~12px */
   --spacing_md: 1.25rem; /* ~20px */
   --spacing_md_2: 1.5rem; /* ~25px */
   --spacing_lg: 1.875rem; /* ~30px */
@@ -97,4 +97,9 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.title_separator {
+  height: 4px;
+  background-color: var(--black);
 }

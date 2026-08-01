@@ -1,8 +1,9 @@
 import React from "react";
 import { motion, type HTMLMotionProps } from "motion/react";
-import style from "./style.module.css";
+import style from "../style.module.css";
 import clsx from "clsx";
-import { ButtonType, type ButtonTypeValue } from "../constant";
+import { ButtonType, type ButtonTypeValue } from "../../constant";
+import { buttonVariants, commonWhileTap, iconVariants } from "../shared";
 
 interface AppButtonProps extends Omit<HTMLMotionProps<"button">, "title"> {
   title: string;
@@ -34,23 +35,32 @@ export const AppButton: React.FC<AppButtonProps> = ({
     <motion.button
       {...rest}
       onClick={onClick}
-      initial={{ scale: 1 }}
-      whileHover={{
+      variants={buttonVariants}
+      initial={"rest"}
+      whileHover={"hover"}
+      whileTap={{
+        ...commonWhileTap,
         scale: isPrimary ? 1.03 : 1,
-        transform: "translateY(4px)",
+        boxShadow: isPrimary ? "none" : "var(--shadow_secondary)",
       }}
       className={clsx(
         style.button_base,
         Icon && style.button__with_icon,
         style[buttonStyle],
+        rest.disabled && style.button__disbaled,
+        rest.className,
       )}
       type={type}
     >
-      <span className="text_regular">{title}</span>
+      <motion.span className="text_regular">{title}</motion.span>
       {Icon && (
-        <span className={style.input_icon} aria-hidden="true">
+        <motion.span
+          variants={iconVariants}
+          className={style.input_icon}
+          aria-hidden="true"
+        >
           <Icon />
-        </span>
+        </motion.span>
       )}
     </motion.button>
   );

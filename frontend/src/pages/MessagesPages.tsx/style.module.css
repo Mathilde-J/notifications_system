@@ -5,3 +5,9 @@
   padding: var(--spacing_md);
   overflow: auto;
 }
+
+.messages_page_options {
+  padding: 0 var(--spacing_md);
+  display: flex;
+  justify-content: flex-end;
+}

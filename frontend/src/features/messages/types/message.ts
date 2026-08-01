@@ -8,6 +8,7 @@ export const MessageType = {
 export const EventResponse = {
   EVENTSUCCESS: "success",
   EVENTFAIL: "fail",
+  UNKNOWN: "unknown",
 } as const;
 
 export type Message = {

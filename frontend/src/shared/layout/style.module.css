@@ -1,6 +1,6 @@
 .main_layout {
   height: 100vh;
-  padding: var(--spacing_lg) var(--spacing_mdlg);
+  padding: var(--spacing_lg) clamp(1.5vw, 10vw, 15vw);
   display: flex;
   flex-direction: column;
 }
@@ -21,10 +21,4 @@ a {
   align-items: center;
   background-color: var(--plain_white);
   box-shadow: var(--shadow_secondary);
-  transition: transform 0.2s ease-in-out;
-}
-
-a:hover {
-  transform: translateY(4px);
-  transition: transform 0.2s ease-in-out;
 }

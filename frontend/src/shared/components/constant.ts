@@ -24,7 +24,7 @@ const LabelType = {
   },
   success: {
     key: "success",
-    text: "Validé",
+    text: "Réussi",
   },
   notification: { key: "notification", text: "Push" },
   slack: { key: "slack", text: "Slack" },
