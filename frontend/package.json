@@ -11,7 +11,8 @@
     "lint:fix": "eslint --max-warnings=0 --fix",
     "format": "prettier --write .",
     "format:file": "prettier --write",
-    "check:type": "tsc --noEmit"
+    "check:type": "tsc --noEmit",
+    "check:precommit": "lint-staged"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.10",
