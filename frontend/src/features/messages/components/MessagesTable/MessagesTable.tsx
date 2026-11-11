@@ -45,6 +45,7 @@ export const MessagesTable: React.FC<TableHTMLAttributes<HTMLTableElement>> = ({
       transition={{ duration: 0.5 }}
       className={style.messages_page_table_container}
     >
+      <p>hello</p>
       {isLoading && <AppLoading />}
       {error && <p>Erreur : une erreur est survenue</p>}
       {data && (
