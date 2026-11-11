@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import MainLayout from "../shared/layout/MainLayout";
-import MessagesPage from "../pages/MessagesPages.tsx/MessagesPage";
+import MessagesPage from "../pages/MessagesPages/MessagesPage";
 import { NewMessagePage } from "../pages/NewMessagePage/NewMessagePage";
 
 export const router = createBrowserRouter([
